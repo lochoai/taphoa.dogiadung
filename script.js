@@ -10,11 +10,22 @@ window.onload = function() {
 }
 
 function addToCart(name, price) {
-    cart.push({ name, price });
+    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+    const existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        // Nếu đã có, tăng số lượng
+        existingItem.quantity += 1;
+    } else {
+        // Nếu chưa có, thêm sản phẩm mới với quantity = 1
+        cart.push({ name, price, quantity: 1 });
+    }
+
     saveCart();
     updateCartDisplay();
     alert(`${name} đã được thêm vào giỏ hàng!`);
 }
+
 
 function removeFromCart(index) {
     cart.splice(index, 1);
