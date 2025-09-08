@@ -1,0 +1,7 @@
+let cart = [];
+
+function addToCart(name, price) {
+    cart.push({ name, price });
+    alert(`${name} đã được thêm vào giỏ hàng!`);
+    console.log("Giỏ hàng hiện tại:", cart);
+}
