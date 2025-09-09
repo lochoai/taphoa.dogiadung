@@ -28,11 +28,10 @@
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function removeFromCart(index) {
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartDisplay();
-        }
-
+    cart.splice(index, 1);
+    saveCart();
+    updateCartDisplay();
+}
         function updateCartDisplay() {
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
