@@ -43,12 +43,11 @@ function updateCartDisplay() {
     const cartTotal = document.getElementById("cart-total");
 
     cartItems.innerHTML = "";
-
     let total = 0;
 
     cart.forEach((item, index) => {
         const li = document.createElement("li");
-        li.textContent = `${item.name} - ${item.price.toLocaleString()} đ`;
+        li.textContent = `${item.name} - ${item.price.toLocaleString()} đ x ${item.quantity}`;
 
         const btnDelete = document.createElement("button");
         btnDelete.textContent = "Xóa";
@@ -58,7 +57,7 @@ function updateCartDisplay() {
         li.appendChild(btnDelete);
         cartItems.appendChild(li);
 
-        total += item.price;
+        total += item.price * item.quantity;
     });
 
     cartTotal.textContent = total.toLocaleString();
