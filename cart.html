@@ -34,30 +34,29 @@
         }
 
         function updateCartDisplay() {
-            const cartItems = document.getElementById("cart-items");
-            const cartTotal = document.getElementById("cart-total");
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
 
-            cartItems.innerHTML = "";
+    cartItems.innerHTML = "";
+    let total = 0;
 
-            let total = 0;
+    cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - ${item.price.toLocaleString()} đ x ${item.quantity}`;
 
-            cart.forEach((item, index) => {
-                const li = document.createElement("li");
-                li.textContent = `${item.name} - ${item.price.toLocaleString()} đ`;
+        const btnDelete = document.createElement("button");
+        btnDelete.textContent = "Xóa";
+        btnDelete.style.marginLeft = "10px";
+        btnDelete.onclick = () => removeFromCart(index);
 
-                const btnDelete = document.createElement("button");
-                btnDelete.textContent = "Xóa";
-                btnDelete.style.marginLeft = "10px";
-                btnDelete.onclick = () => removeFromCart(index);
+        li.appendChild(btnDelete);
+        cartItems.appendChild(li);
 
-                li.appendChild(btnDelete);
-                cartItems.appendChild(li);
+        total += item.price * item.quantity;
+    });
 
-                total += item.price;
-            });
-
-            cartTotal.textContent = total.toLocaleString();
-        }
+    cartTotal.textContent = total.toLocaleString();
+}
 
         // Gọi khi trang load
         window.onload = updateCartDisplay;
