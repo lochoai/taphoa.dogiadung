@@ -145,19 +145,58 @@
     const confirmCheckout = confirm("Bạn có chắc chắn muốn thanh toán?");
     if (confirmCheckout) {
         // Xử lý thanh toán (giả lập)
-        alert("Cảm ơn bạn đã mua hàng! Đơn hàng của bạn đang được xử lý.");
+       document.getElementById("checkout-btn").onclick = function () {
+    if (cart.length === 0) {
+        alert("Giỏ hàng của bạn đang trống!");
+        return;
+    }
 
-        // Xóa giỏ hàng
-        cart = [];
-        localStorage.removeItem('cart');
+    const confirmCheckout = confirm("Bạn có chắc chắn muốn thanh toán?");
+    if (!confirmCheckout) return;
 
-        // Cập nhật lại giao diện
-        updateCartDisplay();
+    // Chuẩn bị nội dung đơn hàng
+    let message = "🛒 Đơn hàng của bạn:\n";
+    let total = 0;
 
-        // Quay lại trang chủ sau 2 giây
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 2000);
+    cart.forEach(item => {
+        message += `- ${item.name} x ${item.quantity}\n`;
+        total += item.price * item.quantity;
+    });
+
+    message += `\n💰 Tổng cộng: ${total.toLocaleString()} đ`;
+
+    // Xử lý gửi đơn hàng
+    const channel = prompt(
+        "Bạn muốn gửi đơn hàng qua đâu?\n1: Zalo\n2: Messenger\n3: Telegram\n\n(Nhập số 1, 2 hoặc 3)"
+    );
+
+    if (!channel) return;
+
+    const encodedMessage = encodeURIComponent(message);
+
+    if (channel === "1") {
+        // Zalo
+        alert("Bạn sẽ được chuyển sang Zalo để gửi đơn.");
+        window.open(`https://zalo.me/`, "_blank");
+    } else if (channel === "2") {
+        // Messenger
+        alert("Bạn sẽ được chuyển sang Messenger để gửi đơn.");
+        window.open(`https://m.me/`, "_blank");
+    } else if (channel === "3") {
+        // Telegram
+        alert("Bạn sẽ được chuyển sang Telegram để gửi đơn.");
+        window.open(`https://t.me/share/url?url=&text=${encodedMessage}`, "_blank");
+    } else {
+        alert("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+        return;
+    }
+
+    // Xóa giỏ hàng
+    cart = [];
+    localStorage.removeItem("cart");
+    updateCartDisplay();
+};
+
     }
 };
 
