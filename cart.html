@@ -14,10 +14,23 @@
     </header>
 
     <main>
-        <h2>Danh sách sản phẩm</h2>
-        <ul id="cart-items"></ul>
-        <p><strong>Tổng tiền: </strong><span id="cart-total">0</span> đ</p>
-        <button id="checkout-btn">Thanh toán</button>
+        <h2>Giỏ hàng của bạn</h2>
+<table id="cart-table">
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th></th> <!-- Cột Xóa -->
+        </tr>
+    </thead>
+    <tbody id="cart-items"></tbody>
+</table>
+
+<p class="total-line"><strong>Tổng cộng: </strong><span id="cart-total">0</span> đ</p>
+<button id="checkout-btn">Thanh toán</button>
+
     </main>
 
     <footer>
