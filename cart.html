@@ -46,7 +46,7 @@
     saveCart();
     updateCartDisplay();
 }
-        function updateCartDisplay() {
+       function updateCartDisplay() {
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
 
@@ -58,21 +58,25 @@
 
         // Tên sản phẩm
         const nameCell = document.createElement("td");
+        nameCell.setAttribute("data-label", "Tên SP");
         nameCell.textContent = item.name;
         row.appendChild(nameCell);
 
         // Đơn giá
         const priceCell = document.createElement("td");
+        priceCell.setAttribute("data-label", "Đơn giá");
         priceCell.textContent = item.price.toLocaleString() + " đ";
         row.appendChild(priceCell);
 
         // Số lượng
         const quantityCell = document.createElement("td");
+        quantityCell.setAttribute("data-label", "Số lượng");
         quantityCell.textContent = item.quantity;
         row.appendChild(quantityCell);
 
         // Thành tiền
         const totalCell = document.createElement("td");
+        totalCell.setAttribute("data-label", "Thành tiền");
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         totalCell.textContent = itemTotal.toLocaleString() + " đ";
@@ -80,6 +84,7 @@
 
         // Nút xóa
         const deleteCell = document.createElement("td");
+        deleteCell.setAttribute("data-label", "Xóa");
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "X";
         deleteBtn.style.color = "red";
@@ -92,6 +97,7 @@
 
     cartTotal.textContent = total.toLocaleString();
 }
+
 
 
         // Gọi khi trang load
