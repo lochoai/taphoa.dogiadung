@@ -215,3 +215,11 @@ main {
 .popup button:hover {
     background-color: #ddd;
 }
+.popup input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
