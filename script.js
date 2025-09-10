@@ -62,3 +62,15 @@ function updateCartDisplay() {
 
     cartTotal.textContent = total.toLocaleString();
 }
+function showCustomAlert(message) {
+    const alertBox = document.getElementById("custom-alert");
+    alertBox.textContent = `✅ ${message}`;
+    alertBox.classList.add("show");
+    alertBox.classList.remove("hide");
+
+    // Tự ẩn sau 1 giây
+    setTimeout(() => {
+        alertBox.classList.remove("show");
+        alertBox.classList.add("hide");
+    }, 1000);
+}
