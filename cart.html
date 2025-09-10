@@ -1,151 +1,8 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Giỏ hàng của bạn</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Giỏ Hàng Của Bạn</h1>
-        <nav>
-            <a href="index.html">← Quay lại mua hàng</a>
-        </nav>
-    </header>
+// Khi trang load, cập nhật giỏ hàng
+window.onload = updateCartDisplay;
 
-    <main>
-        <h2>Giỏ hàng của bạn</h2>
-<table id="cart-table">
-    <thead>
-        <tr>
-            <th>Tên sản phẩm</th>
-            <th>Đơn giá</th>
-            <th>Số lượng</th>
-            <th>Thành tiền</th>
-            <th></th> <!-- Cột Xóa -->
-        </tr>
-    </thead>
-    <tbody id="cart-items"></tbody>
-</table>
-
-<p class="total-line"><strong>Tổng cộng: </strong><span id="cart-total">0</span> đ</p>
-<button id="checkout-btn">Thanh toán</button>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Cửa hàng Tạp hóa</p>
-    </footer>
-
-    <script>
-        // Đọc dữ liệu từ localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function removeFromCart(index) {
-    cart.splice(index, 1);
-    saveCart();
-    updateCartDisplay();
-}
-       function updateCartDisplay() {
-    const cartItems = document.getElementById("cart-items");
-    const cartTotal = document.getElementById("cart-total");
-
-    cartItems.innerHTML = "";
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        const row = document.createElement("tr");
-
-        // Tên sản phẩm
-        const nameCell = document.createElement("td");
-        nameCell.setAttribute("data-label", "Tên SP");
-        nameCell.textContent = item.name;
-        row.appendChild(nameCell);
-
-        // Đơn giá
-        const priceCell = document.createElement("td");
-        priceCell.setAttribute("data-label", "Đơn giá");
-        priceCell.textContent = item.price.toLocaleString() + " đ";
-        row.appendChild(priceCell);
-
-        // Số lượng với nút + và -
-        const quantityCell = document.createElement("td");
-        quantityCell.setAttribute("data-label", "Số lượng");
-
-        // Nút -
-        const minusBtn = document.createElement("button");
-        minusBtn.textContent = "-";
-        minusBtn.style.marginRight = "8px";
-        minusBtn.onclick = () => {
-            if (item.quantity > 1) {
-                item.quantity--;
-                localStorage.setItem("cart", JSON.stringify(cart));
-                updateCartDisplay();
-            }
-        };
-
-        // Số lượng hiển thị
-        const quantityText = document.createElement("span");
-        quantityText.textContent = item.quantity;
-
-        // Nút +
-        const plusBtn = document.createElement("button");
-        plusBtn.textContent = "+";
-        plusBtn.style.marginLeft = "8px";
-        plusBtn.onclick = () => {
-            item.quantity++;
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartDisplay();
-        };
-
-        quantityCell.appendChild(minusBtn);
-        quantityCell.appendChild(quantityText);
-        quantityCell.appendChild(plusBtn);
-        row.appendChild(quantityCell);
-
-        // Thành tiền
-        const totalCell = document.createElement("td");
-        totalCell.setAttribute("data-label", "Thành tiền");
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        totalCell.textContent = itemTotal.toLocaleString() + " đ";
-        row.appendChild(totalCell);
-
-        // Nút xóa
-        const deleteCell = document.createElement("td");
-        deleteCell.setAttribute("data-label", "Xóa");
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "X";
-        deleteBtn.style.color = "red";
-        deleteBtn.onclick = () => {
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartDisplay();
-        };
-        deleteCell.appendChild(deleteBtn);
-        row.appendChild(deleteCell);
-
-        cartItems.appendChild(row);
-    });
-
-    cartTotal.textContent = total.toLocaleString();
-}
-
-
-
-
-        // Gọi khi trang load
-        window.onload = updateCartDisplay;
-        document.getElementById("checkout-btn").onclick = function () {
-    if (cart.length === 0) {
-        alert("Giỏ hàng của bạn đang trống!");
-        return;
-    }
-
-    const confirmCheckout = confirm("Bạn có chắc chắn muốn thanh toán?");
-    if (confirmCheckout) {
-        // Xử lý thanh toán (giả lập)
-       document.getElementById("checkout-btn").onclick = function () {
+// Xử lý nút "Thanh toán"
+document.getElementById("checkout-btn").onclick = function () {
     if (cart.length === 0) {
         alert("Giỏ hàng của bạn đang trống!");
         return;
@@ -154,7 +11,12 @@
     const confirmCheckout = confirm("Bạn có chắc chắn muốn thanh toán?");
     if (!confirmCheckout) return;
 
-    // Chuẩn bị nội dung đơn hàng
+    // Hiện popup chọn hình thức gửi
+    document.getElementById("send-options").style.display = "flex";
+};
+
+// Hàm gửi đơn hàng theo phương thức người dùng chọn
+function sendOrder(method) {
     let message = "🛒 Đơn hàng của bạn:\n";
     let total = 0;
 
@@ -164,51 +26,24 @@
     });
 
     message += `\n💰 Tổng cộng: ${total.toLocaleString()} đ`;
-
-    // Xử lý gửi đơn hàng
-    const channel = prompt(
-        "Bạn muốn gửi đơn hàng qua đâu?\n1: Zalo\n2: Messenger\n3: Telegram\n\n(Nhập số 1, 2 hoặc 3)"
-    );
-
-    if (!channel) return;
-
     const encodedMessage = encodeURIComponent(message);
 
-    if (channel === "1") {
-        // Zalo
+    // Ẩn popup
+    document.getElementById("send-options").style.display = "none";
+
+    // Mở ứng dụng tương ứng
+    if (method === "zalo") {
         alert("Bạn sẽ được chuyển sang Zalo để gửi đơn.");
-        window.open(`https://zalo.me/`, "_blank");
-    } else if (channel === "2") {
-        // Messenger
+        window.open("https://zalo.me/", "_blank");
+    } else if (method === "messenger") {
         alert("Bạn sẽ được chuyển sang Messenger để gửi đơn.");
-        window.open(`https://m.me/`, "_blank");
-    } else if (channel === "3") {
-        // Telegram
-        alert("Bạn sẽ được chuyển sang Telegram để gửi đơn.");
+        window.open("https://m.me/", "_blank");
+    } else if (method === "telegram") {
         window.open(`https://t.me/share/url?url=&text=${encodedMessage}`, "_blank");
-    } else {
-        alert("Lựa chọn không hợp lệ. Vui lòng thử lại.");
-        return;
     }
 
     // Xóa giỏ hàng
     cart = [];
     localStorage.removeItem("cart");
     updateCartDisplay();
-};
-
-    }
-};
-
-    </script>
-<!-- Popup chọn hình thức gửi -->
-<div id="send-options" style="display: none;">
-    <div class="popup">
-        <h3>Chọn cách gửi đơn hàng</h3>
-        <button onclick="sendOrder('zalo')">📱 Gửi qua Zalo</button>
-        <button onclick="sendOrder('messenger')">💬 Gửi qua Messenger</button>
-        <button onclick="sendOrder('telegram')">📨 Gửi qua Telegram</button>
-    </div>
-</div>
-</body>
-</html>
+}
