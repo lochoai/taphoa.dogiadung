@@ -158,3 +158,18 @@ main {
         color: #333;
     }
 }
+#cart-table button {
+    padding: 4px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    user-select: none;
+    transition: background-color 0.3s ease;
+}
+
+#cart-table button:hover {
+    background-color: #219150;
+}
