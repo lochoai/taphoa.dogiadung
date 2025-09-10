@@ -85,3 +85,43 @@ main {
 #custom-alert.hide {
     opacity: 0;
 }
+#cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#cart-table th,
+#cart-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#cart-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.total-line {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#checkout-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 30px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#checkout-btn:hover {
+    background-color: #219150;
+}
