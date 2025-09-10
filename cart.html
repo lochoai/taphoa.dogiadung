@@ -17,6 +17,7 @@
         <h2>Danh sách sản phẩm</h2>
         <ul id="cart-items"></ul>
         <p><strong>Tổng tiền: </strong><span id="cart-total">0</span> đ</p>
+        <button id="checkout-btn">Thanh toán</button>
     </main>
 
     <footer>
@@ -59,6 +60,31 @@
 
         // Gọi khi trang load
         window.onload = updateCartDisplay;
+        document.getElementById("checkout-btn").onclick = function () {
+    if (cart.length === 0) {
+        alert("Giỏ hàng của bạn đang trống!");
+        return;
+    }
+
+    const confirmCheckout = confirm("Bạn có chắc chắn muốn thanh toán?");
+    if (confirmCheckout) {
+        // Xử lý thanh toán (giả lập)
+        alert("Cảm ơn bạn đã mua hàng! Đơn hàng của bạn đang được xử lý.");
+
+        // Xóa giỏ hàng
+        cart = [];
+        localStorage.removeItem('cart');
+
+        // Cập nhật lại giao diện
+        updateCartDisplay();
+
+        // Quay lại trang chủ sau 2 giây
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 2000);
+    }
+};
+
     </script>
 </body>
 </html>
