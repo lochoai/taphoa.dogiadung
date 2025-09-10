@@ -193,36 +193,51 @@
 
         // Hàm gửi đơn hàng theo phương thức người dùng chọn
         function sendOrder(method) {
-            let message = "🛒 Đơn hàng của bạn:\n";
-            let total = 0;
+    // Lấy thông tin khách hàng
+    const name = document.getElementById("customer-name").value.trim();
+    const phone = document.getElementById("customer-phone").value.trim();
+    const address = document.getElementById("customer-address").value.trim();
 
-            cart.forEach(item => {
-                message += `- ${item.name} x ${item.quantity}\n`;
-                total += item.price * item.quantity;
-            });
+    if (!name || !phone || !address) {
+        alert("Vui lòng nhập đầy đủ thông tin khách hàng!");
+        return;
+    }
 
-            message += `\n💰 Tổng cộng: ${total.toLocaleString()} đ`;
-            const encodedMessage = encodeURIComponent(message);
+    // Tạo nội dung đơn hàng
+    let message = `🛒 Đơn hàng mới từ khách hàng:\n`;
+    message += `👤 Tên: ${name}\n📞 SĐT: ${phone}\n🏠 Địa chỉ: ${address}\n\n`;
+    message += `Sản phẩm:\n`;
 
-            // Ẩn popup
-            document.getElementById("send-options").style.display = "none";
+    let total = 0;
+    cart.forEach(item => {
+        message += `- ${item.name} x ${item.quantity}\n`;
+        total += item.price * item.quantity;
+    });
 
-            // Mở ứng dụng tương ứng
-            if (method === "zalo") {
-                alert("Bạn sẽ được chuyển sang Zalo để gửi đơn.");
-                window.open("https://zalo.me/", "_blank");
-            } else if (method === "messenger") {
-                alert("Bạn sẽ được chuyển sang Messenger để gửi đơn.");
-                window.open("https://m.me/", "_blank");
-            } else if (method === "telegram") {
-                window.open(`https://t.me/share/url?url=&text=${encodedMessage}`, "_blank");
-            }
+    message += `\n💰 Tổng cộng: ${total.toLocaleString()} đ`;
+    const encodedMessage = encodeURIComponent(message);
 
-            // Xóa giỏ hàng
-            cart = [];
-            localStorage.removeItem("cart");
-            updateCartDisplay();
-        }
+    // Ẩn popup
+    document.getElementById("send-options").style.display = "none";
+
+    // Gửi theo nền tảng
+    if (method === "zalo") {
+        alert("Đang chuyển hướng đến Zalo...");
+        window.open(`https://zalo.me/1234567890`, "_blank");  // 👉 Thay ID Zalo tại đây
+    } else if (method === "messenger") {
+        alert("Đang chuyển hướng đến Messenger...");
+        window.open(`https://m.me/tenpagecuaban`, "_blank");  // 👉 Thay tên page Facebook tại đây
+    } else if (method === "telegram") {
+        alert("Đang chuyển hướng đến Telegram...");
+        window.open(`https://t.me/share/url?url=&text=${encodedMessage}`, "_blank"); // Mở Telegram
+    }
+
+    // Xóa giỏ hàng
+    cart = [];
+    localStorage.removeItem("cart");
+    updateCartDisplay();
+}
+
     </script>
 </body>
 </html>
