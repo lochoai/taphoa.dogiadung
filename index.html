@@ -5,30 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cửa hàng tạp hóa</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
 </head>
-<!-- Thông báo tùy chỉnh -->
-<div id="custom-alert" class="hide">
-    ✅ Sản phẩm đã được thêm vào giỏ hàng!
-</div>
 <body>
+    <div id="custom-alert">✅ Sản phẩm đã được thêm vào giỏ hàng!</div>
+
     <header>
         <h1>Cửa Hàng Tạp Hóa & Đồ Gia Dụng</h1>
         <nav>
             <a href="index.html">Trang chủ</a>
             <a href="index.html">Sản phẩm</a>
-            <a href="cart.html">Giỏ hàng</a> <!-- Link sang cart.html -->
+            <a href="cart.html">Giỏ hàng</a>
         </nav>
     </header>
-<h2>Giỏ hàng của bạn</h2>
-<div id="cart-container">
-    <ul id="cart-items"></ul>
-    <p><strong>Tổng tiền: </strong><span id="cart-total">0</span> đ</p>
-</div>
 
     <main>
         <h2>Sản phẩm nổi bật</h2>
         <div class="product-list">
-            <!-- Sản phẩm mẫu -->
             <div class="product">
                 <img src="images/nuoc-mam.jpg" alt="Nước mắm">
                 <h3>Nước mắm Nam Ngư</h3>
@@ -48,10 +53,51 @@
         <p>&copy; 2025 Cửa hàng Tạp hóa. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function showAlert() {
+            const alertBox = document.getElementById("custom-alert");
+            alertBox.style.display = "block";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+            }, 2000);
+        }
+
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            showAlert();
+            updateCartSummary(); // cập nhật giỏ tạm thời nếu cần
+        }
+
+        function updateCartSummary() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let total = 0;
+
+            const cartItems = document.getElementById("cart-items");
+            const cartTotal = document.getElementById("cart-total");
+
+            if (!cartItems || !cartTotal) return;
+
+            cartItems.innerHTML = "";
+            cart.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = `${item.name} x ${item.quantity}`;
+                cartItems.appendChild(li);
+                total += item.price * item.quantity;
+            });
+
+            cartTotal.textContent = total.toLocaleString();
+        }
+
+        window.onload = updateCartSummary;
+    </script>
 </body>
 </html>
-
-
-
-
