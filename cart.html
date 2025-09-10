@@ -225,8 +225,20 @@
         alert("Đang chuyển hướng đến Zalo...");
         window.open(`https://zalo.me/1234567890`, "_blank");  // 👉 Thay ID Zalo tại đây
     } else if (method === "messenger") {
-        alert("Đang chuyển hướng đến Messenger...");
-        window.open(`https://m.me/@pro.huuloc.1`, "_blank");  // 👉 Thay tên page Facebook tại đây
+    alert("Đang chuyển hướng đến Messenger...");
+
+    // Sao chép nội dung đơn hàng
+    navigator.clipboard.writeText(message)
+      .then(() => {
+          alert("📋 Nội dung đơn hàng đã được sao chép.\nHãy dán (Ctrl + V) vào khung chat Messenger để gửi.");
+          window.open("https://m.me/pro.huuloc.1", "_blank");  // Không có @ ở đây
+      })
+      .catch(err => {
+          alert("❌ Không thể sao chép nội dung. Vui lòng sao chép thủ công.");
+          window.open("https://m.me/pro.huuloc.1", "_blank");
+      });
+}
+
     } else if (method === "telegram") {
         alert("Đang chuyển hướng đến Telegram...");
         window.open(`https://t.me/share/url?url=https://t.me/youlu0802&text=${encodedMessage}`, "_blank"); // Mở Telegram
