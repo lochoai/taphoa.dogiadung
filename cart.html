@@ -68,11 +68,43 @@
         priceCell.textContent = item.price.toLocaleString() + " đ";
         row.appendChild(priceCell);
 
-        // Số lượng
-        const quantityCell = document.createElement("td");
-        quantityCell.setAttribute("data-label", "Số lượng");
-        quantityCell.textContent = item.quantity;
-        row.appendChild(quantityCell);
+        // Số lượng với nút + và -
+const quantityCell = document.createElement("td");
+quantityCell.setAttribute("data-label", "Số lượng");
+
+// Tạo nút -
+const minusBtn = document.createElement("button");
+minusBtn.textContent = "-";
+minusBtn.style.marginRight = "8px";
+minusBtn.onclick = () => {
+    if (item.quantity > 1) {
+        item.quantity--;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartDisplay();
+    }
+};
+
+// Hiển thị số lượng
+const quantityText = document.createElement("span");
+quantityText.textContent = item.quantity;
+
+// Tạo nút +
+const plusBtn = document.createElement("button");
+plusBtn.textContent = "+";
+plusBtn.style.marginLeft = "8px";
+plusBtn.onclick = () => {
+    item.quantity++;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartDisplay();
+};
+
+// Thêm nút và số lượng vào ô
+quantityCell.appendChild(minusBtn);
+quantityCell.appendChild(quantityText);
+quantityCell.appendChild(plusBtn);
+
+row.appendChild(quantityCell);
+
 
         // Thành tiền
         const totalCell = document.createElement("td");
