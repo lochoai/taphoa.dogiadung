@@ -23,7 +23,7 @@ function addToCart(name, price) {
 
     saveCart();
     updateCartDisplay();
-    alert(`${name} đã được thêm vào giỏ hàng!`);
+    showCustomAlert(`${name} đã được thêm vào giỏ hàng!`);
 }
 
 
