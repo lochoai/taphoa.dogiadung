@@ -47,3 +47,16 @@ main {
 #cart-items li {
     margin: 5px 0;
 }
+#checkout-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#checkout-btn:hover {
+    background-color: #219150;
+}
