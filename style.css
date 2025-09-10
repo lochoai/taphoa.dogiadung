@@ -125,3 +125,36 @@ main {
 #checkout-btn:hover {
     background-color: #219150;
 }
+/* Làm cho bảng giỏ hàng responsive */
+@media (max-width: 768px) {
+    #cart-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    #cart-table thead {
+        display: none; /* Ẩn phần tiêu đề bảng trên màn hình nhỏ */
+    }
+
+    #cart-table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    #cart-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    #cart-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #333;
+    }
+}
