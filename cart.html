@@ -69,42 +69,39 @@
         row.appendChild(priceCell);
 
         // Số lượng với nút + và -
-const quantityCell = document.createElement("td");
-quantityCell.setAttribute("data-label", "Số lượng");
+        const quantityCell = document.createElement("td");
+        quantityCell.setAttribute("data-label", "Số lượng");
 
-// Tạo nút -
-const minusBtn = document.createElement("button");
-minusBtn.textContent = "-";
-minusBtn.style.marginRight = "8px";
-minusBtn.onclick = () => {
-    if (item.quantity > 1) {
-        item.quantity--;
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartDisplay();
-    }
-};
+        // Nút -
+        const minusBtn = document.createElement("button");
+        minusBtn.textContent = "-";
+        minusBtn.style.marginRight = "8px";
+        minusBtn.onclick = () => {
+            if (item.quantity > 1) {
+                item.quantity--;
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        };
 
-// Hiển thị số lượng
-const quantityText = document.createElement("span");
-quantityText.textContent = item.quantity;
+        // Số lượng hiển thị
+        const quantityText = document.createElement("span");
+        quantityText.textContent = item.quantity;
 
-// Tạo nút +
-const plusBtn = document.createElement("button");
-plusBtn.textContent = "+";
-plusBtn.style.marginLeft = "8px";
-plusBtn.onclick = () => {
-    item.quantity++;
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartDisplay();
-};
+        // Nút +
+        const plusBtn = document.createElement("button");
+        plusBtn.textContent = "+";
+        plusBtn.style.marginLeft = "8px";
+        plusBtn.onclick = () => {
+            item.quantity++;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartDisplay();
+        };
 
-// Thêm nút và số lượng vào ô
-quantityCell.appendChild(minusBtn);
-quantityCell.appendChild(quantityText);
-quantityCell.appendChild(plusBtn);
-
-row.appendChild(quantityCell);
-
+        quantityCell.appendChild(minusBtn);
+        quantityCell.appendChild(quantityText);
+        quantityCell.appendChild(plusBtn);
+        row.appendChild(quantityCell);
 
         // Thành tiền
         const totalCell = document.createElement("td");
@@ -120,7 +117,11 @@ row.appendChild(quantityCell);
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "X";
         deleteBtn.style.color = "red";
-        deleteBtn.onclick = () => removeFromCart(index);
+        deleteBtn.onclick = () => {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartDisplay();
+        };
         deleteCell.appendChild(deleteBtn);
         row.appendChild(deleteCell);
 
@@ -129,6 +130,7 @@ row.appendChild(quantityCell);
 
     cartTotal.textContent = total.toLocaleString();
 }
+
 
 
 
