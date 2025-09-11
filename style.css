@@ -229,3 +229,27 @@ main {
     margin: 8px 0 12px 0;
     min-height: 40px; /* để các box sản phẩm có chiều cao đồng đều */
 }
+#custom-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(39, 174, 96, 0.9); /* xanh lá hơi trong suốt */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 10000;
+    max-width: 80%;
+    text-align: center;
+}
+
+#custom-alert.show {
+    opacity: 1;
+    pointer-events: auto;
+}
