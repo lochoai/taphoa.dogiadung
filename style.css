@@ -59,11 +59,12 @@ main {
 .product button:hover {
     background: #219150;
 }
-
-
 .product img {
     width: 100%;
-    height: auto;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 #cart-container {
     border-top: 1px solid #ccc;
