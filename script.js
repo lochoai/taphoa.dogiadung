@@ -71,4 +71,12 @@ function updateCartDisplay() {
 
     cartTotal.textContent = total.toLocaleString();
 }
+function showCustomAlert(message) {
+    const alertBox = document.getElementById("custom-alert");
+    alertBox.textContent = message;
+    alertBox.classList.add("show");
 
+    setTimeout(() => {
+        alertBox.classList.remove("show");
+    }, 2000);
+}
