@@ -1,13 +1,13 @@
 let cart = [];
 
 // Khi trang tải lên, lấy giỏ hàng từ localStorage (nếu có)
-window.onload = function() {
+window.onload = function () {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
         cart = JSON.parse(savedCart);
         updateCartDisplay();
     }
-}
+};
 
 function addToCart(name, price) {
     const existingItem = cart.find(item => item.name === name);
@@ -28,16 +28,20 @@ function removeFromCart(index) {
         cart.splice(index, 1);
         saveCart();
         updateCartDisplay();
-        showCustomAlert("Sản phẩm đã được xóa khỏi giỏ hàng.", "success");
+        showCustomAlert("Sản phẩm đã được xóa khỏi giỏ hàng.");
     }
 }
+
 // Hàm lưu giỏ hàng vào localStorage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
+
 function updateCartDisplay() {
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
+
+    if (!cartItems || !cartTotal) return;
 
     cartItems.innerHTML = "";
     let total = 0;
@@ -59,8 +63,12 @@ function updateCartDisplay() {
 
     cartTotal.textContent = total.toLocaleString();
 }
+
+// ✅ Thông báo nổi ở giữa màn hình
 function showCustomAlert(message) {
     const alertBox = document.getElementById("custom-alert");
+    if (!alertBox) return;
+
     alertBox.textContent = `✅ ${message}`;
     alertBox.classList.add("show");
 
@@ -68,4 +76,3 @@ function showCustomAlert(message) {
         alertBox.classList.remove("show");
     }, 2000);
 }
-
