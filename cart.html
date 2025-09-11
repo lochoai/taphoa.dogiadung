@@ -216,6 +216,15 @@
                 alert("❌ Gửi thất bại, hãy thử lại sau.");
             });
         }
+function showCustomAlert(message) {
+    const alertBox = document.getElementById("custom-alert");
+    alertBox.textContent = message;
+    alertBox.classList.add("show");
+
+    setTimeout(() => {
+        alertBox.classList.remove("show");
+    }, 2000);
+}
     </script>
 <div id="custom-alert"></div>
 </body>
