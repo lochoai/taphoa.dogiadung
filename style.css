@@ -253,3 +253,38 @@ main {
     opacity: 1;
     pointer-events: auto;
 }
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+}
+
+.popup-box {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.popup-box button {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.popup-box button:hover {
+    background-color: #219150;
+}
