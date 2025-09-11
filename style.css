@@ -28,11 +28,38 @@ main {
 }
 
 .product {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 200px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 220px;
     text-align: center;
+    border-radius: 8px;
+    background: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.product h3 {
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+.product button {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+.product button:hover {
+    background: #219150;
+}
+
 
 .product img {
     width: 100%;
