@@ -72,15 +72,4 @@ function updateCartDisplay() {
     cartTotal.textContent = total.toLocaleString();
 }
 
-// ✅ Thông báo nổi ở giữa màn hình
-function showCustomAlert(message) {
-    const alertBox = document.getElementById("custom-alert");
-    if (!alertBox) return;
 
-    alertBox.textContent = `✅ ${message}`;
-    alertBox.classList.add("show");
-
-    setTimeout(() => {
-        alertBox.classList.remove("show");
-    }, 2000);
-}
