@@ -7,33 +7,33 @@
     <link rel="stylesheet" href="style.css">
     <style>
         #custom-alert {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(39, 174, 96, 0.95);
-    color: white;
-    padding: 15px 30px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 18px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    z-index: 10000;
-    text-align: center;
-    max-width: 80%;
-}
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(39, 174, 96, 0.95);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 10000;
+            text-align: center;
+            max-width: 80%;
+        }
 
-#custom-alert.show {
-    opacity: 1;
-    pointer-events: auto;
-}
+        #custom-alert.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body>
-    <div id="custom-alert">✅ Sản phẩm đã được thêm vào giỏ hàng!</div>
+    <div id="custom-alert"></div>
 
     <header>
         <h1>Cửa Hàng Tạp Hóa & Đồ Gia Dụng</h1>
@@ -48,19 +48,19 @@
         <h2>Sản phẩm nổi bật</h2>
         <div class="product-list">
             <div class="product">
-    <img src="images/nuoc-mam.jpg" alt="Nước mắm">
-    <h3>Nước mắm Nam Ngư</h3>
-    <p class="product-desc">Nước mắm truyền thống, thơm ngon, đậm đà hương vị.</p>
-    <p>Giá: 35.000đ</p>
-    <button onclick="addToCart('Nước mắm Nam Ngư', 35000)">Thêm vào giỏ</button>
-</div>
-<div class="product">
-    <img src="images/noi-com.jpg" alt="Nồi cơm điện">
-    <h3>Nồi cơm điện Sunhouse</h3>
-    <p class="product-desc">Nồi cơm điện dung tích 1.8L, tiết kiệm điện, dễ sử dụng.</p>
-    <p>Giá: 450.000đ</p>
-    <button onclick="addToCart('Nồi cơm điện Sunhouse', 450000)">Thêm vào giỏ</button>
-</div>
+                <img src="images/nuoc-mam.jpg" alt="Nước mắm">
+                <h3>Nước mắm Nam Ngư</h3>
+                <p class="product-desc">Nước mắm truyền thống, thơm ngon, đậm đà hương vị.</p>
+                <p>Giá: 35.000đ</p>
+                <button onclick="addToCart('Nước mắm Nam Ngư', 35000)">Thêm vào giỏ</button>
+            </div>
+            <div class="product">
+                <img src="images/noi-com.jpg" alt="Nồi cơm điện">
+                <h3>Nồi cơm điện Sunhouse</h3>
+                <p class="product-desc">Nồi cơm điện dung tích 1.8L, tiết kiệm điện, dễ sử dụng.</p>
+                <p>Giá: 450.000đ</p>
+                <button onclick="addToCart('Nồi cơm điện Sunhouse', 450000)">Thêm vào giỏ</button>
+            </div>
         </div>
     </main>
 
@@ -69,14 +69,6 @@
     </footer>
 
     <script>
-        function showAlert() {
-            const alertBox = document.getElementById("custom-alert");
-            alertBox.style.display = "block";
-            setTimeout(() => {
-                alertBox.style.display = "none";
-            }, 2000);
-        }
-
         function addToCart(name, price) {
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -88,8 +80,18 @@
             }
 
             localStorage.setItem("cart", JSON.stringify(cart));
-            showCustomAlert(`${name} đã được thêm vào giỏ hàng!`); // ✅ Đúng
-            updateCartSummary(); // cập nhật giỏ tạm thời nếu cần
+            showCustomAlert(`${name} đã được thêm vào giỏ hàng!`);
+            updateCartSummary();
+        }
+
+        function showCustomAlert(message) {
+            const alertBox = document.getElementById("custom-alert");
+            alertBox.textContent = `✅ ${message}`;
+            alertBox.classList.add("show");
+
+            setTimeout(() => {
+                alertBox.classList.remove("show");
+            }, 2000);
         }
 
         function updateCartSummary() {
@@ -116,6 +118,3 @@
     </script>
 </body>
 </html>
-
-
-
