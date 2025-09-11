@@ -11,6 +11,7 @@ window.onload = function() {
 
 function addToCart(name, price) {
     const existingItem = cart.find(item => item.name === name);
+
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
@@ -19,8 +20,9 @@ function addToCart(name, price) {
 
     saveCart();
     updateCartDisplay();
-    showCustomAlert(`${name} đã được thêm vào giỏ hàng!`, "success");
+    showCustomAlert(`${name} đã được thêm vào giỏ hàng!`);
 }
+
 function removeFromCart(index) {
     if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
         cart.splice(index, 1);
