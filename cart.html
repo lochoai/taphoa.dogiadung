@@ -202,7 +202,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert("✅ Đơn hàng đã được gửi thành công!");
+                    showCustomAlert("✅ Đơn hàng đã được gửi thành công!");
                     cart = [];
                     localStorage.removeItem("cart");
                     updateCartDisplay();
