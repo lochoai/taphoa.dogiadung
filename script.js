@@ -10,34 +10,29 @@ window.onload = function() {
 }
 
 function addToCart(name, price) {
-    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
     const existingItem = cart.find(item => item.name === name);
-
     if (existingItem) {
-        // Nếu đã có, tăng số lượng
         existingItem.quantity += 1;
     } else {
-        // Nếu chưa có, thêm sản phẩm mới với quantity = 1
         cart.push({ name, price, quantity: 1 });
     }
 
     saveCart();
     updateCartDisplay();
-    showCustomAlert(`${name} đã được thêm vào giỏ hàng!`);
+    showCustomAlert(`${name} đã được thêm vào giỏ hàng!`, "success");
 }
-
-
 function removeFromCart(index) {
-    cart.splice(index, 1);
-    saveCart();
-    updateCartDisplay();
+    if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+        cart.splice(index, 1);
+        saveCart();
+        updateCartDisplay();
+        showCustomAlert("Sản phẩm đã được xóa khỏi giỏ hàng.", "success");
+    }
 }
-
 // Hàm lưu giỏ hàng vào localStorage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
-
 function updateCartDisplay() {
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
@@ -62,13 +57,21 @@ function updateCartDisplay() {
 
     cartTotal.textContent = total.toLocaleString();
 }
-function showCustomAlert(message) {
+function showCustomAlert(message, type = 'success') {
     const alertBox = document.getElementById("custom-alert");
-    alertBox.textContent = `✅ ${message}`;
+    alertBox.textContent = message;
+
+    if (type === 'success') {
+        alertBox.style.backgroundColor = '#2ecc71'; // xanh lá
+    } else if (type === 'error') {
+        alertBox.style.backgroundColor = '#e74c3c'; // đỏ
+    } else {
+        alertBox.style.backgroundColor = '#3498db'; // xanh dương
+    }
+
     alertBox.classList.add("show");
     alertBox.classList.remove("hide");
 
-    // Tự ẩn sau 1 giây
     setTimeout(() => {
         alertBox.classList.remove("show");
         alertBox.classList.add("hide");
