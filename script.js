@@ -57,23 +57,14 @@ function updateCartDisplay() {
 
     cartTotal.textContent = total.toLocaleString();
 }
-function showCustomAlert(message, type = 'success') {
+function showCustomAlert(message) {
     const alertBox = document.getElementById("custom-alert");
-    alertBox.textContent = message;
-
-    if (type === 'success') {
-        alertBox.style.backgroundColor = '#2ecc71'; // xanh lá
-    } else if (type === 'error') {
-        alertBox.style.backgroundColor = '#e74c3c'; // đỏ
-    } else {
-        alertBox.style.backgroundColor = '#3498db'; // xanh dương
-    }
-
+    alertBox.textContent = `✅ ${message}`;
     alertBox.classList.add("show");
-    alertBox.classList.remove("hide");
 
+    // Ẩn sau 2 giây
     setTimeout(() => {
         alertBox.classList.remove("show");
-        alertBox.classList.add("hide");
     }, 1000);
 }
+
