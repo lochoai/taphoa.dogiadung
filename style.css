@@ -234,7 +234,7 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(39, 174, 96, 0.9); /* xanh lá hơi trong suốt */
+    background-color: rgba(39, 174, 96, 0.95);
     color: white;
     padding: 15px 30px;
     border-radius: 8px;
