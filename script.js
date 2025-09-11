@@ -62,9 +62,8 @@ function showCustomAlert(message) {
     alertBox.textContent = `✅ ${message}`;
     alertBox.classList.add("show");
 
-    // Ẩn sau 2 giây
     setTimeout(() => {
         alertBox.classList.remove("show");
-    }, 1000);
+    }, 2000);
 }
 
