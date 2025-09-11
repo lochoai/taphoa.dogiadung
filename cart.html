@@ -69,16 +69,17 @@
     </footer>
 
     <!-- Form nhập thông tin khách hàng -->
-    <div id="customer-form">
-        <div class="form-popup">
-            <h3>Nhập thông tin giao hàng</h3>
-            <input type="text" id="customer-name" placeholder="Họ và tên" required>
-            <input type="tel" id="customer-phone" placeholder="Số điện thoại" required>
-            <input type="text" id="customer-address" placeholder="Địa chỉ nhận hàng" required>
-            <button onclick="submitOrder()">Gửi đơn hàng</button>
-        </div>
-    </div>
+    <!-- Giả sử trong cart.html bạn có phần popup đặt hàng như sau -->
 
+<!-- Popup nhập thông tin giao hàng -->
+<div id="customer-form" class="form-popup" style="display: none;">
+  <h3>Nhập thông tin giao hàng</h3>
+  <input type="text" id="customer-name" placeholder="Họ và tên" required>
+  <input type="tel" id="customer-phone" placeholder="Số điện thoại" required>
+  <input type="text" id="customer-address" placeholder="Địa chỉ nhận hàng" required>
+  <button onclick="submitOrder()">Gửi đơn hàng</button>
+  <button onclick="closeCustomerForm()" class="cancel-btn">Hủy</button>  <!-- ← Nút Hủy -->
+</div>
     <script>
         const BOT_TOKEN = "7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8";
         const CHAT_ID = "944976544";
@@ -224,6 +225,9 @@ function showCustomAlert(message) {
     setTimeout(() => {
         alertBox.classList.remove("show");
     }, 2000);
+}
+        function closeCustomerForm() {
+  document.getElementById("customer-form").style.display = "none";
 }
     </script>
 <div id="custom-alert"></div>
