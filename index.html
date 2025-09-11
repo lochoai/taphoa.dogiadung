@@ -89,7 +89,15 @@
       updateCartSummary();
     }
 
-   
+   function showCustomAlert(message) {
+    const alertBox = document.getElementById("custom-alert");
+    alertBox.textContent = message;
+    alertBox.classList.add("show");
+
+    setTimeout(() => {
+        alertBox.classList.remove("show");
+    }, 2000);
+}
 
     function updateCartSummary() {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -115,4 +123,5 @@
   </script>
 </body>
 </html>
+
 
