@@ -223,3 +223,9 @@ main {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+.product-desc {
+    font-size: 14px;
+    color: #555;
+    margin: 8px 0 12px 0;
+    min-height: 40px; /* để các box sản phẩm có chiều cao đồng đều */
+}
