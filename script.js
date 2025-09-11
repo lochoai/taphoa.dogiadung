@@ -23,15 +23,23 @@ function addToCart(name, price) {
     showCustomAlert(`${name} đã được thêm vào giỏ hàng!`);
 }
 
+let deleteIndex = null;
+
 function removeFromCart(index) {
-    if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
-        cart.splice(index, 1);
+    deleteIndex = index;
+    document.getElementById("delete-confirm").style.display = "flex";
+}
+
+function confirmDelete(confirm) {
+    document.getElementById("delete-confirm").style.display = "none";
+    if (confirm && deleteIndex !== null) {
+        cart.splice(deleteIndex, 1);
         saveCart();
         updateCartDisplay();
         showCustomAlert("Sản phẩm đã được xóa khỏi giỏ hàng.");
     }
+    deleteIndex = null;
 }
-
 // Hàm lưu giỏ hàng vào localStorage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
