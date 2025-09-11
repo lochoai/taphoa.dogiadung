@@ -116,5 +116,14 @@
 
         window.onload = updateCartSummary;
     </script>
+<!-- Popup xác nhận xóa sản phẩm -->
+<div id="delete-confirm" class="popup-overlay" style="display: none;">
+    <div class="popup-box">
+        <p>Bạn có chắc chắn muốn xóa sản phẩm này?</p>
+        <button onclick="confirmDelete(true)">Xóa</button>
+        <button onclick="confirmDelete(false)">Hủy</button>
+    </div>
+</div>
 </body>
 </html>
+
