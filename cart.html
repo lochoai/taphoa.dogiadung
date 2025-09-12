@@ -2,67 +2,72 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Giỏ hàng | LỘC HOÀI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ hàng - LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <div class="shop-info">
-      <h1>LỘC HOÀI</h1>
-      <p>Cửa hàng tạp hóa và đồ gia dụng</p>
-    </div>
-    <div class="header-actions">
-      <a href="index.html" class="cart-btn">← Tiếp tục mua hàng</a>
+    <h1>
+      LỘC HOÀI<br />
+      <small>Giỏ hàng và đặt hàng</small>
+    </h1>
+    <div class="top-contact">
+      <div class="cart-link">
+        🛒 Giỏ hàng (<span id="cart-count">0</span>)
+      </div>
+      <div class="contact-links">
+        <a href="index.html">Trang chủ</a> |
+        <a href="https://facebook.com/pro.huuloc.1" target="_blank">FB</a> |
+        <a href="tel:0372057834">0372057834</a> |
+        <a href="#">Zalo (chưa cập nhật)</a>
+      </div>
     </div>
   </header>
 
   <main>
-    <h2>🛒 Giỏ hàng của bạn</h2>
-    <table id="cart-table">
-      <thead>
-        <tr>
-          <th>Tên sản phẩm</th>
-          <th>Số lượng</th>
-          <th>Giá (₫)</th>
-          <th>Tổng (₫)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Dữ liệu giỏ hàng sẽ được render ở đây -->
-      </tbody>
-    </table>
-
-    <div class="cart-summary">
-      <p>Tổng tiền hàng: <span id="total-price">0</span>₫</p>
-      <p>Phí vận chuyển: 20,000₫</p>
-      <p><strong>Tổng cộng: <span id="grand-total">0</span>₫</strong></p>
-    </div>
-
-    <button id="checkout-btn">📝 Đặt hàng</button>
-
-    <!-- Form đặt hàng -->
-    <div id="checkout-form" class="checkout-modal hidden">
-      <div class="checkout-content">
-        <h3>Thông tin đặt hàng</h3>
-        <label>Họ tên:
-          <input type="text" id="name" required />
-        </label>
-        <label>Số điện thoại:
-          <input type="tel" id="phone" required />
-        </label>
-        <label>Địa chỉ:
-          <textarea id="address" required></textarea>
-        </label>
-        <div class="checkout-actions">
-          <button id="cancel-btn">❌ Hủy</button>
-          <button id="confirm-btn">✅ Đặt hàng</button>
-        </div>
+    <section id="cart-section">
+      <table id="cart-table">
+        <thead>
+          <tr>
+            <th>Sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá (₫)</th>
+            <th>Thành tiền (₫)</th>
+            <th>Xóa</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      </table>
+      <div class="cart-summary">
+        <p>Phí vận chuyển: <span id="shipping-fee">20,000</span> ₫</p>
+        <p>Tổng cộng: <span id="total-price">0</span> ₫</p>
       </div>
-    </div>
-  </main>
+      <button id="btn-order" class="order-btn">Đặt hàng</button>
+    </section>
 
-  <div id="notification" class="notification"></div>
+    <section id="order-form-section" class="hidden">
+      <h2>Thông tin đặt hàng</h2>
+      <form id="order-form">
+        <label>
+          Họ tên:<br />
+          <input type="text" id="customer-name" required />
+        </label>
+        <label>
+          Số điện thoại:<br />
+          <input type="tel" id="customer-phone" pattern="0[0-9]{9,10}" required />
+        </label>
+        <label>
+          Địa chỉ:<br />
+          <textarea id="customer-address" rows="3" required></textarea>
+        </label>
+        <div class="form-buttons">
+          <button type="submit" class="order-btn">Đặt hàng</button>
+          <button type="button" id="btn-cancel" class="cancel-btn">Hủy</button>
+        </div>
+      </form>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
