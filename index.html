@@ -2,47 +2,50 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LỘC HOÀI | Cửa hàng tạp hóa và đồ gia dụng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LỘC HOÀI cửa hàng tạp hóa và đồ gia dụng</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <div class="shop-info">
-      <h1>LỘC HOÀI</h1>
-      <p>Cửa hàng tạp hóa và đồ gia dụng</p>
-    </div>
-    <div class="header-actions">
-      <a href="cart.html" class="cart-btn">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a>
+    <h1>
+      LỘC HOÀI<br />
+      <small>cửa hàng tạp hóa và đồ gia dụng</small>
+    </h1>
+    <div class="top-contact">
+      <div class="cart-link">
+        🛒 <a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a>
+      </div>
       <div class="contact-links">
-        <a href="https://facebook.com/pro.huuloc.1" target="_blank">Facebook</a>
-        <a href="#">Zalo</a>
-        <a href="tel:0372057834">Gọi: 0372057834</a>
+        <a href="https://facebook.com/pro.huuloc.1" target="_blank">FB</a> |
+        <a href="tel:0372057834">0372057834</a> |
+        <a href="#">Zalo (chưa cập nhật)</a>
       </div>
     </div>
   </header>
 
   <nav class="menu">
-    <button data-category="all">Trang chủ</button>
-    <button data-category="gia-vi">Gia vị</button>
-    <button data-category="banh-keo">Bánh kẹo</button>
-    <button data-category="do-uong">Đồ uống</button>
-    <button data-category="goi-rua">Đồ gội rửa</button>
-    <button data-category="thuoc-la">Thuốc lá</button>
-    <button data-category="do-kho">Đồ khô</button>
-    <button data-category="do-dien">Đồ điện</button>
-    <button data-category="do-bep">Đồ bếp</button>
-    <button data-category="chen-bat">Chén bát</button>
-    <button data-category="gia-dung">Gia dụng</button>
+    <div class="menu-row">
+      <button class="menu-item" data-category="all">Trang chủ</button>
+      <button class="menu-item" data-category="gia-vi">Gia vị</button>
+      <button class="menu-item" data-category="banh-keo">Bánh kẹo</button>
+      <button class="menu-item" data-category="do-uong">Đồ uống</button>
+      <button class="menu-item" data-category="goi-rua">Gội rửa</button>
+    </div>
+    <div class="menu-row">
+      <button class="menu-item" data-category="thuoc-la">Thuốc lá</button>
+      <button class="menu-item" data-category="do-kho">Đồ khô</button>
+      <button class="menu-item" data-category="do-dien">Đồ điện</button>
+      <button class="menu-item" data-category="do-bep">Đồ bếp</button>
+      <button class="menu-item" data-category="chen-bat">Chén bát</button>
+    </div>
   </nav>
 
   <main>
-    <div id="product-list" class="product-grid">
-      <!-- Sản phẩm sẽ được hiển thị ở đây bằng JavaScript -->
+    <div id="product-list" class="product-list">
+      <!-- Sản phẩm sẽ được load ở đây -->
     </div>
   </main>
-
-  <div id="notification" class="notification"></div>
 
   <script src="script.js"></script>
 </body>
