@@ -177,7 +177,7 @@ function hideOrderForm() {
 
 // Gửi đơn hàng lên Telegram
 async function sendOrderTelegram(data) {
-  const BOT_TOKEN = "7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8";
+  const BOT_TOKEN = "7926488831:AAHHWfQqL3FQ0-yJa19qlyP0GvWuJml6DLY";
   const CHAT_ID = "944976544";
 
   let productListText = data.products
