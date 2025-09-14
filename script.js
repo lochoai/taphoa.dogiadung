@@ -1,7 +1,7 @@
 // Các sản phẩm mẫu (bạn có thể thay thế hình và thêm 20 sản phẩm mỗi loại)
 const products = [
-  { id: 1, name: "Nồi cơm điện Sunhouse", price: 350000, category: "do-dien", image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTA3s0gbQjUNPqxuGeIJOET2InAeMLSpzip1-dM--wAnNc-g5bAuxShEznNYQm9iIhISim_EP0yzPfMCseMfl9gpO-SUGZNszYNHlcy-SsBKB5GHsbE__zP" },
-  { id: 2, name: "Nước mắm Nam Ngư", price: 25000, category: "gia-vi", image: "images/nuoc-mam.jpg" },
+  { id: 1, name: "Nồi cơm điện Sunhouse", price: 350000, category: "do-dien", image: "images/nồi điện sunhause.jfif" },
+  { id: 2, name: "Nước mắm Nam Ngư", price: 25000, category: "gia-vi", image: "images/nước mắm nam ngư.jfif" },
   { id: 3, name: "Bánh quy Oreo", price: 30000, category: "banh-keo", image: "images/bánh quy oreo.jfif" },
   { id: 4, name: "Coca-Cola", price: 15000, category: "do-uong", image: "images/cocacola.jpg" },
   { id: 5, name: "Dầu gội Head & Shoulders", price: 80000, category: "goi-rua", image: "images/dau-goi.jpg" },
