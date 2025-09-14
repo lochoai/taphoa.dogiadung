@@ -2,7 +2,7 @@
 const products = [
   { id: 1, name: "Nồi cơm điện Sunhouse", price: 350000, category: "do-dien", image: "images/noi-com-dien.jpg" },
   { id: 2, name: "Nước mắm Nam Ngư", price: 25000, category: "gia-vi", image: "images/nuoc-mam.jpg" },
-  { id: 3, name: "Bánh quy Oreo", price: 30000, category: "banh-keo", image: "images/oreo.jpg" },
+  { id: 3, name: "Bánh quy Oreo", price: 30000, category: "banh-keo", image: "images/bánh quy oreo.jfif" },
   { id: 4, name: "Coca-Cola", price: 15000, category: "do-uong", image: "images/cocacola.jpg" },
   { id: 5, name: "Dầu gội Head & Shoulders", price: 80000, category: "goi-rua", image: "images/dau-goi.jpg" },
   { id: 6, name: "Thuốc lá Vinataba", price: 40000, category: "thuoc-la", image: "images/thuoc-la.jpg" },
