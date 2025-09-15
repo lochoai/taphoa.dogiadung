@@ -3,49 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LỘC HOÀI cửa hàng tạp hóa và đồ gia dụng</title>
+  <title>Shop sản phẩm</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>
-      LỘC HOÀI<br />
-      <small>cửa hàng tạp hóa và đồ gia dụng</small>
-    </h1>
+    <h1>Shop Sản Phẩm</h1>
+    <small>Chào mừng bạn đến với cửa hàng của chúng tôi!</small>
     <div class="top-contact">
-      <div class="cart-link">
-        🛒 <a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a>
-      </div>
-      <div class="contact-links">
-        <a href="https://facebook.com/pro.huuloc.1" target="_blank">FB</a> |
-        <a href="tel:0372057834">0372057834</a> |
-        <a href="#">Zalo (chưa cập nhật)</a>
-      </div>
+      <a href="mailto:contact@shop.com">Email: contact@shop.com</a>
+      <a href="tel:+84123456789">Hotline: 0123456789</a>
     </div>
   </header>
 
   <nav class="menu">
     <div class="menu-row">
-      <button class="menu-item" data-category="all">Trang chủ</button>
-      <button class="menu-item" data-category="gia-vi">Gia vị</button>
-      <button class="menu-item" data-category="banh-keo">Bánh kẹo</button>
-      <button class="menu-item" data-category="do-uong">Đồ uống</button>
-      <button class="menu-item" data-category="goi-rua">Gội rửa</button>
-    </div>
-    <div class="menu-row">
-      <button class="menu-item" data-category="thuoc-la">Thuốc lá</button>
-      <button class="menu-item" data-category="do-kho">Đồ khô</button>
-      <button class="menu-item" data-category="do-dien">Đồ điện</button>
-      <button class="menu-item" data-category="do-bep">Đồ bếp</button>
-      <button class="menu-item" data-category="chen-bat">Chén bát</button>
+      <button class="menu-item" onclick="filterCategory('all')">Tất cả</button>
+      <button class="menu-item" onclick="filterCategory('do-dien')">Đồ điện</button>
+      <button class="menu-item" onclick="filterCategory('gia-vi')">Gia vị</button>
+      <button class="menu-item" onclick="filterCategory('thuc-pham')">Thực phẩm</button>
     </div>
   </nav>
 
-  <main>
-    <div id="product-list" class="product-list">
-      <!-- Sản phẩm sẽ được load ở đây -->
+  <section class="product-list" id="product-list">
+    <!-- Sản phẩm sẽ hiển thị ở đây -->
+  </section>
+
+  <!-- Giỏ hàng (giả sử có) -->
+  <section id="cart-section">
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Giá</th>
+          <th>Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body">
+        <!-- Giỏ hàng sẽ hiển thị ở đây -->
+      </tbody>
+    </table>
+    <div class="cart-summary" id="cart-summary">Tổng: 0 VND</div>
+    <button id="order-main-btn" class="order-btn">Đặt hàng</button>
+  </section>
+
+  <!-- Modal chi tiết sản phẩm -->
+  <div id="product-modal" class="modal hidden">
+    <div class="modal-content">
+      <button id="modal-close-btn" class="close-btn" title="Quay lại">←</button>
+      <div class="modal-body">
+        <img id="modal-image" src="" alt="Ảnh sản phẩm" />
+        <div class="modal-info">
+          <h2 id="modal-name"></h2>
+          <p id="modal-description">Mô tả sản phẩm sẽ được cập nhật sau.</p>
+          <div class="modal-actions">
+            <button id="modal-add-cart" class="add-cart-btn">Thêm giỏ hàng</button>
+            <button id="modal-order-now" class="order-btn">Đặt hàng</button>
+          </div>
+          <div class="modal-review">
+            <h3>Đánh giá sản phẩm</h3>
+            <textarea id="review-text" rows="4" placeholder="Viết đánh giá của bạn..."></textarea>
+            <button id="submit-review" class="order-btn">Gửi đánh giá</button>
+            <div id="review-message"></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
