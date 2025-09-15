@@ -3,75 +3,443 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shop sản phẩm</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Cửa hàng LỘC HOÀI</title>
+  <style>
+    /* Reset & cơ bản */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7fbf3;
+      margin: 0;
+      padding: 0 10px 50px;
+      color: #2f4d23;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header */
+    header {
+      background: #d7f0b7;
+      padding: 15px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #a0c57a;
+    }
+    .store-name {
+      font-weight: bold;
+      font-size: 28px;
+      line-height: 1.2;
+      color: #3a7a3a;
+    }
+    .store-name .main {
+      font-size: 36px;
+      text-transform: uppercase;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      color: #3a7a3a;
+      gap: 6px;
+      text-align: right;
+    }
+    .contact-info div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .contact-info svg {
+      width: 16px;
+      height: 16px;
+      fill: #3a7a3a;
+    }
+
+    /* Giỏ hàng */
+    #cartLink {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #c7f1a0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: bold;
+      font-size: 16px;
+      color: #2f4d23;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+    #cartLink:hover {
+      background: #a5d976;
+      color: white;
+    }
+
+    /* Phân vùng chính */
+    main {
+      margin-top: 80px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Mục Tạp Hóa và Gia Dụng */
+    .category {
+      flex: 1 1 350px;
+      background: #d9f3b2;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    }
+    .category h2 {
+      font-weight: bold;
+      color: #3a7a3a;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #a0c57a;
+      padding-bottom: 4px;
+    }
+    .subcategories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .subcategory-btn {
+      background: #b2e48d;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #2f4d23;
+      flex: 1 1 calc(25% - 10px);
+      text-align: center;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .subcategory-btn.active, .subcategory-btn:hover {
+      background: #8fce59;
+      color: white;
+    }
+
+    /* Danh sách sản phẩm */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 900px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 500px) {
+      .products {
+        grid-template-columns: 1fr;
+      }
+    }
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 14px rgb(0 0 0 / 0.2);
+    }
+    .product-img {
+      width: 100%;
+      max-height: 130px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    .product-name {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+      text-align: center;
+      color: #2f4d23;
+      user-select: none;
+    }
+    .product-price {
+      font-weight: bold;
+      color: #4b8f23;
+      margin-bottom: 10px;
+    }
+    .product-actions {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      justify-content: center;
+    }
+    .btn-add, .btn-buy {
+      flex: 1 1 15%;
+      padding: 6px 0;
+      font-size: 0.9em;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .btn-add {
+      background: #7aba4d;
+      color: white;
+    }
+    .btn-add:hover {
+      background: #659d3b;
+    }
+    .btn-buy {
+      background: #f3a33a;
+      color: white;
+    }
+    .btn-buy:hover {
+      background: #d18a21;
+    }
+
+    /* Phương thức liên hệ dưới header */
+    .contact-icons {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      gap: 6px;
+      color: #3a7a3a;
+      text-align: right;
+      user-select: none;
+    }
+    .contact-icons a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #3a7a3a;
+    }
+    .contact-icons a:hover {
+      color: #6cba3c;
+    }
+    .contact-icons svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Shop Sản Phẩm</h1>
-    <small>Chào mừng bạn đến với cửa hàng của chúng tôi!</small>
-    <div class="top-contact">
-      <a href="mailto:contact@shop.com">Email: contact@shop.com</a>
-      <a href="tel:+84123456789">Hotline: 0123456789</a>
-    </div>
-  </header>
 
-  <nav class="menu">
-    <div class="menu-row">
-      <button class="menu-item" onclick="filterCategory('all')">Tất cả</button>
-      <button class="menu-item" onclick="filterCategory('do-dien')">Đồ điện</button>
-      <button class="menu-item" onclick="filterCategory('gia-vi')">Gia vị</button>
-      <button class="menu-item" onclick="filterCategory('thuc-pham')">Thực phẩm</button>
-    </div>
-  </nav>
-
-  <section class="product-list" id="product-list">
-    <!-- Sản phẩm sẽ hiển thị ở đây -->
-  </section>
-
-  <!-- Giỏ hàng (giả sử có) -->
-  <section id="cart-section">
-    <table id="cart-table">
-      <thead>
-        <tr>
-          <th>Sản phẩm</th>
-          <th>Số lượng</th>
-          <th>Giá</th>
-          <th>Thành tiền</th>
-        </tr>
-      </thead>
-      <tbody id="cart-body">
-        <!-- Giỏ hàng sẽ hiển thị ở đây -->
-      </tbody>
-    </table>
-    <div class="cart-summary" id="cart-summary">Tổng: 0 VND</div>
-    <button id="order-main-btn" class="order-btn">Đặt hàng</button>
-  </section>
-
-  <!-- Modal chi tiết sản phẩm -->
-  <div id="product-modal" class="modal hidden">
-    <div class="modal-content">
-      <button id="modal-close-btn" class="close-btn" title="Quay lại">←</button>
-      <div class="modal-body">
-        <img id="modal-image" src="" alt="Ảnh sản phẩm" />
-        <div class="modal-info">
-          <h2 id="modal-name"></h2>
-          <p id="modal-description">Mô tả sản phẩm sẽ được cập nhật sau.</p>
-          <div class="modal-actions">
-            <button id="modal-add-cart" class="add-cart-btn">Thêm giỏ hàng</button>
-            <button id="modal-order-now" class="order-btn">Đặt hàng</button>
-          </div>
-          <div class="modal-review">
-            <h3>Đánh giá sản phẩm</h3>
-            <textarea id="review-text" rows="4" placeholder="Viết đánh giá của bạn..."></textarea>
-            <button id="submit-review" class="order-btn">Gửi đánh giá</button>
-            <div id="review-message"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+<header>
+  <div>
+    <div class="store-name">Cửa hàng<br/><span class="main">LỘC HOÀI</span></div>
   </div>
+  <div class="contact-icons">
+    <a href="tel:0372057834" title="Gọi điện"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 21.84 2.16 13.93 2.16 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.2 1.11l-2.2 2.2z"/></svg>0372057834</a>
+    <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" rel="noopener" title="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12.07C22 6.52 17.52 2 12 2S2 6.52 2 12.07c0 4.97 3.65 9.07 8.44 9.95v-7.04H7.9v-2.9h2.54v-2.2c0-2.52 1.49-3.9 3.77-3.9 1.09 0 2.22.2 2.22.2v2.44h-1.25c-1.23 0-1.61.77-1.61 1.56v1.9h2.74l-.44 2.9h-2.3v7.04C18.35 21.14 22 17.05 22 12.07z"/></svg>Facebook</a>
+    <a href="#" title="Zalo (chưa cập nhật)" style="cursor:not-allowed; opacity: 0.5;"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zM7 13h4v4l5-6h-4V7z"/></svg>Zalo</a>
+    <a href="https://t.me/7774024453" target="_blank" rel="noopener" title="Telegram"><svg viewBox="0 0 24 24"><path d="M9.9 15.7l-.4 4.5c.57 0 .82-.24 1.12-.53l2.69-2.5 5.58 4.09c1.02.57 1.75.27 2.01-.94l3.63-17.15c.34-1.5-.54-2.15-1.44-1.78L2 10.7c-1.46.56-1.44 1.35-.25 1.72z"/></svg>Telegram</a>
+  </div>
+</header>
 
-  <script src="script.js"></script>
+<!-- Nút giỏ hàng cố định -->
+<a href="cart.html" id="cartLink" title="Xem giỏ hàng">
+  🛒 Giỏ hàng (<span id="cartCount">0</span>)
+</a>
+
+<main>
+  <!-- Tạp Hóa -->
+  <section class="category" id="category-tapho">
+    <h2>TẠP HÓA</h2>
+    <div class="subcategories" id="taphoSubcats">
+      <button class="subcategory-btn active" data-cat="all-tapho">Tất cả</button>
+      <button class="subcategory-btn" data-cat="mat-hang">Mặt hàng</button>
+      <button class="subcategory-btn" data-cat="gia-vi">Gia vị</button>
+      <button class="subcategory-btn" data-cat="banh-keo">Bánh kẹo</button>
+      <button class="subcategory-btn" data-cat="do-uong">Đồ uống</button>
+      <button class="subcategory-btn" data-cat="do-goi-rua">Đồ gội rửa</button>
+      <button class="subcategory-btn" data-cat="thuoc-la">Thuốc lá</button>
+      <button class="subcategory-btn" data-cat="do-kho">Đồ khô</button>
+    </div>
+    <div class="products" id="taphoProducts">
+      <!-- Sản phẩm sẽ được render ở đây -->
+    </div>
+  </section>
+
+  <!-- Gia Dụng -->
+  <section class="category" id="category-giadung">
+    <h2>GIA DỤNG</h2>
+    <div class="subcategories" id="giadungSubcats">
+      <button class="subcategory-btn active" data-cat="all-giadung">Tất cả</button>
+      <button class="subcategory-btn" data-cat="mat-hang-gd">Mặt hàng</button>
+      <button class="subcategory-btn" data-cat="do-dien">Đồ điện</button>
+      <button class="subcategory-btn" data-cat="do-bep">Đồ bếp</button>
+      <button class="subcategory-btn" data-cat="chen-bat">Chén bát</button>
+      <button class="subcategory-btn" data-cat="giadung">Gia dụng</button>
+    </div>
+    <div class="products" id="giadungProducts">
+      <!-- Sản phẩm sẽ được render ở đây -->
+    </div>
+  </section>
+</main>
+
+<script>
+  // Dữ liệu mẫu sản phẩm cho Tạp Hóa
+  const taphoData = [
+    { id: 1, category: 'mat-hang', name: 'Gạo thơm', price: 40000, img: 'https://via.placeholder.com/150?text=Gạo+thơm' },
+    { id: 2, category: 'gia-vi', name: 'Tiêu xanh', price: 12000, img: 'https://via.placeholder.com/150?text=Tiêu+xanh' },
+    { id: 3, category: 'banh-keo', name: 'Bánh quy Oreo', price: 25000, img: 'https://via.placeholder.com/150?text=Oreo' },
+    { id: 4, category: 'do-uong', name: 'Coca-Cola', price: 15000, img: 'https://via.placeholder.com/150?text=Coca-Cola' },
+    { id: 5, category: 'do-goi-rua', name: 'Dầu gội Dove', price: 60000, img: 'https://via.placeholder.com/150?text=Dầu+gội+Dove' },
+    { id: 6, category: 'thuoc-la', name: 'Thuốc lá Jet', price: 22000, img: 'https://via.placeholder.com/150?text=Thuốc+là+Jet' },
+    { id: 7, category: 'do-kho', name: 'Mực khô', price: 120000, img: 'https://via.placeholder.com/150?text=Mực+khô' },
+  ];
+
+  // Dữ liệu mẫu sản phẩm cho Gia Dụng
+  const giadungData = [
+    { id: 101, category: 'mat-hang-gd', name: 'Nồi cơm điện Sunhouse', price: 1200000, img: 'https://via.placeholder.com/150?text=Nồi+cơm+điện' },
+    { id: 102, category: 'do-dien', name: 'Quạt điện', price: 350000, img: 'https://via.placeholder.com/150?text=Quạt+điện' },
+    { id: 103, category: 'do-bep', name: 'Chảo chống dính', price: 400000, img: 'https://via.placeholder.com/150?text=Chảo+chống+dính' },
+    { id: 104, category: 'chen-bat', name: 'Bộ chén bát', price: 500000, img: 'https://via.placeholder.com/150?text=Bộ+chén+bát' },
+    { id: 105, category: 'giadung', name: 'Máy hút bụi', price: 1800000, img: 'https://via.placeholder.com/150?text=Máy+hút+bụi' },
+  ];
+
+  // Hiển thị sản phẩm theo category con
+  function renderProducts(products, containerId, activeCat) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+
+    const filtered = activeCat.startsWith('all') ? products : products.filter(p => p.category === activeCat);
+
+    filtered.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${product.img}" alt="${product.name}" class="product-img" />
+        <div class="product-name">${product.name}</div>
+        <div class="product-price">${product.price.toLocaleString('vi-VN')} đ</div>
+        <div class="product-actions">
+          <button class="btn-add" data-id="${product.id}">Thêm vào giỏ</button>
+          <button class="btn-buy" data-id="${product.id}">Mua ngay</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // Lưu trữ giỏ hàng localStorage dạng { productId: quantity }
+  function getCart() {
+    return JSON.parse(localStorage.getItem('cart')) || {};
+  }
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+  }
+
+  // Cập nhật số lượng trên nút giỏ hàng
+  function updateCartCount() {
+    const cart = getCart();
+    let count = 0;
+    for (const key in cart) {
+      count += cart[key];
+    }
+    document.getElementById('cartCount').textContent = count;
+  }
+
+  // Thêm sản phẩm vào giỏ
+  function addToCart(productId) {
+    const cart = getCart();
+    cart[productId] = (cart[productId] || 0) + 1;
+    saveCart(cart);
+    showAddNotification(`Đã thêm vào giỏ hàng!`);
+  }
+
+  // Hiển thị thông báo nhỏ giữa màn hình 1 giây
+  function showAddNotification(message) {
+    const notif = document.createElement('div');
+    notif.textContent = message;
+    notif.style = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #7aba4d;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      z-index: 2000;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    `;
+    document.body.appendChild(notif);
+    setTimeout(() => {
+      notif.remove();
+    }, 1000);
+  }
+
+  // Xử lý khi bấm nút thêm vào giỏ hoặc mua ngay
+  function setupButtons() {
+    document.querySelectorAll('.btn-add').forEach(btn => {
+      btn.onclick = e => {
+        const id = e.target.dataset.id;
+        addToCart(id);
+      };
+    });
+    document.querySelectorAll('.btn-buy').forEach(btn => {
+      btn.onclick = e => {
+        const id = e.target.dataset.id;
+        addToCart(id);
+        // Chuyển ngay sang cart.html
+        window.location.href = 'cart.html';
+      };
+    });
+  }
+
+  // Xử lý nút chọn danh mục con cho Tạp Hóa và Gia Dụng
+  function setupCategoryButtons() {
+    // Tạp Hóa
+    const taphoBtns = document.querySelectorAll('#taphoSubcats .subcategory-btn');
+    taphoBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        taphoBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts(taphoData, 'taphoProducts', btn.dataset.cat);
+        setupButtons();
+      });
+    });
+    // Gia Dụng
+    const giadungBtns = document.querySelectorAll('#giadungSubcats .subcategory-btn');
+    giadungBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        giadungBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts(giadungData, 'giadungProducts', btn.dataset.cat);
+        setupButtons();
+      });
+    });
+  }
+
+  // Khởi tạo trang
+  function init() {
+    renderProducts(taphoData, 'taphoProducts', 'all-tapho');
+    renderProducts(giadungData, 'giadungProducts', 'all-giadung');
+    setupCategoryButtons();
+    setupButtons();
+    updateCartCount();
+  }
+
+  window.onload = init;
+</script>
+
 </body>
 </html>
