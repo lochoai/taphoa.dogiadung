@@ -1,33 +1,27 @@
-# Cửa hàng LỘC HOÀI - Trang web bán hàng tạp hóa và đồ gia dụng
+# Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng
 
-## Mô tả dự án
-Trang web bán hàng trực tuyến dành cho cửa hàng tạp hóa và đồ gia dụng "LỘC HOÀI". Giao diện được thiết kế thân thiện, tối ưu trên cả điện thoại và máy tính.
+## Mô tả
+Trang web bán hàng tạp hóa và đồ gia dụng, thiết kế responsive cho điện thoại và máy tính. Hỗ trợ giỏ hàng, đặt hàng qua Telegram Bot.
 
-## Công nghệ sử dụng
-- HTML5, CSS3, JavaScript (Vanilla)
-- Sử dụng Telegram Bot API để gửi đơn hàng qua Telegram
-- Lưu trữ giỏ hàng bằng LocalStorage để giữ trạng thái khi khách thoát trang
+## Các tính năng chính
+- Phân loại sản phẩm theo Tạp hóa & Gia dụng.
+- Hiển thị sản phẩm theo danh mục con.
+- Thêm sản phẩm vào giỏ hàng và mua ngay.
+- Giỏ hàng lưu trữ trên localStorage.
+- Giao diện thân thiện, tối ưu cho mọi thiết bị.
+- Đặt hàng và gửi thông tin đơn hàng qua Telegram Bot API.
+- Thông báo toast khi thêm sản phẩm và khi đặt hàng thành công hoặc thất bại.
 
-## Các tệp chính
-- `index.html`: Trang chủ, hiển thị sản phẩm, danh mục
-- `cart.html`: Trang giỏ hàng, đặt hàng
-- `style.css`: File CSS chứa toàn bộ style của trang web
-- `script.js`: File JavaScript xử lý logic giỏ hàng, giao tiếp Telegram API
-- `images/`: Thư mục chứa hình ảnh sản phẩm, biểu tượng
+## Cài đặt
+1. Thay `API_TOKEN` và `CHAT_ID` trong `script.js` bằng token bot Telegram và chat id của bạn.
+2. Đưa các file lên hosting hoặc Github Pages.
+3. Mở `index.html` để bắt đầu sử dụng.
 
-## Cách chạy
-1. Mở `index.html` trên trình duyệt (tốt nhất dùng máy chủ local như Live Server của VSCode để tránh lỗi CORS)
-2. Truy cập và tương tác với trang web, thêm sản phẩm vào giỏ hàng.
-3. Đặt hàng tại trang giỏ hàng `cart.html`
-4. Khi đặt hàng thành công, thông tin đơn sẽ gửi về Telegram qua Bot API.
-
-## Thông tin API Telegram Bot
-- Bot Token: 7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8
-- CHAT_ID nhận đơn: 7774024453
-
-## Lưu ý
-- Vui lòng chuẩn bị ảnh sản phẩm trong thư mục `images/`
-- Đảm bảo kết nối internet để gửi đơn qua Telegram API
-- Giỏ hàng được lưu trữ tạm thời trên LocalStorage của trình duyệt.
+## Liên hệ
+- SĐT: 0372057834
+- Facebook: https://facebook.com/pro.huuloc.1
+- Telegram: @7774024453
 
 ---
+
+Cảm ơn bạn đã sử dụng dịch vụ!
