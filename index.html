@@ -2,56 +2,37 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cửa Hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
   <header>
-    <div class="header-left">
-      <h1>Cửa hàng<br /><span class="store-name">LỘC HOÀI</span><br />chuyên tạp hóa, đồ gia dụng</h1>
+    <div class="store-title">
+      <h2>Cửa hàng</h2>
+      <h1>LỘC HOÀI</h1>
     </div>
-    <div class="header-right">
-      <ul class="contacts">
-        <li><a href="tel:0372057834"><img src="icons/phone.svg" alt="Gọi" /> 0372057834</a></li>
-        <li><a href="https://m.me/pro.huuloc.1" target="_blank"><img src="icons/fb.svg" alt="Facebook" /> Facebook</a></li>
-        <li><a href="#" onclick="alert('Zalo chưa cập nhật!')"><img src="icons/zalo.svg" alt="Zalo" /> Zalo</a></li>
-        <li><a href="https://t.me/7774024453" target="_blank"><img src="icons/telegram.svg" alt="Telegram" /> Telegram</a></li>
-      </ul>
+    <div class="contact">
+      <p><a href="tel:0372057834">📞 0372057834</a></p>
+      <p><a href="https://www.facebook.com/pro.huuloc.1" target="_blank">📘 Facebook</a></p>
+      <p><a href="#">📱 Zalo</a></p>
+      <p><a href="https://t.me/7774024453" target="_blank">✈️ Telegram</a></p>
     </div>
   </header>
 
-  <div class="cart-center">
-    <a href="cart.html" class="cart-btn">
-      <img src="icons/cart.svg" alt="Giỏ hàng" /> Giỏ hàng (<span id="cart-count">0</span>)
-    </a>
-  </div>
-
-  <nav class="main-nav">
-    <button class="category-btn" data-cat="tap-hoa">TẠP HÓA</button>
-    <button class="category-btn" data-cat="gia-dung">GIA DỤNG</button>
+  <nav>
+    <button onclick="selectCategory('tap-hoa')">TẠP HÓA</button>
+    <button onclick="selectCategory('gia-dung')">GIA DỤNG</button>
   </nav>
 
-  <section id="sub-categories" class="sub-categories"></section>
+  <div id="sub-categories"></div>
 
-  <main id="product-list" class="product-list"></main>
+  <main id="product-list"></main>
 
-  <div id="product-detail-modal" class="modal hidden">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeProductDetail()">×</button>
-      <img id="detail-img" alt="Ảnh sản phẩm" />
-      <h3 id="detail-name"></h3>
-      <p id="detail-desc"></p>
-      <p class="price" id="detail-price"></p>
-      <div class="modal-actions">
-        <button id="detail-add-cart">Thêm vào giỏ hàng</button>
-        <button id="detail-buy-now">Mua ngay</button>
-      </div>
-    </div>
-  </div>
+  <footer>
+    <a href="cart.html" class="cart-icon">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a>
+  </footer>
 
-  <div id="toast" class="toast hidden"></div>
+  <script src="script.js"></script>
 </body>
 </html>
-
