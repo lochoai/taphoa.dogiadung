@@ -157,8 +157,8 @@ function addToCart(id) {
   } else {
     cart.push({ id, quantity: 1 });
   }
-  saveCart(cart);
-  showNotification("🛒 Đã thêm vào giỏ: " + getProduct(id).name);
+  saveCart(cart); // lưu lại vào localStorage
+  showNotification(`🛒 Đã thêm vào giỏ: ${getProduct(id)?.name || id}`);
 }
 
 function buyNow(id) {
