@@ -1,50 +1,35 @@
-# Cửa hàng LỘC HOÀI - Website bán hàng tạp hóa và đồ gia dụng
+# Cửa Hàng LỘC HOÀI - Website Bán Hàng Tạp Hóa & Gia Dụng
 
-## Mô tả
+Đây là trang web bán hàng đơn giản cho cửa hàng tạp hóa và gia dụng LỘC HOÀI.
 
-Website này là trang bán hàng tạp hóa và đồ gia dụng với giao diện thân thiện, tươi sáng (xanh lá, vàng nhạt, hồng), tương thích cả điện thoại và máy tính. 
+## 🛍 Tính năng
 
-### Tính năng chính
+- Danh mục sản phẩm theo 2 nhóm: Tạp Hóa và Gia Dụng
+- Chọn sản phẩm theo nhóm con (gia vị, bánh kẹo, đồ điện, v.v.)
+- Thêm sản phẩm vào giỏ hàng
+- Giỏ hàng lưu trữ trong Local Storage
+- Đặt hàng và gửi đơn về Telegram
+- Responsive: hoạt động tốt trên cả điện thoại và máy tính
+- Có thông báo, hiệu ứng, phân loại sản phẩm rõ ràng
 
-- Hiển thị danh mục "TẠP HÓA" và "GIA DỤNG" với các mục con rõ ràng.
-- Hiển thị sản phẩm với ảnh, tên, giá, hiệu ứng hover, nút "Thêm giỏ hàng" và "Mua ngay".
-- Xem chi tiết sản phẩm với mô tả, ảnh lớn, nút thêm giỏ hàng và đặt mua.
-- Giỏ hàng lưu trữ sản phẩm ngay cả khi thoát trang (dùng localStorage).
-- Giỏ hàng có tính toán phí vận chuyển theo điều kiện tổng tiền.
-- Đặt hàng với form nhập thông tin bắt buộc.
-- Gửi đơn hàng qua Telegram bot với mã đơn hàng tự động, thời gian, chi tiết đơn hàng.
-- Thông báo các thao tác (thêm giỏ hàng, đặt hàng thành công hoặc lỗi).
-- Giao diện responsive, dễ dùng trên mọi thiết bị.
+## 🔧 Cấu trúc thư mục
 
-## Các file
 
-- `index.html` - Trang chính hiển thị sản phẩm.
-- `cart.html` - Trang giỏ hàng và đặt hàng.
-- `style.css` - Tập tin CSS quản lý giao diện.
-- `script.js` - Tập tin JavaScript điều khiển trang chính.
-- `script-cart.js` - Tập tin JavaScript điều khiển trang giỏ hàng.
-- `images/` - Thư mục chứa hình ảnh sản phẩm.
+## 📦 Telegram Bot
 
-## Cách sử dụng
+Thông tin tích hợp:
+- **Bot Token:** `7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8`
+- **Chat ID:** `7774024453`
 
-1. Mở `index.html` để xem trang chủ.
-2. Chọn danh mục, xem sản phẩm, thêm giỏ hàng hoặc mua ngay.
-3. Vào giỏ hàng để kiểm tra, chỉnh sửa số lượng, và đặt hàng.
-4. Nhập thông tin và đặt hàng, thông tin đơn sẽ được gửi đến Telegram.
+## 📸 Lưu ý ảnh sản phẩm
 
-## Cài đặt và chạy
+Tất cả ảnh sản phẩm cần được đặt trong thư mục `images/` và trùng tên với `img` trong `script.js`.
 
-- Mở `index.html` bằng trình duyệt hiện đại.
-- Đảm bảo thư mục `images/` chứa ảnh sản phẩm đã đúng tên.
-- Máy chủ web có thể được sử dụng để đảm bảo hoạt động tốt (không bắt buộc).
-
-## Liên hệ
-
-- SĐT: 0372057834
-- Facebook: https://www.facebook.com/pro.huuloc.1
-- Telegram: https://t.me/7774024453
-- Zalo: chưa cập nhật
+Ví dụ:
+```js
+img: "images/nuocmam.jpg" // ảnh cần có đường dẫn: images/nuocmam.jpg
 
 ---
 
-Cảm ơn bạn đã sử dụng website của chúng tôi!
+👉 Bạn có thể copy toàn bộ phần trên và lưu lại vào `README.md`.  
+Mình sẽ tiếp tục gửi `index.html` ngay bên dưới. Bạn sẵn sàng chưa?
