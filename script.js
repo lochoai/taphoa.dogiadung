@@ -5,7 +5,7 @@ const TELEGRAM_CHAT_ID = "7774024453";
 
 const products = {
   "tap-hoa": {
-    "mặt hàng": [
+    "mặt-hàng": [
       {
         id: "th-mh-001",
         name: "Nước mắm Nam Ngư",
