@@ -281,12 +281,12 @@ header {
 /* Responsive */
 @media (max-width: 600px) {
   .main-category {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 
   .sub-category-nav {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .product-grid {
@@ -295,5 +295,42 @@ header {
 
   .modal-content {
     max-width: 95%;
+  }
+}
+.category-select {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.category-select button {
+  flex: 1;
+  padding: 20px;
+  font-size: 24px; /* chữ to hơn */
+  font-weight: bold;
+  background-color: #b2f2bb; /* xanh nhạt */
+  border: 2px solid #51cf66;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.category-select button:hover {
+  background-color: #69db7c;
+  color: white;
+}
+@media (max-width: 600px) {
+  .category-select {
+    flex-direction: row; /* vẫn là ngang */
+    flex-wrap: wrap;     /* nếu nhỏ quá thì chia làm 2 hàng */
+    gap: 10px;
+  }
+
+  .category-select button {
+    font-size: 20px; /* vẫn to nhưng vừa với màn hình nhỏ */
+    flex: 1 1 45%;
   }
 }
