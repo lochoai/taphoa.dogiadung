@@ -1,27 +1,21 @@
-# Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng
+# Cửa Hàng LỘC HOÀI
 
-## Mô tả
-Trang web bán hàng tạp hóa và đồ gia dụng, thiết kế responsive cho điện thoại và máy tính. Hỗ trợ giỏ hàng, đặt hàng qua Telegram Bot.
+Website bán hàng tạp hóa và gia dụng, tương thích điện thoại và máy tính.
 
-## Các tính năng chính
-- Phân loại sản phẩm theo Tạp hóa & Gia dụng.
-- Hiển thị sản phẩm theo danh mục con.
-- Thêm sản phẩm vào giỏ hàng và mua ngay.
-- Giỏ hàng lưu trữ trên localStorage.
-- Giao diện thân thiện, tối ưu cho mọi thiết bị.
-- Đặt hàng và gửi thông tin đơn hàng qua Telegram Bot API.
-- Thông báo toast khi thêm sản phẩm và khi đặt hàng thành công hoặc thất bại.
+## Tính năng
+- Giao diện phân mục: TẠP HÓA và GIA DỤNG
+- Hiển thị danh sách sản phẩm theo danh mục
+- Thêm vào giỏ hàng, mua ngay
+- Đặt hàng gửi về Telegram qua Bot
+- Lưu giỏ hàng trong LocalStorage
+- Responsive Design
 
-## Cài đặt
-1. Thay `API_TOKEN` và `CHAT_ID` trong `script.js` bằng token bot Telegram và chat id của bạn.
-2. Đưa các file lên hosting hoặc Github Pages.
-3. Mở `index.html` để bắt đầu sử dụng.
+## Công nghệ
+- HTML, CSS, JavaScript
+- Telegram Bot API
 
-## Liên hệ
-- SĐT: 0372057834
-- Facebook: https://facebook.com/pro.huuloc.1
-- Telegram: @7774024453
-
----
-
-Cảm ơn bạn đã sử dụng dịch vụ!
+## Liên hệ shop
+- 📞 SDT: 0372057834
+- 💬 FB: @pro.huuloc.1
+- 📱 Zalo: chưa cập nhật
+- 📬 Telegram: 7774024453
