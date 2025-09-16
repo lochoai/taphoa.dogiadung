@@ -3,33 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giỏ Hàng - LỘC HOÀI</title>
+  <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-  <header class="cart-header">
-    <button class="back-btn" onclick="goBack()">← Trở về</button>
-    <h2>Giỏ Hàng</h2>
+  <header>
+    <div class="header-left">
+      <button id="back-to-products" class="back-btn">&larr; Trở về</button>
+    </div>
+    <div class="header-center">GIỎ HÀNG</div>
+    <div class="header-right"></div>
   </header>
 
-  <section id="cart-items" class="cart-items"></section>
+  <main>
+    <div class="cart-items" id="cart-items"></div>
 
-  <section id="cart-summary" class="cart-summary"></section>
+    <div class="cart-summary">
+      <div>
+        <div>Phí vận chuyển:</div>
+        <div id="shipping-fee">0 ₫</div>
+      </div>
+      <div>
+        <div>Tổng cộng:</div>
+        <div id="total-price">0 ₫</div>
+      </div>
+      <button id="btn-place-order">Đặt hàng</button>
+    </div>
+  </main>
 
   <div id="order-modal" class="modal hidden">
     <div class="modal-content order-form">
       <h3>Thông tin đặt hàng</h3>
-      <input type="text" id="customer-name" placeholder="Họ và tên" required />
+      <input type="text" id="customer-name" placeholder="Họ tên" required />
       <input type="tel" id="customer-phone" placeholder="Số điện thoại" required />
       <input type="text" id="customer-address" placeholder="Địa chỉ" required />
       <div class="order-buttons">
-        <button onclick="cancelOrder()">Hủy</button>
-        <button onclick="submitOrder()">Đặt hàng</button>
+        <button id="cancel-order">Hủy</button>
+        <button id="confirm-order">Đặt hàng</button>
       </div>
     </div>
   </div>
 
   <div id="toast" class="toast hidden"></div>
+
+  <script src="script-cart.js"></script>
 </body>
 </html>
