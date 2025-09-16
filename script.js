@@ -1,177 +1,346 @@
-// Dữ liệu mẫu sản phẩm
+// MÃ NGUỒN TRUNG TÂM
+
+const TELEGRAM_BOT_TOKEN = "7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8";
+const TELEGRAM_CHAT_ID = "7774024453";
+
 const products = {
   "tap-hoa": {
     "mặt hàng": [
-      { name: "Nước mắm Nam Ngư", price: 20000, image: "images/nuocmam.jpg" },
-      { name: "Coca-Cola", price: 10000, image: "images/coca.jpg" },
+      {
+        id: "th-mh-001",
+        name: "Nước mắm Nam Ngư",
+        price: 25000,
+        img: "images/nuoc-mam-nam-ngu.jpg",
+        desc: "Nước mắm truyền thống thơm ngon, đậm đà vị biển."
+      },
+      {
+        id: "th-mh-002",
+        name: "Coca-Cola chai 1.5L",
+        price: 22000,
+        img: "images/coca-cola-1.5l.jpg",
+        desc: "Nước ngọt Coca-Cola chai 1.5L, giải khát tuyệt vời."
+      }
     ],
-    "gia vị": [],
-    "bánh kẹo": [],
-    "đồ uống": [],
-    "gội rửa": [],
-    "thuốc lá": [],
-    "đồ khô": []
+    "gia vị": [
+      {
+        id: "th-gv-001",
+        name: "Hạt nêm Ajinomoto",
+        price: 18000,
+        img: "images/hat-nem-ajinomoto.jpg",
+        desc: "Gia vị nêm nếm ngon cho mọi món ăn."
+      }
+    ],
+    "bánh kẹo": [
+      {
+        id: "th-bk-001",
+        name: "Bánh quy Oreo",
+        price: 12000,
+        img: "images/oreo.jpg",
+        desc: "Bánh quy Oreo ngon giòn, thơm ngon."
+      }
+    ],
+    "đồ uống": [
+      {
+        id: "th-du-001",
+        name: "Nước ép cam tươi",
+        price: 15000,
+        img: "images/nuoc-ep-cam.jpg",
+        desc: "Nước ép cam nguyên chất, tốt cho sức khỏe."
+      }
+    ],
+    "đồ gội rửa": [
+      {
+        id: "th-dgr-001",
+        name: "Dầu gội Head & Shoulders",
+        price: 60000,
+        img: "images/dau-goi-hs.jpg",
+        desc: "Dầu gội sạch gàu, thơm mát."
+      }
+    ],
+    "thuốc lá": [
+      {
+        id: "th-tl-001",
+        name: "Thuốc lá Jet",
+        price: 35000,
+        img: "images/thuoc-la-jet.jpg",
+        desc: "Thuốc lá Jet hương vị đặc trưng."
+      }
+    ],
+    "đồ khô": [
+      {
+        id: "th-dk-001",
+        name: "Mực khô loại 1",
+        price: 120000,
+        img: "images/muc-kho.jpg",
+        desc: "Mực khô tẩm gia vị ngon, dùng làm mồi nhậu."
+      }
+    ]
   },
   "gia-dung": {
     "mặt hàng": [
-      { name: "Nồi cơm điện Sunhouse", price: 500000, image: "images/noicom.jpg" }
+      {
+        id: "gd-mh-001",
+        name: "Nồi cơm điện Sunhouse",
+        price: 1500000,
+        img: "images/noi-com-dien.jpg",
+        desc: "Nồi cơm điện dung tích 1.8L, tiết kiệm điện."
+      }
     ],
-    "đồ điện": [],
-    "đồ bếp": [],
-    "chén bát": [],
-    "gia dụng": []
+    "đồ điện": [
+      {
+        id: "gd-de-001",
+        name: "Quạt điện Asia",
+        price: 650000,
+        img: "images/quat-dien.jpg",
+        desc: "Quạt điện làm mát hiệu quả, an toàn."
+      }
+    ],
+    "đồ bếp": [
+      {
+        id: "gd-db-001",
+        name: "Bộ dao nhà bếp",
+        price: 300000,
+        img: "images/bo-dao.jpg",
+        desc: "Bộ dao sắc bén, tiện lợi cho nhà bếp."
+      }
+    ],
+    "chén bát": [
+      {
+        id: "gd-cb-001",
+        name: "Bộ chén bát sứ",
+        price: 450000,
+        img: "images/chen-bat.jpg",
+        desc: "Bộ chén bát bằng sứ cao cấp, họa tiết đẹp."
+      }
+    ],
+    "gia dụng": [
+      {
+        id: "gd-gd-001",
+        name: "Máy hút bụi mini",
+        price: 700000,
+        img: "images/may-hut-bui.jpg",
+        desc: "Máy hút bụi tiện dụng cho gia đình."
+      }
+    ]
   }
 };
 
 let currentCategory = "tap-hoa";
+let currentSubCategory = "mặt hàng";
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Hiển thị các danh mục phụ
-function selectCategory(category) {
-  currentCategory = category;
-  const sub = Object.keys(products[category]);
-  const subContainer = document.getElementById("sub-categories");
-  subContainer.innerHTML = "";
-  sub.forEach(key => {
-    const btn = document.createElement("button");
-    btn.textContent = key.toUpperCase();
-    btn.onclick = () => renderProducts(products[category][key]);
-    subContainer.appendChild(btn);
-  });
-  renderProducts(products[category]["mặt hàng"]);
+function $(selector) {
+  return document.querySelector(selector);
 }
 
-// Hiển thị sản phẩm
-function renderProducts(list) {
-  const container = document.getElementById("product-list");
-  container.innerHTML = "";
-  list.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "product";
-    div.innerHTML = `
-      <img src="${item.image}" alt="${item.name}"/>
-      <h4>${item.name}</h4>
-      <p>${item.price.toLocaleString()} đ</p>
-      <div class="actions">
-        <button onclick='addToCart("${item.name}", ${item.price})'>Thêm</button>
-        <button onclick="goToCart()">Mua</button>
-      </div>`;
-    container.appendChild(div);
-  });
+function $all(selector) {
+  return document.querySelectorAll(selector);
 }
 
-function addToCart(name, price) {
-  const index = cart.findIndex(item => item.name === name);
-  if (index >= 0) {
-    cart[index].qty += 1;
-  } else {
-    cart.push({ name, price, qty: 1 });
-  }
+function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
-  alertCenter(`${name} đã thêm vào giỏ hàng!`);
-}
-
-function goToCart() {
-  window.location.href = "cart.html";
 }
 
 function updateCartCount() {
-  const count = cart.reduce((total, item) => total + item.qty, 0);
-  const el = document.getElementById("cart-count");
-  if (el) el.textContent = count;
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  $("#cart-count").textContent = count;
 }
 
-function alertCenter(msg) {
-  const div = document.createElement("div");
-  div.textContent = msg;
-  div.style.position = "fixed";
-  div.style.top = "50%";
-  div.style.left = "50%";
-  div.style.transform = "translate(-50%, -50%)";
-  div.style.background = "#d4ffd4";
-  div.style.padding = "1em";
-  div.style.border = "1px solid #000";
-  document.body.appendChild(div);
-  setTimeout(() => div.remove(), 1000);
+function createProductCard(product) {
+  const card = document.createElement("div");
+  card.className = "product-card";
+  card.tabIndex = 0;
+  card.innerHTML = `
+    <img src="${product.img}" alt="${product.name}" />
+    <div class="product-info">
+      <h4>${product.name}</h4>
+      <p>${product.price.toLocaleString()} đ</p>
+    </div>
+    <div class="product-actions">
+      <button class="add-cart-btn">Thêm giỏ hàng</button>
+      <button class="buy-now-btn">Mua ngay</button>
+    </div>
+  `;
+
+  // Hover effect done by CSS already
+
+  // Click on product card to open detail modal
+  card.addEventListener("click", (e) => {
+    if (
+      e.target.classList.contains("add-cart-btn") ||
+      e.target.classList.contains("buy-now-btn")
+    ) {
+      return; // ignore
+    }
+    showProductDetail(product);
+  });
+
+  card.querySelector(".add-cart-btn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    addToCart(product, 1);
+  });
+
+  card.querySelector(".buy-now-btn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    addToCart(product, 1);
+    window.location.href = "cart.html";
+  });
+
+  return card;
 }
 
-function goBack() {
-  window.history.back();
-}
-
-// CART PAGE FUNCTIONS
-if (window.location.pathname.includes("cart.html")) {
-  const cartItems = document.getElementById("cart-items");
-  const summary = document.getElementById("cart-summary");
-
-  function renderCart() {
-    cartItems.innerHTML = "";
-    cart.forEach(item => {
-      const div = document.createElement("div");
-      div.innerHTML = `<p>${item.name} x ${item.qty} = ${(item.price * item.qty).toLocaleString()} đ</p>`;
-      cartItems.appendChild(div);
+function renderSubCategories() {
+  const subCategoryContainer = $("#sub-categories");
+  subCategoryContainer.innerHTML = "";
+  const subCats = Object.keys(products[currentCategory]);
+  subCats.forEach((subCat) => {
+    const div = document.createElement("div");
+    div.className = "sub-category";
+    if (subCat === currentSubCategory) {
+      div.classList.add("active");
+    }
+    div.textContent = subCat.toUpperCase();
+    div.addEventListener("click", () => {
+      currentSubCategory = subCat;
+      renderSubCategories();
+      renderProducts();
     });
+    subCategoryContainer.appendChild(div);
+  });
+}
 
-    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-    const ship = total < 200000 ? 20000 : 0;
-    summary.innerHTML = `
-      <p><strong>Tổng:</strong> ${total.toLocaleString()} đ</p>
-      <p><strong>Phí ship:</strong> ${ship.toLocaleString()} đ</p>
-      <button onclick="document.getElementById('checkout-form').classList.remove('hidden')">Đặt Hàng</button>`;
+function renderProducts() {
+  const productList = $("#product-list");
+  productList.innerHTML = "";
+
+  const productArr = products[currentCategory][currentSubCategory] || [];
+
+  productArr.forEach((product) => {
+    productList.appendChild(createProductCard(product));
+  });
+}
+
+function showProductDetail(product) {
+  const modal = $("#product-detail-modal");
+  modal.querySelector(".modal-title").textContent = product.name;
+  modal.querySelector(".modal-image").src = product.img;
+  modal.querySelector(".modal-description").textContent = product.desc;
+  modal.querySelector(".modal-price").textContent =
+    product.price.toLocaleString() + " đ";
+
+  // Remove old listeners to prevent stacking
+  const addBtn = modal.querySelector(".add-to-cart-btn");
+  const buyBtn = modal.querySelector(".buy-now-btn");
+  addBtn.replaceWith(addBtn.cloneNode(true));
+  buyBtn.replaceWith(buyBtn.cloneNode(true));
+  const newAddBtn = modal.querySelector(".add-to-cart-btn");
+  const newBuyBtn = modal.querySelector(".buy-now-btn");
+
+  newAddBtn.addEventListener("click", () => {
+    addToCart(product, 1);
+  });
+  newBuyBtn.addEventListener("click", () => {
+    addToCart(product, 1);
+    window.location.href = "cart.html";
+  });
+
+  // Show modal
+  modal.classList.remove("hidden");
+}
+
+function closeProductDetail() {
+  $("#product-detail-modal").classList.add("hidden");
+}
+
+function addToCart(product, qty) {
+  const found = cart.find((item) => item.id === product.id);
+  if (found) {
+    found.qty += qty;
+  } else {
+    cart.push({ ...product, qty });
   }
-
-  window.cancelCheckout = () => {
-    document.getElementById("checkout-form").classList.add("hidden");
-  };
-
-  window.submitOrder = () => {
-    const name = document.getElementById("fullname").value;
-    const phone = document.getElementById("phone").value;
-    const address = document.getElementById("address").value;
-    if (!name || !phone || !address) return alert("Vui lòng nhập đầy đủ!");
-
-    const orderId = "LCH" + Math.floor(Math.random() * 1e7);
-    const time = new Date();
-    const timeStr = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} - ${time.toLocaleDateString("vi-VN")}`;
-    const productsText = cart.map(p => `- ${p.name} x ${p.qty}`).join("\n");
-    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-    const ship = total < 200000 ? 20000 : 0;
-    const full = total + ship;
-
-    const text = `📦 ĐƠN HÀNG MỚI: ${orderId}
-🕒thời gian: ${timeStr}
-👤 Tên: ${name}
-📞 SĐT: ${phone}
-🏠 Địa chỉ: ${address}
-
-🛒 Sản phẩm:
-${productsText}
-
-🚚 Phí ship: ${ship.toLocaleString()}₫
-💰 Tổng cộng: ${full.toLocaleString()} đ`;
-
-    fetch(`https://api.telegram.org/bot7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: "7774024453",
-        text
-      })
-    }).then(res => {
-      if (res.ok) {
-        alertCenter("Đặt hàng thành công!");
-        cart = [];
-        localStorage.removeItem("cart");
-        setTimeout(() => window.location.href = "index.html", 2000);
-      } else {
-        alertCenter("Đặt hàng thất bại!");
-      }
-    });
-  };
-
-  renderCart();
-} else {
+  saveCart();
   updateCartCount();
-  selectCategory("tap-hoa");
+  showToast(`Đã thêm "${product.name}" vào giỏ hàng`);
 }
+
+function showToast(message) {
+  const toast = $("#toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  setTimeout(() => {
+    toast.classList.add("hidden");
+  }, 1000);
+}
+
+function initCategoryTabs() {
+  const tapHoaTab = $("#tab-tap-hoa");
+  const giaDungTab = $("#tab-gia-dung");
+
+  tapHoaTab.addEventListener("click", () => {
+    currentCategory = "tap-hoa";
+    currentSubCategory = "mặt hàng";
+    renderCategory();
+  });
+
+  giaDungTab.addEventListener("click", () => {
+    currentCategory = "gia-dung";
+    currentSubCategory = "mặt hàng";
+    renderCategory();
+  });
+}
+
+function renderCategory() {
+  // Update active tab
+  $("#tab-tap-hoa").classList.toggle("active", currentCategory === "tap-hoa");
+  $("#tab-gia-dung").classList.toggle("active", currentCategory === "gia-dung");
+
+  // Render sub categories and products
+  renderSubCategories();
+  renderProducts();
+}
+
+function initContactLinks() {
+  // Phone call confirmation
+  $("#phone-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    if (confirm("Bạn muốn gọi số 0372057834?")) {
+      window.location.href = "tel:0372057834";
+    }
+  });
+
+  // Facebook
+  $("#fb-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.open("https://www.facebook.com/pro.huuloc.1", "_blank");
+  });
+
+  // Zalo - not updated, alert
+  $("#zl-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    alert("Zalo shop chưa cập nhật.");
+  });
+
+  // Telegram
+  $("#tele-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.open("https://t.me/7774024453", "_blank");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCount();
+  initCategoryTabs();
+  renderCategory();
+  initContactLinks();
+
+  // Close product detail modal
+  $("#product-detail-modal .close-btn").addEventListener("click", closeProductDetail);
+
+  // Keyboard ESC to close modal
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeProductDetail();
+    }
+  });
+});
