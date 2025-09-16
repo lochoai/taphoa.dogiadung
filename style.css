@@ -1,124 +1,299 @@
-body {
-  font-family: Arial, sans-serif;
+/* Cài đặt chung */
+* {
+  box-sizing: border-box;
   margin: 0;
-  background-color: #fdfdf5;
-  color: #333;
+  padding: 0;
 }
 
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fffaf5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header */
 header {
-  background: linear-gradient(to right, #a8e6cf, #fff);
-  padding: 1rem;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(90deg, #d0f0c0, #fff3cd, #ffc0cb);
+  border-bottom: 2px solid #e2e2e2;
+}
+
+.store-title {
+  text-align: left;
 }
 
 .store-title h1 {
   font-size: 2.5rem;
-  color: #e91e63;
-  margin: 0;
+  font-weight: bold;
+  color: #d63384;
 }
 
-.contact p a {
+.store-title h2 {
+  font-size: 1rem;
+  color: #555;
+}
+
+.contact {
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.contact a {
+  display: block;
   color: #333;
   text-decoration: none;
+  margin-bottom: 5px;
 }
 
-nav {
+.contact a:hover {
+  color: #007bff;
+}
+
+/* Cart icon */
+.cart-icon {
+  background-color: #fceabb;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cart-icon a {
+  text-decoration: none;
+  color: #000;
+}
+
+/* Nav chính */
+.main-category {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  background-color: #ffd3b6;
-  padding: 1rem;
+  padding: 15px;
+  background-color: #b2f2bb;
 }
 
-#sub-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  padding: 1rem;
-}
-
-#sub-categories button {
-  padding: 0.5rem 1rem;
-  background-color: #ffb6b9;
+.main-category button {
+  background-color: #fcd5ce;
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-#product-list {
+.main-category button:hover {
+  background-color: #ffb6b9;
+}
+
+/* Sub categories */
+.sub-category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #ffe5b4;
+}
+
+.sub-category-nav button {
+  padding: 8px 15px;
+  border: none;
+  background-color: #f8d7da;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.sub-category-nav button:hover {
+  background-color: #f5c6cb;
+}
+
+/* Product grid */
+.product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 15px;
+  padding: 20px;
 }
 
 .product {
+  border: 1px solid #ccc;
+  padding: 10px;
   background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 0.5rem;
-  border-radius: 5px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
   text-align: center;
-  transition: transform 0.3s;
 }
 
 .product:hover {
   transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .product img {
   max-width: 100%;
   height: 120px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
-.actions button {
-  margin: 0.25rem;
-  padding: 0.3rem 0.5rem;
-  background-color: #a0e7e5;
+.product h3 {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.product p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
+.product .actions {
+  margin-top: 10px;
+}
+
+.product .actions button {
+  padding: 5px 10px;
+  margin: 5px;
   border: none;
+  background-color: #a0e7e5;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 0.85rem;
 }
 
-.cart-icon {
-  display: block;
-  text-align: center;
-  padding: 1rem;
-  background-color: #fcd5ce;
-  font-weight: bold;
-  text-decoration: none;
-  color: #000;
+.product .actions button:hover {
+  background-color: #69c9c5;
 }
 
-.summary {
-  padding: 1rem;
-  background-color: #ffe0ac;
-  text-align: center;
-}
-
+/* Modal (Chi tiết sản phẩm, form đặt hàng) */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-}
-
-.modal .form-content {
-  background: #fff;
-  padding: 1rem;
-  width: 90%;
-  max-width: 400px;
-  border-radius: 5px;
+  align-items: center;
+  z-index: 999;
 }
 
 .modal.hidden {
   display: none;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Giỏ hàng */
+.cart-list {
+  padding: 20px;
+}
+
+.cart-item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.cart-summary {
+  padding: 20px;
+  background-color: #e8f5e9;
+  font-size: 1rem;
+}
+
+.cart-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.checkout-button,
+.back-button {
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  background-color: #ffb3c1;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.checkout-button:hover,
+.back-button:hover {
+  background-color: #ff8fab;
+}
+
+/* Thông báo */
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #d1e7dd;
+  color: #0f5132;
+  padding: 15px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.notification.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .main-category {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sub-category-nav {
+    flex-direction: column;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .modal-content {
+    max-width: 95%;
+  }
 }
