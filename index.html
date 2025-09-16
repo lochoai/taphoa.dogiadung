@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cửa Hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
   <header>
@@ -20,18 +21,34 @@
     </div>
   </header>
 
-  <nav>
+  <div class="cart-icon">
+    <a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a>
+  </div>
+
+  <nav class="main-category">
     <button onclick="selectCategory('tap-hoa')">TẠP HÓA</button>
     <button onclick="selectCategory('gia-dung')">GIA DỤNG</button>
   </nav>
 
-  <div id="sub-categories"></div>
+  <section id="sub-categories" class="sub-category-nav"></section>
 
-  <main id="product-list"></main>
+  <main id="product-list" class="product-grid"></main>
 
-  <footer>
-    <a href="cart.html" class="cart-icon">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a>
-  </footer>
+  <div id="product-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">❌</button>
+      <img id="modal-img" src="" alt="Hình sản phẩm" />
+      <h2 id="modal-name"></h2>
+      <p id="modal-price"></p>
+      <p id="modal-desc"></p>
+      <div class="actions">
+        <button onclick="addToCart(currentModalProduct)">➕ Thêm vào giỏ</button>
+        <button onclick="buyNow(currentModalProduct)">🛒 Mua ngay</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="notification" class="notification hidden"></div>
 
   <script src="script.js"></script>
 </body>
