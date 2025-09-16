@@ -2,50 +2,37 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giỏ Hàng - LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <div class="header-left">
-      <button id="back-to-products" class="back-btn">&larr; Trở về</button>
-    </div>
-    <div class="header-center">GIỎ HÀNG</div>
-    <div class="header-right"></div>
+    <button onclick="window.location.href='index.html'">⬅️ Trở về</button>
+    <h1>Giỏ Hàng</h1>
   </header>
 
-  <main>
-    <div class="cart-items" id="cart-items"></div>
+  <main id="cart-items"></main>
 
-    <div class="cart-summary">
-      <div>
-        <div>Phí vận chuyển:</div>
-        <div id="shipping-fee">0 ₫</div>
-      </div>
-      <div>
-        <div>Tổng cộng:</div>
-        <div id="total-price">0 ₫</div>
-      </div>
-      <button id="btn-place-order">Đặt hàng</button>
-    </div>
-  </main>
+  <div class="summary">
+    <p>Phí ship: 20.000đ</p>
+    <p>Tổng cộng: <span id="total-amount">0</span> đ</p>
+    <button onclick="showOrderForm()">🛒 Đặt hàng</button>
+  </div>
 
-  <div id="order-modal" class="modal hidden">
-    <div class="modal-content order-form">
-      <h3>Thông tin đặt hàng</h3>
-      <input type="text" id="customer-name" placeholder="Họ tên" required />
-      <input type="tel" id="customer-phone" placeholder="Số điện thoại" required />
-      <input type="text" id="customer-address" placeholder="Địa chỉ" required />
-      <div class="order-buttons">
-        <button id="cancel-order">Hủy</button>
-        <button id="confirm-order">Đặt hàng</button>
+  <div id="order-form" class="modal hidden">
+    <div class="form-content">
+      <h2>Thông tin đặt hàng</h2>
+      <input type="text" id="fullname" placeholder="Họ tên" />
+      <input type="tel" id="phone" placeholder="Số điện thoại" />
+      <textarea id="address" placeholder="Địa chỉ giao hàng"></textarea>
+      <div class="form-actions">
+        <button onclick="submitOrder()">📤 Gửi đơn</button>
+        <button onclick="hideOrderForm()">❌ Hủy</button>
       </div>
     </div>
   </div>
 
-  <div id="toast" class="toast hidden"></div>
-
-  <script src="script-cart.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
