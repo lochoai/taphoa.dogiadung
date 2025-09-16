@@ -7,7 +7,7 @@ const products = [
     price: 32000,
     category: "tap-hoa",
     subcategory: "gia-vi",
-    img: "images/nuocmam.jpg",
+    img: "images/nước mắm nam ngư.png",
     desc: "Nước mắm Nam Ngư đậm đà, chai 500ml"
   },
   {
