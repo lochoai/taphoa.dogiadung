@@ -2,30 +2,34 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Giỏ Hàng - LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 </head>
 <body>
-  <header>
-    <button class="back-button" onclick="goBack()">← Trở về</button>
+  <header class="cart-header">
+    <button class="back-btn" onclick="goBack()">← Trở về</button>
     <h2>Giỏ Hàng</h2>
   </header>
-  <section id="cart-items"></section>
-  <div id="cart-summary"></div>
 
-  <div id="checkout-form" class="modal hidden">
-    <div class="form-container">
+  <section id="cart-items" class="cart-items"></section>
+
+  <section id="cart-summary" class="cart-summary"></section>
+
+  <div id="order-modal" class="modal hidden">
+    <div class="modal-content order-form">
       <h3>Thông tin đặt hàng</h3>
-      <input type="text" id="fullname" placeholder="Họ và tên" required />
-      <input type="tel" id="phone" placeholder="Số điện thoại" required />
-      <input type="text" id="address" placeholder="Địa chỉ" required />
-      <div class="form-buttons">
-        <button onclick="cancelCheckout()">Hủy</button>
-        <button onclick="submitOrder()">Đặt Hàng</button>
+      <input type="text" id="customer-name" placeholder="Họ và tên" required />
+      <input type="tel" id="customer-phone" placeholder="Số điện thoại" required />
+      <input type="text" id="customer-address" placeholder="Địa chỉ" required />
+      <div class="order-buttons">
+        <button onclick="cancelOrder()">Hủy</button>
+        <button onclick="submitOrder()">Đặt hàng</button>
       </div>
     </div>
   </div>
+
+  <div id="toast" class="toast hidden"></div>
 </body>
 </html>
