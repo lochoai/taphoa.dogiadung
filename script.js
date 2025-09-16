@@ -10,7 +10,7 @@ const products = {
         id: "th-mh-001",
         name: "Nước mắm Nam Ngư",
         price: 25000,
-        img: "images/nước mắm nam ngư.jfif",
+        img: "images/nước mắm nam ngư.png",
         desc: "Nước mắm truyền thống thơm ngon, đậm đà vị biển."
       },
       {
