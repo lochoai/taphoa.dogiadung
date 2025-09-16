@@ -29,7 +29,3 @@ Ví dụ:
 ```js
 img: "images/nuocmam.jpg" // ảnh cần có đường dẫn: images/nuocmam.jpg
 
----
-
-👉 Bạn có thể copy toàn bộ phần trên và lưu lại vào `README.md`.  
-Mình sẽ tiếp tục gửi `index.html` ngay bên dưới. Bạn sẵn sàng chưa?
