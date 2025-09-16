@@ -2,90 +2,36 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cửa Hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
   <header>
-    <div class="header-top">
-      <h1>
-        Cửa hàng<br /><span class="highlight">LỘC HOÀI</span>
-      </h1>
-      <div class="contact-info">
-        <a href="tel:0372057834" class="contact-item" title="Gọi điện">
-          📞 0372057834
-        </a>
-        <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" class="contact-item" title="Facebook">
-          📘 FB
-        </a>
-        <a href="#" class="contact-item disabled" title="Zalo chưa cập nhật">
-          💬 ZL
-        </a>
-        <a href="tg://resolve?domain=7774024453" class="contact-item" title="Telegram">
-          ✈ TELE
-        </a>
-      </div>
+    <div class="header-left">
+      <h1>Cửa Hàng<br><span class="highlight">LỘC HOÀI</span></h1>
     </div>
-
-    <div class="cart-bar" id="cart-bar" role="button" tabindex="0" aria-label="Giỏ hàng">
-      🛒 Giỏ hàng (<span id="cart-count">0</span>)
+    <div class="header-right">
+      <ul class="contact">
+        <li><a href="tel:0372057834"><img src="icons/phone.svg" alt="Gọi"/> 0372057834</a></li>
+        <li><a href="https://m.me/pro.huuloc.1" target="_blank"><img src="icons/fb.svg" alt="Facebook"/> Facebook</a></li>
+        <li><a href="#"><img src="icons/zalo.svg" alt="Zalo"/> Zalo</a></li>
+        <li><a href="https://t.me/7774024453" target="_blank"><img src="icons/telegram.svg" alt="Telegram"/> Telegram</a></li>
+      </ul>
     </div>
   </header>
 
-  <main>
-    <section class="main-sections">
-      <div class="section-box" id="tap-hoa-section">
-        <h2>TẠP HÓA</h2>
-        <div class="subcategories" id="tap-hoa-subcats">
-          <button data-cat="all">Mặt hàng</button>
-          <button data-cat="gia-vi">Gia vị</button>
-          <button data-cat="banh-keo">Bánh kẹo</button>
-          <button data-cat="do-uong">Đồ uống</button>
-          <button data-cat="goi-rua">Đồ gội rửa</button>
-          <button data-cat="thuoc-la">Thuốc lá</button>
-          <button data-cat="do-kho">Đồ khô</button>
-        </div>
-        <div class="products-grid" id="tap-hoa-products"></div>
-      </div>
-
-      <div class="section-box" id="gia-dung-section">
-        <h2>GIA DỤNG</h2>
-        <div class="subcategories" id="gia-dung-subcats">
-          <button data-cat="all">Mặt hàng</button>
-          <button data-cat="do-dien">Đồ điện</button>
-          <button data-cat="do-bep">Đồ bếp</button>
-          <button data-cat="chen-bat">Chén bát</button>
-          <button data-cat="gia-dung">Gia dụng</button>
-        </div>
-        <div class="products-grid" id="gia-dung-products"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng</p>
-  </footer>
-
-  <!-- Modal chi tiết sản phẩm -->
-  <div class="modal" id="product-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
-    <div 
-      <button class="modal-close" id="product-modal-close" aria-label="Đóng">&times;</button>
-      <h3 id="modal-title"></h3>
-      <img id="modal-img" src="" alt="" />
-      <p id="modal-desc"></p>
-      <p><strong>Giá:</strong> <span id="modal-price"></span></p>
-      <div class="modal-actions">
-      
-      </div>
-    </div>
+  <div class="cart-button">
+    <a href="cart.html"><img src="icons/cart.svg" alt="Giỏ hàng"/> Giỏ Hàng (<span id="cart-count">0</span>)</a>
   </div>
 
-  <!-- Toast thông báo -->
-  <div class="toast" id="toast"></div>
+  <nav>
+    <button onclick="selectCategory('tap-hoa')">TẠP HÓA</button>
+    <button onclick="selectCategory('gia-dung')">GIA DỤNG</button>
+  </nav>
 
-  <script src="script.js"></script>
+  <div class="sub-categories" id="sub-categories"></div>
+  <main id="product-list"></main>
 </body>
 </html>
-
-
