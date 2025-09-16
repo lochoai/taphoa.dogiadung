@@ -8,30 +8,39 @@
 </head>
 <body>
   <header>
-    <button onclick="window.location.href='index.html'">⬅️ Trở về</button>
+    <button onclick="window.location.href='index.html'" class="back-button">⬅️ Trở về</button>
     <h1>Giỏ Hàng</h1>
   </header>
 
-  <main id="cart-items"></main>
+  <main>
+    <div id="cart-items" class="cart-list"></div>
 
-  <div class="summary">
-    <p>Phí ship: 20.000đ</p>
-    <p>Tổng cộng: <span id="total-amount">0</span> đ</p>
-    <button onclick="showOrderForm()">🛒 Đặt hàng</button>
-  </div>
+    <div class="cart-summary">
+      <p><strong>Phí vận chuyển:</strong> <span id="shipping-fee">20,000₫</span></p>
+      <p><strong>Tổng cộng:</strong> <span id="total-amount">0₫</span></p>
+      <div class="cart-actions">
+        <button onclick="window.location.href='index.html'" class="back-button">🔙 Trở về</button>
+        <button onclick="showOrderForm()" class="checkout-button">🛒 ĐẶT HÀNG</button>
+      </div>
+    </div>
+  </main>
 
+  <!-- Form đặt hàng -->
   <div id="order-form" class="modal hidden">
-    <div class="form-content">
-      <h2>Thông tin đặt hàng</h2>
-      <input type="text" id="fullname" placeholder="Họ tên" />
-      <input type="tel" id="phone" placeholder="Số điện thoại" />
-      <textarea id="address" placeholder="Địa chỉ giao hàng"></textarea>
+    <div class="modal-content form-box">
+      <h2>📦 Thông Tin Đặt Hàng</h2>
+      <input type="text" id="fullname" placeholder="Họ và tên" required />
+      <input type="tel" id="phone" placeholder="Số điện thoại" required />
+      <textarea id="address" placeholder="Địa chỉ giao hàng" required></textarea>
       <div class="form-actions">
         <button onclick="submitOrder()">📤 Gửi đơn</button>
         <button onclick="hideOrderForm()">❌ Hủy</button>
       </div>
     </div>
   </div>
+
+  <!-- Thông báo -->
+  <div id="notification" class="notification hidden"></div>
 
   <script src="script.js"></script>
 </body>
