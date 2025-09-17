@@ -5,66 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cửa hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
   <header>
-    <div class="header-top">
+    <div class="header-left">
       <div class="store-name">
-        <div>Cửa hàng</div>
-        <div class="store-name-large">LỘC HOÀI</div>
+        <div class="store-line1">cửa hàng</div>
+        <div class="store-line2">LỘC HOÀI</div>
       </div>
-      <div class="contact-methods">
-        <a href="tel:0372057834" title="Gọi điện">
-          <img src="icons/phone.svg" alt="Phone" /> 0372057834
-        </a>
-        <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" title="Facebook">
+    </div>
+    <div class="header-right">
+      <div class="contact-item" onclick="callPhone()">
+        <img src="icons/phone.svg" alt="Phone" /> <span>0372057834</span>
+      </div>
+      <div class="contact-item">
+        <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" rel="noopener">
           <img src="icons/facebook.svg" alt="Facebook" /> FB
         </a>
-        <a href="https://zalo.me/0372057834" target="_blank" title="Zalo">
+      </div>
+      <div class="contact-item">
+        <a href="https://zalo.me/0372057834" target="_blank" rel="noopener">
           <img src="icons/zalo.svg" alt="Zalo" /> ZL
         </a>
-        <a href="tg://resolve?domain=7774024453" title="Telegram">
+      </div>
+      <div class="contact-item">
+        <a href="tg://resolve?domain=7774024453" target="_blank" rel="noopener">
           <img src="icons/telegram.svg" alt="Telegram" /> TELE
         </a>
       </div>
     </div>
-    <div class="cart-icon" id="cart-icon">
-      <img src="icons/cart.svg" alt="Giỏ hàng" />
-      <span id="cart-count">0</span>
-      <div>Giỏ hàng</div>
-    </div>
   </header>
+
+  <nav class="cart-bar" onclick="goToCart()">
+    <img src="icons/cart.svg" alt="Giỏ hàng" />
+    <span id="cart-count">0</span>
+    <span>Giỏ hàng</span>
+  </nav>
 
   <main>
     <section class="categories">
       <div class="category" id="category-tapho">
         <h2>TẠP HÓA</h2>
         <div class="subcategories" id="subcats-tapho">
-          <button class="subcat-btn active" data-cat="tatca">Tất cả</button>
+          <button class="subcat-btn active" data-cat="all">Tất cả</button>
           <button class="subcat-btn" data-cat="giavi">Gia vị</button>
           <button class="subcat-btn" data-cat="banhkeo">Bánh kẹo</button>
           <button class="subcat-btn" data-cat="douong">Đồ uống</button>
-          <button class="subcat-btn" data-cat="dogoirua">Đồ gội rửa</button>
+          <button class="subcat-btn" data-cat="dogoi">Đồ gội rửa</button>
           <button class="subcat-btn" data-cat="thuocla">Thuốc lá</button>
           <button class="subcat-btn" data-cat="dokho">Đồ khô</button>
         </div>
-        <div class="products-grid" id="products-tapho"></div>
       </div>
       <div class="category" id="category-giadung">
         <h2>GIA DỤNG</h2>
         <div class="subcategories" id="subcats-giadung">
-          <button class="subcat-btn active" data-cat="tatca">Tất cả</button>
+          <button class="subcat-btn active" data-cat="all">Tất cả</button>
           <button class="subcat-btn" data-cat="mathang">Mặt hàng</button>
-          <button class="subcat-btn" data-cat="dodien">Đồ điện</button>
+          <button class="subcat-btn" data-cat="dientu">Đồ điện</button>
           <button class="subcat-btn" data-cat="dobep">Đồ bếp</button>
           <button class="subcat-btn" data-cat="chenbat">Chén bát</button>
           <button class="subcat-btn" data-cat="giadung">Gia dụng</button>
         </div>
-        <div class="products-grid" id="products-giadung"></div>
       </div>
+    </section>
+
+    <section id="products-container">
+      <!-- Sản phẩm sẽ hiển thị ở đây -->
     </section>
   </main>
 
-  <script defer src="script.js"></script>
+  <div id="product-popup" class="hidden">
+    <div class="popup-content">
+      <button class="close-popup" onclick="closeProductPopup()">×</button>
+      <img id="popup-image" src="" alt="Product Image" />
+      <h3 id="popup-name"></h3>
+      <p id="popup-desc"></p>
+      <p id="popup-price"></p>
+      <div class="popup-actions">
+        <button id="popup-addcart">Thêm vào giỏ hàng</button>
+        <button id="popup-buy-now">Mua ngay</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="notification" class="hidden"></div>
 </body>
 </html>
