@@ -2,53 +2,69 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cửa hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-
   <header>
-    <div class="shop-header">
-      <div class="shop-title">
-        <h1>CỬA HÀNG<br /><span class="highlight">LỘC HOÀI</span></h1>
+    <div class="header-top">
+      <div class="store-name">
+        <div>Cửa hàng</div>
+        <div class="store-name-large">LỘC HOÀI</div>
       </div>
       <div class="contact-methods">
-        <a href="tel:0372057834" class="icon-link" title="Gọi điện">
-          📞<span>0372057834</span>
+        <a href="tel:0372057834" title="Gọi điện">
+          <img src="icons/phone.svg" alt="Phone" /> 0372057834
         </a>
-        <a href="https://m.me/pro.huuloc.1" class="icon-link" target="_blank" title="Facebook">
-          💬 FB
+        <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" title="Facebook">
+          <img src="icons/facebook.svg" alt="Facebook" /> FB
         </a>
-        <a href="#" class="icon-link" title="Zalo (chưa cập nhật)">
-          🟡 ZL
+        <a href="https://zalo.me/0372057834" target="_blank" title="Zalo">
+          <img src="icons/zalo.svg" alt="Zalo" /> ZL
         </a>
-        <a href="https://t.me/locshop" class="icon-link" target="_blank" title="Telegram">
-          ✈️ TELE
+        <a href="tg://resolve?domain=7774024453" title="Telegram">
+          <img src="icons/telegram.svg" alt="Telegram" /> TELE
         </a>
       </div>
     </div>
-
-    <div class="cart-icon">
-      <a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a>
+    <div class="cart-icon" id="cart-icon">
+      <img src="icons/cart.svg" alt="Giỏ hàng" />
+      <span id="cart-count">0</span>
+      <div>Giỏ hàng</div>
     </div>
   </header>
 
   <main>
-    <div class="category-switch">
-      <button onclick="switchCategory('tap-hoa')">TẠP HÓA</button>
-      <button onclick="switchCategory('gia-dung')">GIA DỤNG</button>
-    </div>
-
-    <div id="sub-categories" class="sub-categories"></div>
-
-    <div id="product-list" class="product-grid"></div>
+    <section class="categories">
+      <div class="category" id="category-tapho">
+        <h2>TẠP HÓA</h2>
+        <div class="subcategories" id="subcats-tapho">
+          <button class="subcat-btn active" data-cat="tatca">Tất cả</button>
+          <button class="subcat-btn" data-cat="giavi">Gia vị</button>
+          <button class="subcat-btn" data-cat="banhkeo">Bánh kẹo</button>
+          <button class="subcat-btn" data-cat="douong">Đồ uống</button>
+          <button class="subcat-btn" data-cat="dogoirua">Đồ gội rửa</button>
+          <button class="subcat-btn" data-cat="thuocla">Thuốc lá</button>
+          <button class="subcat-btn" data-cat="dokho">Đồ khô</button>
+        </div>
+        <div class="products-grid" id="products-tapho"></div>
+      </div>
+      <div class="category" id="category-giadung">
+        <h2>GIA DỤNG</h2>
+        <div class="subcategories" id="subcats-giadung">
+          <button class="subcat-btn active" data-cat="tatca">Tất cả</button>
+          <button class="subcat-btn" data-cat="mathang">Mặt hàng</button>
+          <button class="subcat-btn" data-cat="dodien">Đồ điện</button>
+          <button class="subcat-btn" data-cat="dobep">Đồ bếp</button>
+          <button class="subcat-btn" data-cat="chenbat">Chén bát</button>
+          <button class="subcat-btn" data-cat="giadung">Gia dụng</button>
+        </div>
+        <div class="products-grid" id="products-giadung"></div>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Cửa hàng LỘC HOÀI</p>
-  </footer>
-
+  <script defer src="script.js"></script>
 </body>
 </html>
