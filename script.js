@@ -154,7 +154,7 @@ function openProductDetail(product) {
   });
 }
 
-// Xử lý chọn danh mục con
+// Xử lý chọn danh mục con 
 function setupCategorySelection(categoryKey, containerId, subcatsId) {
   const subcatButtons = document.querySelectorAll(`#${subcatsId} .subcat-btn`);
   subcatButtons.forEach(btn => {
