@@ -28,7 +28,6 @@
 
   <script defer src="script.js"></script>
   <script>
-    // Hàm render giỏ hàng
     function renderCart() {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
       const cartItemsDiv = document.getElementById('cart-items');
@@ -96,16 +95,13 @@
       table.appendChild(tbody);
       cartItemsDiv.appendChild(table);
 
-      // Hiển thị tổng cộng
       const totalDiv = document.createElement('div');
       totalDiv.style.textAlign = 'right';
       totalDiv.style.marginTop = '10px';
       totalDiv.style.fontWeight = 'bold';
-
       totalDiv.textContent = 'Tổng cộng: ' + total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
       cartItemsDiv.appendChild(totalDiv);
 
-      // Lưu tổng để sử dụng khi đặt hàng
       window.cartTotal = total;
     }
 
@@ -121,8 +117,8 @@
           alert('Giỏ hàng đang trống.');
           return;
         }
-        // Chuyển tới trang đặt hàng hoặc mở popup form đặt hàng
-        window.location.href = 'cart.html?order=true'; // hoặc xử lý theo ý bạn
+        // Bạn có thể xử lý mở popup đặt hàng ở đây hoặc chuyển trang khác
+        alert('Chức năng đặt hàng đang phát triển.');
       });
     });
   </script>
