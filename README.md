@@ -1,36 +1,29 @@
-# 🛒 Website Bán Hàng LỘC HOÀI
+# Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng
 
-Trang web bán hàng tạp hóa và gia dụng, hỗ trợ giỏ hàng, đặt hàng và thông báo qua Telegram.
+Trang web bán hàng tạp hóa và đồ gia dụng với các tính năng:
 
-## 📁 Cấu trúc file
-
-- `index.html` – Trang chính (sản phẩm)
-- `cart.html` – Giỏ hàng & đặt hàng
-- `style.css` – Giao diện
-- `script.js` – Xử lý logic giỏ hàng
-- `README.md` – Tài liệu hướng dẫn
-
-## ⚙️ Cách hoạt động
-
-- Người dùng duyệt sản phẩm theo nhóm **TẠP HÓA** hoặc **GIA DỤNG**
-- Chọn sản phẩm ➜ **Thêm vào giỏ** hoặc **Mua ngay**
-- Vào giỏ hàng ➜ **Điền thông tin** ➜ **Đặt hàng**
-- Đơn hàng sẽ gửi về Telegram qua Bot API
-
-## 🧠 Lưu ý kỹ thuật
-
-- Giỏ hàng lưu qua `localStorage` (không mất khi tắt trình duyệt)
-- Sản phẩm mẫu được viết sẵn, bạn có thể thêm vào `script.js`
-- Gửi đơn hàng qua Telegram: thông tin, sản phẩm, tổng tiền, mã đơn
-- Hỗ trợ hiển thị tốt trên cả máy tính và điện thoại
-
-## 📱 Liên hệ Shop (hiển thị trên header)
-
-- ☎ 0372057834 (gọi điện)
-- 💬 Facebook: [@pro.huuloc.1](https://m.me/pro.huuloc.1)
-- 🟡 Zalo: Chưa cập nhật
-- ✈️ Telegram: [@locshop](https://t.me/locshop)
+- Giao diện đẹp, màu sáng (xanh lá, vàng nhạt, đỏ)
+- Tương thích điện thoại và máy tính
+- Phân mục TẠP HÓA & GIA DỤNG, có menu con chi tiết
+- Giỏ hàng lưu trữ sản phẩm bằng localStorage
+- Thêm sản phẩm vào giỏ, mua ngay, xem chi tiết sản phẩm
+- Liên hệ qua điện thoại, Facebook, Zalo, Telegram có icon và chuyển app tương ứng
+- Đặt hàng gửi thông tin tự động qua Telegram Bot
+- Thông báo thêm giỏ hàng và đặt hàng thành công
+- Giữ giỏ hàng khi thoát và vào lại
 
 ---
 
-### ✨ Chúc bạn kinh doanh phát tài!
+## Hướng dẫn chạy
+
+- Mở `index.html` trên trình duyệt (hoặc chạy trên GitHub Pages)
+- Tạo đơn hàng trong giỏ và kiểm tra tính năng
+
+---
+
+## Thông tin liên hệ shop
+
+- SĐT: 0372057834
+- Facebook: @pro.huuloc.1
+- Zalo: chưa cập nhật
+- Telegram: 7774024453
