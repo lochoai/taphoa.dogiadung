@@ -2,138 +2,129 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Giỏ hàng | LỘC HOÀI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ Hàng - Cửa Hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-
   <header>
-    <button onclick="history.back()" style="margin: 10px;">⬅ Trở về</button>
-    <h2 style="text-align:center">Giỏ hàng của bạn</h2>
+    <h1>Giỏ Hàng</h1>
   </header>
 
   <main>
-    <div id="cart-items" class="product-grid"></div>
+    <div id="cart-items"></div>
 
-    <div style="padding: 20px;">
-      <h3>Tổng cộng: <span id="total-amount">0</span>₫</h3>
-      <p>Phí vận chuyển: <span id="shipping-fee">20,000</span>₫ (Miễn phí cho đơn > 200,000₫)</p>
-      <div style="margin-top: 10px;">
-        <button onclick="history.back()">⬅ Trở về</button>
-        <button onclick="showOrderForm()" style="float:right; background: #28a745; color:white; padding:10px;">ĐẶT HÀNG</button>
+    <div id="cart-summary" style="margin-top: 20px;">
+      <div style="float: left;">
+        <button id="back-btn">← Trở về</button>
       </div>
+      <div style="float: right;">
+        <span>Phí vận chuyển: 20,000₫</span>
+      </div>
+      <div style="clear: both;"></div>
+      <button id="order-btn" style="width: 100%; font-size: 1.2rem; margin-top: 10px;">Đặt hàng</button>
     </div>
   </main>
 
-  <div id="order-form" style="display:none; position:fixed; top:20%; left:15%; width:70%; background:#fff; border:1px solid #ccc; padding:20px; z-index:999;">
-    <h3>Thông tin đặt hàng</h3>
-    <input id="name" placeholder="Họ tên" style="width:100%;margin:5px 0;padding:10px;" />
-    <input id="phone" placeholder="SĐT" style="width:100%;margin:5px 0;padding:10px;" />
-    <input id="address" placeholder="Địa chỉ" style="width:100%;margin:5px 0;padding:10px;" />
-    <div style="margin-top:10px;">
-      <button onclick="hideOrderForm()">❌ Hủy</button>
-      <button onclick="submitOrder()" style="float:right; background: #dc3545; color:white; padding:10px;">Đặt hàng</button>
-    </div>
-  </div>
-
+  <script defer src="script.js"></script>
   <script>
+    // Hàm render giỏ hàng
     function renderCart() {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const container = document.getElementById('cart-items');
-      const totalEl = document.getElementById('total-amount');
-      let total = 0;
-      container.innerHTML = '';
+      const cartItemsDiv = document.getElementById('cart-items');
+      cartItemsDiv.innerHTML = '';
 
-      cart.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'product-card';
-        div.innerHTML = `
-          <h4>${item.name}</h4>
-          <p>SL: ${item.qty} x ${item.price.toLocaleString()}₫</p>
-          <p><strong>Tạm tính: ${(item.qty * item.price).toLocaleString()}₫</strong></p>
-        `;
-        total += item.qty * item.price;
-        container.appendChild(div);
-      });
-
-      document.getElementById('shipping-fee').textContent = total >= 200000 ? '0' : '20,000';
-      totalEl.textContent = (total + (total >= 200000 ? 0 : 20000)).toLocaleString();
-    }
-
-    function showOrderForm() {
-      document.getElementById('order-form').style.display = 'block';
-    }
-
-    function hideOrderForm() {
-      document.getElementById('order-form').style.display = 'none';
-    }
-
-    function generateOrderCode() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      const letters = Array.from({ length: 3 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-      const numbers = Math.floor(1000000 + Math.random() * 9000000);
-      return `${letters}${numbers}`;
-    }
-
-    function submitOrder() {
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const address = document.getElementById('address').value.trim();
-      if (!name || !phone || !address) {
-        alert('Vui lòng nhập đầy đủ thông tin');
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p>Giỏ hàng của bạn đang trống.</p>';
+        document.getElementById('cart-summary').style.display = 'none';
         return;
       }
 
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const orderCode = generateOrderCode();
-      const now = new Date();
-      const time = now.toLocaleTimeString('vi-VN');
-      const date = now.toLocaleDateString('vi-VN');
-      const productList = cart.map(item => `- ${item.name} x ${item.qty}`).join('\n');
+      document.getElementById('cart-summary').style.display = 'block';
 
-      const total = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
-      const shipping = total >= 200000 ? 0 : 20000;
-      const finalTotal = total + shipping;
+      let total = 0;
+      const table = document.createElement('table');
+      table.style.width = '100%';
+      table.style.borderCollapse = 'collapse';
 
-      const message = `📦 ĐƠN HÀNG MỚI: ${orderCode}
-🕒Thời gian: ${time} - ${date}
-👤 Tên: ${name}
-📞 SĐT: ${phone}
-🏠 Địa chỉ: ${address}
+      const thead = document.createElement('thead');
+      thead.innerHTML = `
+        <tr style="border-bottom: 1px solid #ccc;">
+          <th style="text-align:left; padding: 8px;">Tên sản phẩm</th>
+          <th style="text-align:right; padding: 8px;">Số lượng</th>
+          <th style="text-align:right; padding: 8px;">Giá</th>
+          <th style="text-align:right; padding: 8px;">Thành tiền</th>
+        </tr>
+      `;
+      table.appendChild(thead);
 
-🛒 Sản phẩm:
-${productList}
+      const tbody = document.createElement('tbody');
 
-🚚 Phí ship: ${shipping.toLocaleString()}₫
-💰 Tổng cộng: ${finalTotal.toLocaleString()} đ`;
+      cart.forEach(item => {
+        const row = document.createElement('tr');
+        row.style.borderBottom = '1px solid #eee';
 
-      fetch(`https://api.telegram.org/bot7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          chat_id: "7774024453",
-          text: message
-        })
-      })
-      .then(res => {
-        if (res.ok) {
-          alert("✅ Đặt hàng thành công!");
-          localStorage.removeItem('cart');
-          window.location.href = 'index.html';
-        } else {
-          alert("❌ Gửi đơn không thành công!");
-        }
+        const nameCell = document.createElement('td');
+        nameCell.textContent = item.name;
+        nameCell.style.padding = '8px';
+
+        const qtyCell = document.createElement('td');
+        qtyCell.textContent = item.qty;
+        qtyCell.style.textAlign = 'right';
+        qtyCell.style.padding = '8px';
+
+        const priceCell = document.createElement('td');
+        priceCell.textContent = item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        priceCell.style.textAlign = 'right';
+        priceCell.style.padding = '8px';
+
+        const totalCell = document.createElement('td');
+        const itemTotal = item.price * item.qty;
+        totalCell.textContent = itemTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        totalCell.style.textAlign = 'right';
+        totalCell.style.padding = '8px';
+
+        row.appendChild(nameCell);
+        row.appendChild(qtyCell);
+        row.appendChild(priceCell);
+        row.appendChild(totalCell);
+
+        tbody.appendChild(row);
+        total += itemTotal;
       });
+
+      table.appendChild(tbody);
+      cartItemsDiv.appendChild(table);
+
+      // Hiển thị tổng cộng
+      const totalDiv = document.createElement('div');
+      totalDiv.style.textAlign = 'right';
+      totalDiv.style.marginTop = '10px';
+      totalDiv.style.fontWeight = 'bold';
+
+      totalDiv.textContent = 'Tổng cộng: ' + total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+      cartItemsDiv.appendChild(totalDiv);
+
+      // Lưu tổng để sử dụng khi đặt hàng
+      window.cartTotal = total;
     }
 
-   document.addEventListener("DOMContentLoaded", function () {
-    renderCart();
-  });
-</script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderCart();
 
+      document.getElementById('back-btn').addEventListener('click', () => {
+        window.history.back();
+      });
+
+      document.getElementById('order-btn').addEventListener('click', () => {
+        if (!localStorage.getItem('cart') || JSON.parse(localStorage.getItem('cart')).length === 0) {
+          alert('Giỏ hàng đang trống.');
+          return;
+        }
+        // Chuyển tới trang đặt hàng hoặc mở popup form đặt hàng
+        window.location.href = 'cart.html?order=true'; // hoặc xử lý theo ý bạn
+      });
+    });
+  </script>
 </body>
 </html>
