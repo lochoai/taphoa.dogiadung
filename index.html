@@ -1,56 +1,45 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cửa Hàng LỘC HOÀI</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cửa hàng LỘC HOÀI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <div class="store-title">
-      <h2>Cửa hàng</h2>
-      <h1>LỘC HOÀI</h1>
+    <div class="header-top">
+      <div class="shop-name">
+        <div>Cửa hàng</div>
+        <div class="shop-name-big">LỘC HOÀI</div>
+      </div>
+      <div class="contact-methods">
+        <div><span class="icon">📞</span> 0372057834</div>
+        <div><span class="icon">📘</span> @pro.huuloc.1</div>
+        <div><span class="icon">� Telegram</span> 7774024453</div>
+        <div><span class="icon">🟢 Zalo</span> Chưa cập nhật</div>
+      </div>
     </div>
-    <div class="contact">
-      <p><a href="tel:0372057834">📞 0372057834</a></p>
-      <p><a href="https://www.facebook.com/pro.huuloc.1" target="_blank">📘 Facebook</a></p>
-      <p><a href="#">📱 Zalo</a></p>
-      <p><a href="https://t.me/7774024453" target="_blank">✈️ Telegram</a></p>
+    <div class="cart-icon">
+      <span class="icon">🛒</span> Giỏ hàng
     </div>
   </header>
 
-  <div class="cart-icon">
-    <a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a>
-  </div>
+  <main>
+    <nav class="main-menu">
+      <button class="category-btn" data-category="tap-hoa">TẠP HÓA</button>
+      <button class="category-btn" data-category="gia-dung">GIA DỤNG</button>
+    </nav>
 
-  <nav class="main-category">
-    <button onclick="selectCategory('tap-hoa')">TẠP HÓA</button>
-    <button onclick="selectCategory('gia-dung')">GIA DỤNG</button>
-  </nav>
+    <section class="subcategories" id="subcategories">
+      <!-- Các nút mục nhỏ sẽ được chèn bằng script nếu chọn category -->
+    </section>
 
-  <section id="sub-categories" class="sub-category-nav"></section>
-
-  <main id="product-list" class="product-grid"></main>
-
-  <div id="product-modal" class="modal hidden">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">❌</button>
-      <img id="modal-img" src="" alt="Hình sản phẩm" />
-      <h2 id="modal-name"></h2>
-      <p id="modal-price"></p>
-      <p id="modal-desc"></p>
-      <div class="actions">
-        <button onclick="addToCart(currentModalProduct.id)">➕ Thêm vào giỏ</button>
-        <button onclick="buyNow(currentModalProduct.id)">🛒 Mua ngay</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="notification" class="notification hidden"></div>
+    <section class="products" id="products">
+      <!-- Danh sách sản phẩm -->
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-
