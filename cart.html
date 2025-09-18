@@ -2,125 +2,57 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giỏ Hàng - Cửa Hàng LỘC HOÀI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>Giỏ Hàng</h1>
+
+  <header class="header">
+    <div class="logo">
+      <h1>🛒 GIỎ HÀNG - <span class="highlight">LỘC HOÀI</span></h1>
+    </div>
+    <div class="contact">
+      <a href="index.html">
+        <img src="img/cart.gif" alt="Trở về" class="icon" title="Trang chủ" />
+      </a>
+    </div>
   </header>
 
-  <main>
+  <main class="main-content">
+    <h2>Danh sách sản phẩm trong giỏ</h2>
     <div id="cart-items"></div>
 
-    <div id="cart-summary" style="margin-top: 20px;">
-      <div style="float: left;">
-        <button id="back-btn">← Trở về</button>
-      </div>
-      <div style="float: right;">
-        <span>Phí vận chuyển: 20,000₫</span>
-      </div>
-      <div style="clear: both;"></div>
-      <button id="order-btn" style="width: 100%; font-size: 1.2rem; margin-top: 10px;">Đặt hàng</button>
+    <div class="cart-summary">
+      <p><strong>Tạm tính:</strong> <span id="subtotal">0đ</span></p>
+      <p><strong>Phí ship:</strong> <span id="shipping">0đ</span></p>
+      <p><strong>Tổng thanh toán:</strong> <span id="total">0đ</span></p>
     </div>
+
+    <h3>Thông tin khách hàng</h3>
+    <form id="order-form">
+      <label>Họ tên:</label>
+      <input type="text" id="name" required />
+
+      <label>Số điện thoại:</label>
+      <input type="tel" id="phone" required />
+
+      <label>Địa chỉ:</label>
+      <textarea id="address" required></textarea>
+
+      <label>Ghi chú (tuỳ chọn):</label>
+      <textarea id="note"></textarea>
+
+      <button type="submit" id="order-btn">📦 Đặt hàng</button>
+    </form>
+
+    <div id="message"></div>
   </main>
 
-  <script defer src="script.js"></script>
-  <script>
-    function renderCart() {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const cartItemsDiv = document.getElementById('cart-items');
-      cartItemsDiv.innerHTML = '';
+  <footer class="footer">
+    <p>&copy; 2025 Cửa hàng tạp hóa LỘC HOÀI. Đơn hàng được gửi qua Telegram.</p>
+  </footer>
 
-      if (cart.length === 0) {
-        cartItemsDiv.innerHTML = '<p>Giỏ hàng của bạn đang trống.</p>';
-        document.getElementById('cart-summary').style.display = 'none';
-        return;
-      }
-
-      document.getElementById('cart-summary').style.display = 'block';
-
-      let total = 0;
-      const table = document.createElement('table');
-      table.style.width = '100%';
-      table.style.borderCollapse = 'collapse';
-
-      const thead = document.createElement('thead');
-      thead.innerHTML = `
-        <tr style="border-bottom: 1px solid #ccc;">
-          <th style="text-align:left; padding: 8px;">Tên sản phẩm</th>
-          <th style="text-align:right; padding: 8px;">Số lượng</th>
-          <th style="text-align:right; padding: 8px;">Giá</th>
-          <th style="text-align:right; padding: 8px;">Thành tiền</th>
-        </tr>
-      `;
-      table.appendChild(thead);
-
-      const tbody = document.createElement('tbody');
-
-      cart.forEach(item => {
-        const row = document.createElement('tr');
-        row.style.borderBottom = '1px solid #eee';
-
-        const nameCell = document.createElement('td');
-        nameCell.textContent = item.name;
-        nameCell.style.padding = '8px';
-
-        const qtyCell = document.createElement('td');
-        qtyCell.textContent = item.qty;
-        qtyCell.style.textAlign = 'right';
-        qtyCell.style.padding = '8px';
-
-        const priceCell = document.createElement('td');
-        priceCell.textContent = item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-        priceCell.style.textAlign = 'right';
-        priceCell.style.padding = '8px';
-
-        const totalCell = document.createElement('td');
-        const itemTotal = item.price * item.qty;
-        totalCell.textContent = itemTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-        totalCell.style.textAlign = 'right';
-        totalCell.style.padding = '8px';
-
-        row.appendChild(nameCell);
-        row.appendChild(qtyCell);
-        row.appendChild(priceCell);
-        row.appendChild(totalCell);
-
-        tbody.appendChild(row);
-        total += itemTotal;
-      });
-
-      table.appendChild(tbody);
-      cartItemsDiv.appendChild(table);
-
-      const totalDiv = document.createElement('div');
-      totalDiv.style.textAlign = 'right';
-      totalDiv.style.marginTop = '10px';
-      totalDiv.style.fontWeight = 'bold';
-      totalDiv.textContent = 'Tổng cộng: ' + total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-      cartItemsDiv.appendChild(totalDiv);
-
-      window.cartTotal = total;
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      renderCart();
-
-      document.getElementById('back-btn').addEventListener('click', () => {
-        window.history.back();
-      });
-
-      document.getElementById('order-btn').addEventListener('click', () => {
-        if (!localStorage.getItem('cart') || JSON.parse(localStorage.getItem('cart')).length === 0) {
-          alert('Giỏ hàng đang trống.');
-          return;
-        }
-        // Bạn có thể xử lý mở popup đặt hàng ở đây hoặc chuyển trang khác
-        alert('Chức năng đặt hàng đang phát triển.');
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
