@@ -2,93 +2,75 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cửa hàng LỘC HOÀI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cửa hàng tạp hóa LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-  <header>
-    <div class="header-left">
-      <div class="store-name">
-        <div class="store-line1">cửa hàng</div>
-        <div class="store-line2">LỘC HOÀI</div>
-      </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <h1>🛒 CỬA HÀNG TẠP HÓA <span class="highlight">LỘC HOÀI</span></h1>
     </div>
-    <div class="header-right">
-      <div class="contact-item" onclick="callPhone()">
-        <img src="icons/phone.svg" alt="Phone" /> <span>0372057834</span>
-      </div>
-      <div class="contact-item">
-        <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" rel="noopener">
-          <img src="icons/facebook.svg" alt="Facebook" /> FB
-        </a>
-      </div>
-      <div class="contact-item">
-        <a href="https://zalo.me/0372057834" target="_blank" rel="noopener">
-          <img src="icons/zalo.svg" alt="Zalo" /> ZL
-        </a>
-      </div>
-      <div class="contact-item">
-        <a href="tg://resolve?domain=7774024453" target="_blank" rel="noopener">
-          <img src="icons/telegram.svg" alt="Telegram" /> TELE
-        </a>
-      </div>
+    <div class="contact">
+      <a href="tel:0123456789" title="Gọi ngay">
+        <img src="img/phone.gif" alt="SDT" class="icon" />
+      </a>
+      <a href="https://facebook.com" target="_blank" title="Facebook">
+        <img src="img/facebook.gif" alt="Facebook" class="icon" />
+      </a>
+      <a href="https://zalo.me" target="_blank" title="Zalo">
+        <img src="img/zalo.gif" alt="Zalo" class="icon" />
+      </a>
+      <a href="https://t.me" target="_blank" title="Telegram">
+        <img src="img/telegram.gif" alt="Telegram" class="icon" />
+      </a>
+      <a href="cart.html" title="Giỏ hàng">
+        <img src="img/cart.gif" alt="Cart" class="icon" />
+      </a>
     </div>
   </header>
 
-  <nav class="cart-bar" onclick="goToCart()">
-    <img src="icons/cart.svg" alt="Giỏ hàng" />
-    <span id="cart-count">0</span>
-    <span>Giỏ hàng</span>
+  <!-- Navigation menu -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#">Trang chủ</a></li>
+      <li><a href="#">Gia vị</a></li>
+      <li><a href="#">Đồ uống</a></li>
+      <li><a href="#">Thuốc lá</a></li>
+      <li><a href="#">Rượu bia</a></li>
+      <li><a href="#">Gội rửa</a></li>
+    </ul>
   </nav>
 
-  <main>
-    <section class="categories">
-      <div class="category" id="category-tapho">
-        <h2>TẠP HÓA</h2>
-        <div class="subcategories" id="subcats-tapho">
-          <button class="subcat-btn active" data-cat="all">Tất cả</button>
-          <button class="subcat-btn" data-cat="giavi">Gia vị</button>
-          <button class="subcat-btn" data-cat="banhkeo">Bánh kẹo</button>
-          <button class="subcat-btn" data-cat="douong">Đồ uống</button>
-          <button class="subcat-btn" data-cat="dogoi">Đồ gội rửa</button>
-          <button class="subcat-btn" data-cat="thuocla">Thuốc lá</button>
-          <button class="subcat-btn" data-cat="dokho">Đồ khô</button>
-        </div>
+  <!-- Main content -->
+  <main class="main-content">
+    <h2>Sản phẩm nổi bật</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="img/product1.jpg" alt="Sản phẩm 1" />
+        <h3>Muối i-ốt</h3>
+        <p>Giá: 8.000đ</p>
+        <button onclick="themVaoGio('Muối i-ốt', 8000)">Thêm vào giỏ</button>
       </div>
-      <div class="category" id="category-giadung">
-        <h2>GIA DỤNG</h2>
-        <div class="subcategories" id="subcats-giadung">
-          <button class="subcat-btn active" data-cat="all">Tất cả</button>
-          <button class="subcat-btn" data-cat="mathang">Mặt hàng</button>
-          <button class="subcat-btn" data-cat="dientu">Đồ điện</button>
-          <button class="subcat-btn" data-cat="dobep">Đồ bếp</button>
-          <button class="subcat-btn" data-cat="chenbat">Chén bát</button>
-          <button class="subcat-btn" data-cat="giadung">Gia dụng</button>
-        </div>
-      </div>
-    </section>
 
-    <section id="products-container">
-      <!-- Sản phẩm sẽ hiển thị ở đây -->
-    </section>
+      <div class="product-card">
+        <img src="img/product2.jpg" alt="Sản phẩm 2" />
+        <h3>Pepsi lon</h3>
+        <p>Giá: 12.000đ</p>
+        <button onclick="themVaoGio('Pepsi lon', 12000)">Thêm vào giỏ</button>
+      </div>
+
+      <!-- Thêm các sản phẩm khác tại đây -->
+    </div>
   </main>
 
-  <div id="product-popup" class="hidden">
-    <div class="popup-content">
-      <button class="close-popup" onclick="closeProductPopup()">×</button>
-      <img id="popup-image" src="" alt="Product Image" />
-      <h3 id="popup-name"></h3>
-      <p id="popup-desc"></p>
-      <p id="popup-price"></p>
-      <div class="popup-actions">
-        <button id="popup-addcart">Thêm vào giỏ hàng</button>
-        <button id="popup-buy-now">Mua ngay</button>
-      </div>
-    </div>
-  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Cửa hàng tạp hóa LỘC HOÀI. All rights reserved.</p>
+  </footer>
 
-  <div id="notification" class="hidden"></div>
+  <script src="script.js"></script>
 </body>
 </html>
