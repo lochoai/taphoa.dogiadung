@@ -1,29 +1,26 @@
-# Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng
+# 🛒 CỬA HÀNG TẠP HÓA LỘC HOÀI
 
-Trang web bán hàng tạp hóa và đồ gia dụng với các tính năng:
-
-- Giao diện đẹp, màu sáng (xanh lá, vàng nhạt, đỏ)
-- Tương thích điện thoại và máy tính
-- Phân mục TẠP HÓA & GIA DỤNG, có menu con chi tiết
-- Giỏ hàng lưu trữ sản phẩm bằng localStorage
-- Thêm sản phẩm vào giỏ, mua ngay, xem chi tiết sản phẩm
-- Liên hệ qua điện thoại, Facebook, Zalo, Telegram có icon và chuyển app tương ứng
-- Đặt hàng gửi thông tin tự động qua Telegram Bot
-- Thông báo thêm giỏ hàng và đặt hàng thành công
-- Giữ giỏ hàng khi thoát và vào lại
+Đây là một website bán hàng đơn giản mô phỏng cửa hàng tạp hóa với giao diện bắt mắt, responsive cho điện thoại và máy tính. Trang hỗ trợ thêm sản phẩm vào giỏ hàng, tính phí giao hàng, đặt hàng và gửi đơn hàng đến Telegram.
 
 ---
 
-## Hướng dẫn chạy
+## 🚀 Cách chạy dự án
 
-- Mở `index.html` trên trình duyệt (hoặc chạy trên GitHub Pages)
-- Tạo đơn hàng trong giỏ và kiểm tra tính năng
+1. **Tải về hoặc clone dự án:**
 
----
-
-## Thông tin liên hệ shop
-
-- SĐT: 0372057834
-- Facebook: @pro.huuloc.1
-- Zalo: chưa cập nhật
-- Telegram: 7774024453
+```bash
+git clone https://github.com/your-username/ten-repo.git
+.
+├── index.html        # Trang chủ hiển thị sản phẩm và danh mục
+├── cart.html         # Trang giỏ hàng và form đặt hàng
+├── style.css         # Giao diện, màu sắc, responsive
+├── script.js         # Xử lý thêm giỏ hàng, gửi đơn Telegram, localStorage
+├── README.md         # Tài liệu hướng dẫn này
+└── img/              # Thư mục chứa ảnh sản phẩm và icon GIF
+    ├── phone.gif
+    ├── facebook.gif
+    ├── zalo.gif
+    ├── telegram.gif
+    ├── cart.gif
+    ├── product1.jpg
+    └── ...
