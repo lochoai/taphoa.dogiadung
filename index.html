@@ -1,90 +1,81 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cửa hàng LỘC HOÀI</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap"
+      rel="stylesheet"
+    />
 </head>
 <body>
-  <header>
-    <div class="header-top">
-      <h1>
-        Cửa hàng<br /><span class="highlight">LỘC HOÀI</span>
-      </h1>
-      <div class="contact-info">
-        <a href="tel:0372057834" class="contact-item" title="Gọi điện">
-          📞 0372057834
-        </a>
-        <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" class="contact-item" title="Facebook">
-          📘 FB
-        </a>
-        <a href="#" class="contact-item disabled" title="Zalo chưa cập nhật">
-          💬 ZL
-        </a>
-        <a href="tg://resolve?domain=7774024453" class="contact-item" title="Telegram">
-          ✈ TELE
-        </a>
-      </div>
-    </div>
-
-    <div class="cart-bar" id="cart-bar" role="button" tabindex="0" aria-label="Giỏ hàng">
-      🛒 Giỏ hàng (<span id="cart-count">0</span>)
-    </div>
-  </header>
-
-  <main>
-    <section class="main-sections">
-      <div class="section-box" id="tap-hoa-section">
-        <h2>TẠP HÓA</h2>
-        <div class="subcategories" id="tap-hoa-subcats">
-          <button data-cat="all">Mặt hàng</button>
-          <button data-cat="gia-vi">Gia vị</button>
-          <button data-cat="banh-keo">Bánh kẹo</button>
-          <button data-cat="do-uong">Đồ uống</button>
-          <button data-cat="goi-rua">Đồ gội rửa</button>
-          <button data-cat="thuoc-la">Thuốc lá</button>
-          <button data-cat="do-kho">Đồ khô</button>
+    <header>
+        <div class="header-top">
+            <div class="shop-name">
+                <div>cửa hàng</div>
+                <div class="shop-name-highlight">LỘC HOÀI</div>
+            </div>
+            <div class="contact-info">
+                <a href="tel:0372057834" class="contact-item" title="Gọi điện">
+                    <img src="images/phone.svg" alt="Phone" class="icon" />
+                    0372057834
+                </a>
+                <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" class="contact-item" title="Facebook">
+                    <img src="images/facebook.svg" alt="Facebook" class="icon" />
+                    FB
+                </a>
+                <a href="#" class="contact-item" title="Zalo chưa cập nhật">
+                    <img src="images/zalo.svg" alt="Zalo" class="icon" />
+                    ZL
+                </a>
+                <a href="https://t.me/7774024453" target="_blank" class="contact-item" title="Telegram">
+                    <img src="images/telegram.svg" alt="Telegram" class="icon" />
+                    TELE
+                </a>
+            </div>
         </div>
-        <div class="products-grid" id="tap-hoa-products"></div>
-      </div>
-
-      <div class="section-box" id="gia-dung-section">
-        <h2>GIA DỤNG</h2>
-        <div class="subcategories" id="gia-dung-subcats">
-          <button data-cat="all">Mặt hàng</button>
-          <button data-cat="do-dien">Đồ điện</button>
-          <button data-cat="do-bep">Đồ bếp</button>
-          <button data-cat="chen-bat">Chén bát</button>
-          <button data-cat="gia-dung">Gia dụng</button>
+        <div class="header-bottom">
+            <a href="cart.html" class="cart-link" title="Giỏ hàng">
+                <img src="images/cart.svg" alt="Giỏ hàng" class="icon" />
+                Giỏ hàng
+            </a>
         </div>
-        <div class="products-grid" id="gia-dung-products"></div>
-      </div>
-    </section>
-  </main>
+    </header>
 
-  <footer>
-    <p>© 2025 Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng</p>
-  </footer>
+    <main>
+        <div class="categories">
+            <div id="category-tapho" class="category active">TẠP HÓA</div>
+            <div id="category-giadung" class="category">GIA DỤNG</div>
+        </div>
 
-  <!-- Modal chi tiết sản phẩm -->
-  <div class="modal" id="product-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
-    <div class="modal-content">
-      <button class="modal-close" id="product-modal-close" aria-label="Đóng">&times;</button>
-      <h3 id="modal-title"></h3>
-      <img id="modal-img" src="" alt="" />
-      <p id="modal-desc"></p>
-      <p><strong>Giá:</strong> <span id="modal-price"></span></p>
-      <div class="modal-actions">
-        <button id="modal-add-cart">Thêm vào giỏ hàng</button>
-        <button id="modal-buy-now">Mua ngay</button>
-      </div>
-    </div>
-  </div>
+        <div class="subcategories" id="subcategories-tapho">
+            <div class="subcategory active" data-group="taph" data-sub="mat-hang">Mặt hàng</div>
+            <div class="subcategory" data-group="taph" data-sub="gia-vi">Gia vị</div>
+            <div class="subcategory" data-group="taph" data-sub="banh-keo">Bánh kẹo</div>
+            <div class="subcategory" data-group="taph" data-sub="do-uong">Đồ uống</div>
+            <div class="subcategory" data-group="taph" data-sub="do-goi-rua">Đồ gội rửa</div>
+            <div class="subcategory" data-group="taph" data-sub="thuoc-la">Thuốc lá</div>
+            <div class="subcategory" data-group="taph" data-sub="do-kho">Đồ khô</div>
+        </div>
 
-  <!-- Toast thông báo -->
-  <div class="toast" id="toast"></div>
+        <div class="subcategories" id="subcategories-giadung" style="display:none;">
+            <div class="subcategory active" data-group="giad" data-sub="mat-hang">Mặt hàng</div>
+            <div class="subcategory" data-group="giad" data-sub="do-dien">Đồ điện</div>
+            <div class="subcategory" data-group="giad" data-sub="do-bep">Đồ bếp</div>
+            <div class="subcategory" data-group="giad" data-sub="chen-bat">Chén bát</div>
+            <div class="subcategory" data-group="giad" data-sub="gia-dung">Gia dụng</div>
+        </div>
 
-  <script src="script.js"></script>
+        <section id="product-list" class="product-list two-columns">
+            <!-- Sản phẩm sẽ được load tại đây bằng JS -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Cửa hàng LỘC HOÀI. Mọi quyền được bảo lưu.</p>
+    </footer>
 </body>
 </html>
