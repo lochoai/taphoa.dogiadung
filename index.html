@@ -19,6 +19,10 @@
         }
     </style>
 </head>
+<!-- Thông báo tùy chỉnh -->
+<div id="custom-alert" class="hide">
+    ✅ Sản phẩm đã được thêm vào giỏ hàng!
+</div>
 <body>
     <div id="custom-alert">✅ Sản phẩm đã được thêm vào giỏ hàng!</div>
 
@@ -27,13 +31,20 @@
         <nav>
             <a href="index.html">Trang chủ</a>
             <a href="index.html">Sản phẩm</a>
+            <a href="cart.html">Giỏ hàng</a> <!-- Link sang cart.html -->
             <a href="cart.html">Giỏ hàng</a>
         </nav>
     </header>
+<h2>Giỏ hàng của bạn</h2>
+<div id="cart-container">
+    <ul id="cart-items"></ul>
+    <p><strong>Tổng tiền: </strong><span id="cart-total">0</span> đ</p>
+</div>
 
     <main>
         <h2>Sản phẩm nổi bật</h2>
         <div class="product-list">
+            <!-- Sản phẩm mẫu -->
             <div class="product">
                 <img src="images/nuoc-mam.jpg" alt="Nước mắm">
                 <h3>Nước mắm Nam Ngư</h3>
@@ -53,6 +64,9 @@
         <p>&copy; 2025 Cửa hàng Tạp hóa. All rights reserved.</p>
     </footer>
 
+    <script src="script.js"></script>
+</body>
+</html>
     <script>
         function showAlert() {
             const alertBox = document.getElementById("custom-alert");
