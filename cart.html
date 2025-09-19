@@ -1,231 +1,74 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Giỏ hàng của bạn</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        #customer-form {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
-
-        .form-popup {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .form-popup input {
-            width: 100%;
-            margin: 8px 0;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .form-popup button {
-            padding: 10px 20px;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ hàng - LỘC HOÀI</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <h1>Giỏ Hàng Của Bạn</h1>
-        <nav>
-            <a href="index.html">← Quay lại mua hàng</a>
-        </nav>
-    </header>
-
-    <main>
-        <h2>Giỏ hàng của bạn</h2>
-        <table id="cart-table">
-            <thead>
-                <tr>
-                    <th>Tên sản phẩm</th>
-                    <th>Đơn giá</th>
-                    <th>Số lượng</th>
-                    <th>Thành tiền</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="cart-items"></tbody>
-        </table>
-
-        <p class="total-line"><strong>Tổng cộng: </strong><span id="cart-total">0</span> đ</p>
-        <button id="checkout-btn">đặt hàng</button>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Cửa hàng Tạp hóa</p>
-    </footer>
-
-    <!-- Form nhập thông tin khách hàng -->
-    <div id="customer-form">
-        <div class="form-popup">
-            <h3>Nhập thông tin giao hàng</h3>
-            <input type="text" id="customer-name" placeholder="Họ và tên" required>
-            <input type="tel" id="customer-phone" placeholder="Số điện thoại" required>
-            <input type="text" id="customer-address" placeholder="Địa chỉ nhận hàng" required>
-            <button onclick="submitOrder()">Gửi đơn hàng</button>
-        </div>
+  <header>
+    <h1>
+      LỘC HOÀI<br />
+      <small>Giỏ hàng và đặt hàng</small>
+    </h1>
+    <div class="top-contact">
+      <div class="cart-link">
+        🛒 Giỏ hàng (<span id="cart-count">0</span>)
+      </div>
+      <div class="contact-links">
+        <a href="index.html">Trang chủ</a> |
+        <a href="https://facebook.com/pro.huuloc.1" target="_blank">FB</a> |
+        <a href="tel:0372057834">0372057834</a> |
+        <a href="#">Zalo (chưa cập nhật)</a>
+      </div>
     </div>
+  </header>
 
-    <script>
-        const BOT_TOKEN = "7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8";
-        const CHAT_ID = "944976544";
+  <main>
+    <section id="cart-section">
+      <table id="cart-table">
+        <thead>
+          <tr>
+            <th>Sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá (₫)</th>
+            <th>Thành tiền (₫)</th>
+            <th>Xóa</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      </table>
+      <div class="cart-summary">
+        <p>Phí vận chuyển: <span id="shipping-fee">20,000</span> ₫</p>
+        <p>Tổng cộng: <span id="total-price">0</span> ₫</p>
+      </div>
+      <button id="btn-order" class="order-btn">Đặt hàng</button>
+    </section>
 
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    <section id="order-form-section" class="hidden">
+      <h2>Thông tin đặt hàng</h2>
+      <form id="order-form">
+        <label>
+          Họ tên:<br />
+          <input type="text" id="customer-name" required />
+        </label>
+        <label>
+          Số điện thoại:<br />
+          <input type="tel" id="customer-phone" pattern="0[0-9]{9,10}" required />
+        </label>
+        <label>
+          Địa chỉ:<br />
+          <textarea id="customer-address" rows="3" required></textarea>
+        </label>
+        <div class="form-buttons">
+          <button type="submit" class="order-btn">Đặt hàng</button>
+          <button type="button" id="btn-cancel" class="cancel-btn">Hủy</button>
+        </div>
+      </form>
+    </section>
+  </main>
 
-        function updateCartDisplay() {
-            const cartItems = document.getElementById("cart-items");
-            const cartTotal = document.getElementById("cart-total");
-
-            cartItems.innerHTML = "";
-            let total = 0;
-
-            cart.forEach((item, index) => {
-                const row = document.createElement("tr");
-
-                const nameCell = document.createElement("td");
-                nameCell.textContent = item.name;
-                row.appendChild(nameCell);
-
-                const priceCell = document.createElement("td");
-                priceCell.textContent = item.price.toLocaleString() + " đ";
-                row.appendChild(priceCell);
-
-                const quantityCell = document.createElement("td");
-
-                const minusBtn = document.createElement("button");
-                minusBtn.textContent = "-";
-                minusBtn.onclick = () => {
-                    if (item.quantity > 1) {
-                        item.quantity--;
-                        saveCart();
-                        updateCartDisplay();
-                    }
-                };
-
-                const quantityText = document.createElement("span");
-                quantityText.textContent = item.quantity;
-
-                const plusBtn = document.createElement("button");
-                plusBtn.textContent = "+";
-                plusBtn.onclick = () => {
-                    item.quantity++;
-                    saveCart();
-                    updateCartDisplay();
-                };
-
-                quantityCell.appendChild(minusBtn);
-                quantityCell.appendChild(quantityText);
-                quantityCell.appendChild(plusBtn);
-                row.appendChild(quantityCell);
-
-                const totalCell = document.createElement("td");
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                totalCell.textContent = itemTotal.toLocaleString() + " đ";
-                row.appendChild(totalCell);
-
-                const deleteCell = document.createElement("td");
-                const deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "X";
-                deleteBtn.style.color = "red";
-                deleteBtn.onclick = () => {
-                    cart.splice(index, 1);
-                    saveCart();
-                    updateCartDisplay();
-                };
-                deleteCell.appendChild(deleteBtn);
-                row.appendChild(deleteCell);
-
-                cartItems.appendChild(row);
-            });
-
-            cartTotal.textContent = total.toLocaleString();
-        }
-
-        function saveCart() {
-            localStorage.setItem("cart", JSON.stringify(cart));
-        }
-
-        // Khi trang load
-        window.onload = updateCartDisplay;
-
-        document.getElementById("checkout-btn").onclick = function () {
-            if (cart.length === 0) {
-                alert("Giỏ hàng của bạn đang trống!");
-                return;
-            }
-            document.getElementById("customer-form").style.display = "flex";
-        };
-
-        function submitOrder() {
-            const name = document.getElementById("customer-name").value.trim();
-            const phone = document.getElementById("customer-phone").value.trim();
-            const address = document.getElementById("customer-address").value.trim();
-
-            if (!name || !phone || !address) {
-                alert("Vui lòng nhập đầy đủ thông tin!");
-                return;
-            }
-
-            let message = `🛒 ĐƠN HÀNG MỚI:\n`;
-            message += `👤 Tên: ${name}\n📞 SĐT: ${phone}\n🏠 Địa chỉ: ${address}\n\n`;
-            message += `📦 Sản phẩm:\n`;
-
-            let total = 0;
-            cart.forEach(item => {
-                message += `- ${item.name} x ${item.quantity}\n`;
-                total += item.price * item.quantity;
-            });
-
-            message += `\n💰 Tổng cộng: ${total.toLocaleString()} đ`;
-
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    showCustomAlert("✅ Đơn hàng đã được gửi thành công!");
-                    cart = [];
-                    localStorage.removeItem("cart");
-                    updateCartDisplay();
-                    document.getElementById("customer-form").style.display = "none";
-                } else {
-                    alert("❌ Lỗi khi gửi đơn hàng.");
-                }
-            })
-            .catch(error => {
-                console.error("Lỗi khi gửi đến Telegram:", error);
-                alert("❌ Gửi thất bại, hãy thử lại sau.");
-            });
-        }
-function showCustomAlert(message) {
-    const alertBox = document.getElementById("custom-alert");
-    alertBox.textContent = message;
-    alertBox.classList.add("show");
-
-    setTimeout(() => {
-        alertBox.classList.remove("show");
-    }, 2000);
-}
-    </script>
-<div id="custom-alert"></div>
+  <script src="script.js"></script>
 </body>
 </html>
