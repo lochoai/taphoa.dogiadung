@@ -1,69 +1,103 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cửa Hàng LỘC HOÀI</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng tạp hóa</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
+    <div id="custom-alert">✅ Sản phẩm đã được thêm vào giỏ hàng!</div>
 
-  <header>
-    <div class="header-content">
-      <div class="store-info">
-        <h1>Cửa Hàng<br><span class="store-name">LỘC HOÀI</span></h1>
-        <p>chuyên tạp hóa, đồ gia dụng</p>
-      </div>
-      <div class="contact-info">
-        <a href="tel:0372057834"><img src="https://img.icons8.com/ios-filled/24/phone.png"/> 0372057834</a>
-        <a href="https://facebook.com/pro.huuloc.1" target="_blank"><img src="https://img.icons8.com/ios-filled/24/facebook.png"/> Facebook</a>
-        <a href="#"><img src="https://img.icons8.com/ios-filled/24/zalo.png"/> Zalo</a>
-        <a href="https://t.me/7774024453" target="_blank"><img src="https://img.icons8.com/ios-filled/24/telegram-app.png"/> Telegram</a>
-      </div>
-    </div>
-    <div class="cart-icon">
-      <a href="cart.html"><img src="https://img.icons8.com/ios-filled/30/shopping-cart.png"/> Giỏ hàng</a>
-    </div>
-  </header>
+    <header>
+        <h1>Cửa Hàng Tạp Hóa & Đồ Gia Dụng</h1>
+        <nav>
+            <a href="index.html">Trang chủ</a>
+            <a href="index.html">Sản phẩm</a>
+            <a href="cart.html">Giỏ hàng</a>
+        </nav>
+    </header>
 
-  <nav class="category-nav">
-    <button>Trang chủ</button>
-    <button>Đồ uống</button>
-    <button>Đồ khô</button>
-    <button>Bánh kẹo</button>
-    <button>Rượu bia</button>
-    <button>Thuốc lá</button>
-    <button>Gội rửa</button>
-    <button>Đồ điện</button>
-    <button>Đồ bếp</button>
-    <button>Gia dụng</button>
-  </nav>
+    <main>
+        <h2>Sản phẩm nổi bật</h2>
+        <div class="product-list">
+            <div class="product">
+                <img src="images/nuoc-mam.jpg" alt="Nước mắm">
+                <h3>Nước mắm Nam Ngư</h3>
+                <p>Giá: 35.000đ</p>
+                <button onclick="addToCart('Nước mắm Nam Ngư', 35000)">Thêm vào giỏ</button>
+            </div>
+            <div class="product">
+                <img src="images/noi-com.jpg" alt="Nồi cơm điện">
+                <h3>Nồi cơm điện Sunhouse</h3>
+                <p>Giá: 450.000đ</p>
+                <button onclick="addToCart('Nồi cơm điện Sunhouse', 450000)">Thêm vào giỏ</button>
+            </div>
+        </div>
+    </main>
 
-  <main class="product-grid">
-    <!-- Danh sách sản phẩm mẫu -->
-    <div class="product-card" onclick="viewProduct(this)">
-      <img src="https://via.placeholder.com/150" alt="Sản phẩm">
-      <h3>Nồi cơm điện</h3>
-      <p class="price">₫600,000</p>
-      <div class="product-buttons">
-        <button class="add-to-cart">Thêm vào giỏ</button>
-        <button class="buy-now">Mua ngay</button>
-      </div>
-    </div>
+    <footer>
+        <p>&copy; 2025 Cửa hàng Tạp hóa. All rights reserved.</p>
+    </footer>
 
-    <div class="product-card" onclick="viewProduct(this)">
-      <img src="https://via.placeholder.com/150" alt="Sản phẩm">
-      <h3>Nước mắm Nam Ngư</h3>
-      <p class="price">₫30,000</p>
-      <div class="product-buttons">
-        <button class="add-to-cart">Thêm vào giỏ</button>
-        <button class="buy-now">Mua ngay</button>
-      </div>
-    </div>
+    <script>
+        function showAlert() {
+            const alertBox = document.getElementById("custom-alert");
+            alertBox.style.display = "block";
+            setTimeout(() => {
+                alertBox.style.display = "none";
+            }, 2000);
+        }
 
-    <!-- Thêm nhiều sản phẩm khác nếu muốn -->
-  </main>
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  <script src="script.js"></script>
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            showAlert();
+            updateCartSummary(); // cập nhật giỏ tạm thời nếu cần
+        }
+
+        function updateCartSummary() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let total = 0;
+
+            const cartItems = document.getElementById("cart-items");
+            const cartTotal = document.getElementById("cart-total");
+
+            if (!cartItems || !cartTotal) return;
+
+            cartItems.innerHTML = "";
+            cart.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = `${item.name} x ${item.quantity}`;
+                cartItems.appendChild(li);
+                total += item.price * item.quantity;
+            });
+
+            cartTotal.textContent = total.toLocaleString();
+        }
+
+        window.onload = updateCartSummary;
+    </script>
 </body>
 </html>
