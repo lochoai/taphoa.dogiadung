@@ -3,71 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giỏ hàng - LỘC HOÀI</title>
+  <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>
-      LỘC HOÀI<br />
-      <small>Giỏ hàng và đặt hàng</small>
-    </h1>
-    <div class="top-contact">
-      <div class="cart-link">
-        🛒 Giỏ hàng (<span id="cart-count">0</span>)
-      </div>
-      <div class="contact-links">
-        <a href="index.html">Trang chủ</a> |
-        <a href="https://facebook.com/pro.huuloc.1" target="_blank">FB</a> |
-        <a href="tel:0372057834">0372057834</a> |
-        <a href="#">Zalo (chưa cập nhật)</a>
-      </div>
-    </div>
+    <h1>Giỏ hàng của bạn</h1>
   </header>
 
   <main>
-    <section id="cart-section">
-      <table id="cart-table">
+    <section id="cart-container">
+      <table id="cart-table" aria-label="Bảng giỏ hàng">
         <thead>
           <tr>
-            <th>Sản phẩm</th>
+            <th>Tên sản phẩm</th>
             <th>Số lượng</th>
-            <th>Giá (₫)</th>
-            <th>Thành tiền (₫)</th>
-            <th>Xóa</th>
+            <th>Giá</th>
+            <th>Thành tiền</th>
+            <th></th>
           </tr>
         </thead>
-        <tbody id="cart-items"></tbody>
+        <tbody></tbody>
       </table>
-      <div class="cart-summary">
-        <p>Phí vận chuyển: <span id="shipping-fee">20,000</span> ₫</p>
-        <p>Tổng cộng: <span id="total-price">0</span> ₫</p>
-      </div>
-      <button id="btn-order" class="order-btn">Đặt hàng</button>
-    </section>
 
-    <section id="order-form-section" class="hidden">
-      <h2>Thông tin đặt hàng</h2>
-      <form id="order-form">
-        <label>
-          Họ tên:<br />
-          <input type="text" id="customer-name" required />
-        </label>
-        <label>
-          Số điện thoại:<br />
-          <input type="tel" id="customer-phone" pattern="0[0-9]{9,10}" required />
-        </label>
-        <label>
-          Địa chỉ:<br />
-          <textarea id="customer-address" rows="3" required></textarea>
-        </label>
-        <div class="form-buttons">
-          <button type="submit" class="order-btn">Đặt hàng</button>
-          <button type="button" id="btn-cancel" class="cancel-btn">Hủy</button>
-        </div>
-      </form>
+      <div class="cart-summary">
+        <p>Phí vận chuyển: <span id="shipping-fee">20,000₫</span></p>
+        <p>Tổng cộng: <span id="total-price">0₫</span></p>
+      </div>
+
+      <div class="cart-actions">
+        <button id="btn-back">← Trở về</button>
+        <button id="btn-place-order">Đặt hàng</button>
+      </div>
     </section>
   </main>
+
+  <!-- Modal Đặt hàng -->
+  <div class="modal" id="order-modal" aria-hidden="true" role="dialog" aria-labelledby="order-modal-title" aria-modal="true">
+    <div class="modal-content">
+      <h3 id="order-modal-title">Thông tin đặt hàng</h3>
+      <label for="customer-name">Họ tên:</label>
+      <input type="text" id="customer-name" name="customer-name" required />
+      <label for="customer-phone">Số điện thoại:</label>
+      <input type="tel" id="customer-phone" name="customer-phone" required />
+      <label for="customer-address">Địa chỉ:</label>
+      <textarea id="customer-address" name="customer-address" required></textarea>
+
+      <div class="modal-buttons">
+        <button class="confirm" id="confirm-order">Đặt hàng</button>
+        <button class="cancel" id="cancel-order">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
 
   <script src="script.js"></script>
 </body>
