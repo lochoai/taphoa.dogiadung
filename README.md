@@ -1,50 +1,23 @@
-# Cửa hàng LỘC HOÀI - Website bán hàng tạp hóa và đồ gia dụng
+# Trang web cửa hàng LỘC HOÀI
 
-## Mô tả
+## Cấu trúc file
 
-Website này là trang bán hàng tạp hóa và đồ gia dụng với giao diện thân thiện, tươi sáng (xanh lá, vàng nhạt, hồng), tương thích cả điện thoại và máy tính. 
+- `index.html`: Trang chủ, hiển thị sản phẩm, chọn danh mục, thêm sản phẩm vào giỏ hàng
+- `cart.html`: Trang giỏ hàng, xem sản phẩm đã chọn, đặt hàng
+- `style.css`: File style CSS cho trang web
+- `script.js`: File JavaScript dùng chung cho index và cart
 
-### Tính năng chính
+## Hướng dẫn sử dụng
 
-- Hiển thị danh mục "TẠP HÓA" và "GIA DỤNG" với các mục con rõ ràng.
-- Hiển thị sản phẩm với ảnh, tên, giá, hiệu ứng hover, nút "Thêm giỏ hàng" và "Mua ngay".
-- Xem chi tiết sản phẩm với mô tả, ảnh lớn, nút thêm giỏ hàng và đặt mua.
-- Giỏ hàng lưu trữ sản phẩm ngay cả khi thoát trang (dùng localStorage).
-- Giỏ hàng có tính toán phí vận chuyển theo điều kiện tổng tiền.
-- Đặt hàng với form nhập thông tin bắt buộc.
-- Gửi đơn hàng qua Telegram bot với mã đơn hàng tự động, thời gian, chi tiết đơn hàng.
-- Thông báo các thao tác (thêm giỏ hàng, đặt hàng thành công hoặc lỗi).
-- Giao diện responsive, dễ dùng trên mọi thiết bị.
+1. Mở `index.html` trên trình duyệt để xem sản phẩm và thêm vào giỏ hàng.
+2. Click vào "Giỏ hàng" trên thanh menu để vào trang `cart.html` xem giỏ hàng.
+3. Ở trang giỏ hàng, bạn có thể xóa sản phẩm khỏi giỏ.
+4. Điền đầy đủ thông tin đặt hàng (họ tên, địa chỉ, số điện thoại).
+5. Nhấn nút "Đặt hàng" để gửi đơn qua Telegram.
+6. Sau khi đặt thành công, giỏ hàng sẽ được làm trống và hiện thông báo.
 
-## Các file
+## Lưu ý
 
-- `index.html` - Trang chính hiển thị sản phẩm.
-- `cart.html` - Trang giỏ hàng và đặt hàng.
-- `style.css` - Tập tin CSS quản lý giao diện.
-- `script.js` - Tập tin JavaScript điều khiển trang chính.
-- `script-cart.js` - Tập tin JavaScript điều khiển trang giỏ hàng.
-- `images/` - Thư mục chứa hình ảnh sản phẩm.
-
-## Cách sử dụng
-
-1. Mở `index.html` để xem trang chủ.
-2. Chọn danh mục, xem sản phẩm, thêm giỏ hàng hoặc mua ngay.
-3. Vào giỏ hàng để kiểm tra, chỉnh sửa số lượng, và đặt hàng.
-4. Nhập thông tin và đặt hàng, thông tin đơn sẽ được gửi đến Telegram.
-
-## Cài đặt và chạy
-
-- Mở `index.html` bằng trình duyệt hiện đại.
-- Đảm bảo thư mục `images/` chứa ảnh sản phẩm đã đúng tên.
-- Máy chủ web có thể được sử dụng để đảm bảo hoạt động tốt (không bắt buộc).
-
-## Liên hệ
-
-- SĐT: 0372057834
-- Facebook: https://www.facebook.com/pro.huuloc.1
-- Telegram: https://t.me/7774024453
-- Zalo: chưa cập nhật
-
----
-
-Cảm ơn bạn đã sử dụng website của chúng tôi!
+- Giỏ hàng lưu trên `localStorage`, nếu xóa cache trình duyệt sẽ mất giỏ hàng.
+- Cần có internet để gửi đơn qua Telegram API.
+- Màu sắc chủ đạo: xanh lá (#8BC34A), vàng (#FFEB3B), đỏ nhạt (#FFCDD2), xanh dương (#2196F3).
