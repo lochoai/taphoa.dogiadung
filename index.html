@@ -3,74 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shop sản phẩm</title>
+  <title>Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Shop Sản Phẩm</h1>
-    <small>Chào mừng bạn đến với cửa hàng của chúng tôi!</small>
-    <div class="top-contact">
-      <a href="mailto:contact@shop.com">Email: contact@shop.com</a>
-      <a href="tel:+84123456789">Hotline: 0123456789</a>
+    <div class="header-top">
+      <h1>
+        Cửa hàng<br /><span class="highlight">LỘC HOÀI</span>
+      </h1>
+      <div class="contact-info">
+        <a href="tel:0372057834" class="contact-item" title="Gọi điện">
+          📞 0372057834
+        </a>
+        <a href="https://www.facebook.com/pro.huuloc.1" target="_blank" class="contact-item" title="Facebook">
+          📘 FB
+        </a>
+        <a href="#" class="contact-item disabled" title="Zalo chưa cập nhật">
+          💬 ZL
+        </a>
+        <a href="tg://resolve?domain=7774024453" class="contact-item" title="Telegram">
+          ✈ TELE
+        </a>
+      </div>
+    </div>
+
+    <div class="cart-bar" id="cart-bar" role="button" tabindex="0" aria-label="Giỏ hàng">
+      🛒 Giỏ hàng (<span id="cart-count">0</span>)
     </div>
   </header>
 
-  <nav class="menu">
-    <div class="menu-row">
-      <button class="menu-item" onclick="filterCategory('all')">Tất cả</button>
-      <button class="menu-item" onclick="filterCategory('do-dien')">Đồ điện</button>
-      <button class="menu-item" onclick="filterCategory('gia-vi')">Gia vị</button>
-      <button class="menu-item" onclick="filterCategory('thuc-pham')">Thực phẩm</button>
-    </div>
-  </nav>
+  <main>
+    <section class="main-sections">
+      <div class="section-box" id="tap-hoa-section">
+        <h2>TẠP HÓA</h2>
+        <div class="subcategories" id="tap-hoa-subcats">
+          <button data-cat="all">Mặt hàng</button>
+          <button data-cat="gia-vi">Gia vị</button>
+          <button data-cat="banh-keo">Bánh kẹo</button>
+          <button data-cat="do-uong">Đồ uống</button>
+          <button data-cat="goi-rua">Đồ gội rửa</button>
+          <button data-cat="thuoc-la">Thuốc lá</button>
+          <button data-cat="do-kho">Đồ khô</button>
+        </div>
+        <div class="products-grid" id="tap-hoa-products"></div>
+      </div>
 
-  <section class="product-list" id="product-list">
-    <!-- Sản phẩm sẽ hiển thị ở đây -->
-  </section>
+      <div class="section-box" id="gia-dung-section">
+        <h2>GIA DỤNG</h2>
+        <div class="subcategories" id="gia-dung-subcats">
+          <button data-cat="all">Mặt hàng</button>
+          <button data-cat="do-dien">Đồ điện</button>
+          <button data-cat="do-bep">Đồ bếp</button>
+          <button data-cat="chen-bat">Chén bát</button>
+          <button data-cat="gia-dung">Gia dụng</button>
+        </div>
+        <div class="products-grid" id="gia-dung-products"></div>
+      </div>
+    </section>
+  </main>
 
-  <!-- Giỏ hàng (giả sử có) -->
-  <section id="cart-section">
-    <table id="cart-table">
-      <thead>
-        <tr>
-          <th>Sản phẩm</th>
-          <th>Số lượng</th>
-          <th>Giá</th>
-          <th>Thành tiền</th>
-        </tr>
-      </thead>
-      <tbody id="cart-body">
-        <!-- Giỏ hàng sẽ hiển thị ở đây -->
-      </tbody>
-    </table>
-    <div class="cart-summary" id="cart-summary">Tổng: 0 VND</div>
-    <button id="order-main-btn" class="order-btn">Đặt hàng</button>
-  </section>
+  <footer>
+    <p>© 2025 Cửa hàng LỘC HOÀI - Tạp hóa & Đồ gia dụng</p>
+  </footer>
 
   <!-- Modal chi tiết sản phẩm -->
-  <div id="product-modal" class="modal hidden">
+  <div class="modal" id="product-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
     <div class="modal-content">
-      <button id="modal-close-btn" class="close-btn" title="Quay lại">←</button>
-      <div class="modal-body">
-        <img id="modal-image" src="" alt="Ảnh sản phẩm" />
-        <div class="modal-info">
-          <h2 id="modal-name"></h2>
-          <p id="modal-description">Mô tả sản phẩm sẽ được cập nhật sau.</p>
-          <div class="modal-actions">
-            <button id="modal-add-cart" class="add-cart-btn">Thêm giỏ hàng</button>
-            <button id="modal-order-now" class="order-btn">Đặt hàng</button>
-          </div>
-          <div class="modal-review">
-            <h3>Đánh giá sản phẩm</h3>
-            <textarea id="review-text" rows="4" placeholder="Viết đánh giá của bạn..."></textarea>
-            <button id="submit-review" class="order-btn">Gửi đánh giá</button>
-            <div id="review-message"></div>
-          </div>
-        </div>
+      <button class="modal-close" id="product-modal-close" aria-label="Đóng">&times;</button>
+      <h3 id="modal-title"></h3>
+      <img id="modal-img" src="" alt="" />
+      <p id="modal-desc"></p>
+      <p><strong>Giá:</strong> <span id="modal-price"></span></p>
+      <div class="modal-actions">
+        <button id="modal-add-cart">Thêm vào giỏ hàng</button>
+        <button id="modal-buy-now">Mua ngay</button>
       </div>
     </div>
   </div>
+
+  <!-- Toast thông báo -->
+  <div class="toast" id="toast"></div>
 
   <script src="script.js"></script>
 </body>
