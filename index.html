@@ -5,6 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>cửa hàng LỘC HOÀI - Tạp hóa, đồ gia dụng</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Phần liên hệ nằm bên phải */
+    .contact-box {
+      position: fixed;
+      right: 10px;
+      top: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .contact-btn {
+      background-color: #ffffffcc;
+      color: #000;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+
+    .contact-btn:hover {
+      background-color: #d0f0d0;
+    }
+
+    .cart-icon-link {
+      font-size: 20px;
+      padding: 8px 12px;
+      background-color: #33691E;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -24,20 +62,43 @@
   <button class="nav-btn" data-category="đồ điện">Đồ điện</button>
   <button class="nav-btn" data-category="đồ bếp">Đồ bếp</button>
   <button class="nav-btn" data-category="gia dụng">Gia dụng</button>
-  <a href="cart.html" class="cart-link">Giỏ hàng</a>
+  <a href="cart.html" class="cart-icon-link" title="Giỏ hàng">🛒</a>
 </nav>
 
 <main>
   <div id="products" class="home"></div>
 </main>
 
+<!-- Liên hệ bên phải -->
+<div class="contact-box">
+  <!-- Gọi -->
+  <button class="contact-btn" onclick="confirmCall()">📞 0372057834</button>
+
+  <!-- Facebook -->
+  <a class="contact-btn" href="https://www.facebook.com/pro.huuloc.1" target="_blank">🟦 FB @pro.huuloc.1</a>
+
+  <!-- Zalo -->
+  <a class="contact-btn" href="zalo://messenger" target="_blank">🟩 ZL (chưa cập nhật)</a>
+
+  <!-- Telegram -->
+  <a class="contact-btn" href="https://t.me/youlu111" target="_blank">📩 TEGRAM @youlu111</a>
+</div>
+
+<!-- Footer -->
 <footer>
   &copy; 2025 cửa hàng LỘC HOÀI
 </footer>
 
 <script src="script.js"></script>
 <script>
-  // Khởi tạo trang chủ với tất cả sản phẩm
+  // Gọi điện thoại có xác nhận
+  function confirmCall() {
+    if (confirm("Bạn có muốn gọi 0372057834 không?")) {
+      window.location.href = "tel:0372057834";
+    }
+  }
+
+  // Khởi tạo hiển thị sản phẩm
   document.addEventListener('DOMContentLoaded', () => {
     renderProducts('all');
   });
