@@ -59,21 +59,7 @@ function updateCartDisplay() {
         li.textContent = `${item.name} - ${item.price.toLocaleString()} đ x ${item.quantity}`;
 
         const btnDelete = document.createElement("button");
-        btnDelete.textContent = "Xóa";
-        btnDelete.style.marginLeft = "10px";
-        btnDelete.onclick = () => removeFromCart(index);
-
-        li.appendChild(btnDelete);
-        cartItems.appendChild(li);
-
-        total += item.price * item.quantity;
-    });
-
-    cartTotal.textContent = total.toLocaleString();
-}
-
-// ✅ Thông báo nổi ở giữa màn hình
-function showCustomAlert(message) {
+        btn
     const alertBox = document.getElementById("custom-alert");
     if (!alertBox) return;
 
