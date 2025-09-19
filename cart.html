@@ -23,13 +23,13 @@
 <h2>Đặt hàng</h2>
 <div id="order-message"></div>
 <form id="order-form">
-  <label for="fullname">Họ và tên <span style="color:red;">*</span></label>
+  <label for="fullname">Họ và tên <span class="required">*</span></label>
   <input type="text" id="fullname" name="fullname" required />
 
-  <label for="address">Địa chỉ <span style="color:red;">*</span></label>
+  <label for="address">Địa chỉ <span class="required">*</span></label>
   <input type="text" id="address" name="address" required />
 
-  <label for="phone">Số điện thoại <span style="color:red;">*</span></label>
+  <label for="phone">Số điện thoại <span class="required">*</span></label>
   <input type="tel" id="phone" name="phone" required pattern="[0-9]{9,15}" placeholder="Chỉ nhập số" />
 
   <button type="submit">Đặt hàng</button>
@@ -38,115 +38,6 @@
 <div id="order-summary" style="display:none;"></div>
 
 <script src="script.js"></script>
-<script>
-  // Load giỏ hàng từ localStorage
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  const cartList = document.getElementById('cart-list');
-  const totalPriceEl = document.getElementById('total-price');
-  const orderForm = document.getElementById('order-form');
-  const orderMessage = document.getElementById('order-message');
-  const orderSummary = document.getElementById('order-summary');
-
-  function formatPrice(price) {
-    return price.toLocaleString('vi-VN') + ' VND';
-  }
-
-  function renderCart() {
-    cartList.innerHTML = '';
-    if (cart.length === 0) {
-      cartList.innerHTML = '<li>Giỏ hàng đang trống.</li>';
-      totalPriceEl.textContent = 'Tổng tiền: 0 VND';
-      return;
-    }
-    cart.forEach((item, index) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        ${item.name} - ${formatPrice(item.price)}
-        <button data-index="${index}">Xóa</button>
-      `;
-      cartList.appendChild(li);
-    });
-
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    totalPriceEl.textContent = `Tổng tiền: ${formatPrice(total)}`;
-
-    // Gán sự kiện xóa
-    cartList.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const idx = e.target.getAttribute('data-index');
-        cart.splice(idx, 1);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        renderCart();
-      });
-    });
-  }
-
-  renderCart();
-
-  orderForm.addEventListener('submit', e => {
-    e.preventDefault();
-    if(cart.length === 0) {
-      orderMessage.style.color = 'red';
-      orderMessage.textContent = 'Giỏ hàng đang trống, vui lòng thêm sản phẩm.';
-      return;
-    }
-    if(!orderForm.checkValidity()) {
-      orderMessage.style.color = 'red';
-      orderMessage.textContent = 'Vui lòng điền đầy đủ thông tin.';
-      return;
-    }
-
-    orderMessage.style.color = 'green';
-    orderMessage.textContent = 'Đặt hàng thành công! Cảm ơn bạn.';
-
-    const fullname = orderForm.fullname.value.trim();
-    const address = orderForm.address.value.trim();
-    const phone = orderForm.phone.value.trim();
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-
-    let orderDetails = `<p><strong>Khách hàng:</strong> ${fullname}</p>`;
-    orderDetails += `<p><strong>Địa chỉ:</strong> ${address}</p>`;
-    orderDetails += `<p><strong>Điện thoại:</strong> ${phone}</p>`;
-    orderDetails += `<p><strong>Số sản phẩm:</strong> ${cart.length}</p>`;
-    orderDetails += `<p><strong>Tổng tiền đơn hàng:</strong> ${formatPrice(total)}</p>`;
-    orderDetails += `<p><strong>Danh sách sản phẩm:</strong></p><ul>`;
-    cart.forEach(item => {
-      orderDetails += `<li>${item.name} - ${formatPrice(item.price)}</li>`;
-    });
-    orderDetails += `</ul>`;
-
-    orderSummary.innerHTML = orderDetails;
-    orderSummary.style.display = 'block';
-
-    // Gửi tin nhắn Telegram (gọi hàm từ script.js)
-    if(typeof sendTelegramMessage === "function") {
-      const telegramMessage = `
-<b>Đơn hàng mới từ cửa hàng LỘC HOÀI</b>
-Khách hàng: ${fullname}
-Địa chỉ: ${address}
-Điện thoại: ${phone}
-Số sản phẩm: ${cart.length}
-Tổng tiền: ${formatPrice(total)}
-
-Danh sách sản phẩm:
-${cart.map(item => `- ${item.name} (${formatPrice(item.price)})`).join('\n')}
-      `;
-      sendTelegramMessage(telegramMessage);
-    }
-
-    // Xóa giỏ hàng và reset form
-    cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
-    renderCart();
-    orderForm.reset();
-
-    setTimeout(() => {
-      orderMessage.textContent = '';
-      orderSummary.style.display = 'none';
-    }, 10000);
-  });
-</script>
 
 </body>
 </html>
