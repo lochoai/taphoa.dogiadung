@@ -1,117 +1,78 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cửa hàng tạp hóa</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        #custom-alert {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
-            display: none;
-            z-index: 1000;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LỘC HOÀI | Cửa hàng tạp hóa và đồ gia dụng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LỘC HOÀI cửa hàng tạp hóa và đồ gia dụng</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<!-- Thông báo tùy chỉnh -->
-<div id="custom-alert" class="hide">
-    ✅ Sản phẩm đã được thêm vào giỏ hàng!
-</div>
 <body>
-    <div id="custom-alert">✅ Sản phẩm đã được thêm vào giỏ hàng!</div>
+  <header>
+    <div class="shop-info">
+      <h1>LỘC HOÀI</h1>
+      <p>Cửa hàng tạp hóa và đồ gia dụng</p>
+    </div>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a>
+    <h1>
+      LỘC HOÀI<br />
+      <small>cửa hàng tạp hóa và đồ gia dụng</small>
+    </h1>
+    <div class="top-contact">
+      <div class="cart-link">
+        🛒 <a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a>
+      </div>
+      <div class="contact-links">
+        <a href="https://facebook.com/pro.huuloc.1" target="_blank">Facebook</a>
+        <a href="#">Zalo</a>
+        <a href="tel:0372057834">Gọi: 0372057834</a>
+        <a href="https://facebook.com/pro.huuloc.1" target="_blank">FB</a> |
+        <a href="tel:0372057834">0372057834</a> |
+        <a href="#">Zalo (chưa cập nhật)</a>
+      </div>
+    </div>
+  </header>
 
-    <header>
-        <h1>Cửa Hàng Tạp Hóa & Đồ Gia Dụng</h1>
-        <nav>
-            <a href="index.html">Trang chủ</a>
-            <a href="index.html">Sản phẩm</a>
-            <a href="cart.html">Giỏ hàng</a> <!-- Link sang cart.html -->
-            <a href="cart.html">Giỏ hàng</a>
-        </nav>
-    </header>
-<h2>Giỏ hàng của bạn</h2>
-<div id="cart-container">
-    <ul id="cart-items"></ul>
-    <p><strong>Tổng tiền: </strong><span id="cart-total">0</span> đ</p>
-</div>
+  <nav class="menu">
+    <button data-category="all">Trang chủ</button>
+    <button data-category="gia-vi">Gia vị</button>
+    <button data-category="banh-keo">Bánh kẹo</button>
+    <button data-category="do-uong">Đồ uống</button>
+    <button data-category="goi-rua">Đồ gội rửa</button>
+    <button data-category="thuoc-la">Thuốc lá</button>
+    <button data-category="do-kho">Đồ khô</button>
+    <button data-category="do-dien">Đồ điện</button>
+    <button data-category="do-bep">Đồ bếp</button>
+    <button data-category="chen-bat">Chén bát</button>
+    <button data-category="gia-dung">Gia dụng</button>
+    <div class="menu-row">
+      <button class="menu-item" data-category="all">Trang chủ</button>
+      <button class="menu-item" data-category="gia-vi">Gia vị</button>
+      <button class="menu-item" data-category="banh-keo">Bánh kẹo</button>
+      <button class="menu-item" data-category="do-uong">Đồ uống</button>
+      <button class="menu-item" data-category="goi-rua">Gội rửa</button>
+    </div>
+    <div class="menu-row">
+      <button class="menu-item" data-category="thuoc-la">Thuốc lá</button>
+      <button class="menu-item" data-category="do-kho">Đồ khô</button>
+      <button class="menu-item" data-category="do-dien">Đồ điện</button>
+      <button class="menu-item" data-category="do-bep">Đồ bếp</button>
+      <button class="menu-item" data-category="chen-bat">Chén bát</button>
+    </div>
+  </nav>
 
-    <main>
-        <h2>Sản phẩm nổi bật</h2>
-        <div class="product-list">
-            <!-- Sản phẩm mẫu -->
-            <div class="product">
-                <img src="images/nuoc-mam.jpg" alt="Nước mắm">
-                <h3>Nước mắm Nam Ngư</h3>
-                <p>Giá: 35.000đ</p>
-                <button onclick="addToCart('Nước mắm Nam Ngư', 35000)">Thêm vào giỏ</button>
-            </div>
-            <div class="product">
-                <img src="images/noi-com.jpg" alt="Nồi cơm điện">
-                <h3>Nồi cơm điện Sunhouse</h3>
-                <p>Giá: 450.000đ</p>
-                <button onclick="addToCart('Nồi cơm điện Sunhouse', 450000)">Thêm vào giỏ</button>
-            </div>
-        </div>
-    </main>
+  <main>
+    <div id="product-list" class="product-grid">
+      <!-- Sản phẩm sẽ được hiển thị ở đây bằng JavaScript -->
+    <div id="product-list" class="product-list">
+      <!-- Sản phẩm sẽ được load ở đây -->
+    </div>
+  </main>
 
-    <footer>
-        <p>&copy; 2025 Cửa hàng Tạp hóa. All rights reserved.</p>
-    </footer>
+  <div id="notification" class="notification"></div>
 
-    <script src="script.js"></script>
-</body>
-</html>
-    <script>
-        function showAlert() {
-            const alertBox = document.getElementById("custom-alert");
-            alertBox.style.display = "block";
-            setTimeout(() => {
-                alertBox.style.display = "none";
-            }, 2000);
-        }
-
-        function addToCart(name, price) {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-            const existingItem = cart.find(item => item.name === name);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name, price, quantity: 1 });
-            }
-
-            localStorage.setItem("cart", JSON.stringify(cart));
-            showAlert();
-            updateCartSummary(); // cập nhật giỏ tạm thời nếu cần
-        }
-
-        function updateCartSummary() {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let total = 0;
-
-            const cartItems = document.getElementById("cart-items");
-            const cartTotal = document.getElementById("cart-total");
-
-            if (!cartItems || !cartTotal) return;
-
-            cartItems.innerHTML = "";
-            cart.forEach(item => {
-                const li = document.createElement("li");
-                li.textContent = `${item.name} x ${item.quantity}`;
-                cartItems.appendChild(li);
-                total += item.price * item.quantity;
-            });
-
-            cartTotal.textContent = total.toLocaleString();
-        }
-
-        window.onload = updateCartSummary;
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
