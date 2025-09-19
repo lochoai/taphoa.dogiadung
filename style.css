@@ -1,30 +1,9 @@
-/* Reset cơ bản */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Thiết lập font và màu nền */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f9fff8;
-  color: #333;
-  padding: 10px;
 }
 
-/* Giới hạn độ rộng trang trên PC */
-@media (min-width: 768px) {
-  body {
-    width: 30%;
-    margin: 0 auto;
-  }
-}
-
-/* Header */
 header {
     background-color: #27ae60;
     color: white;
@@ -133,129 +112,11 @@ main {
 
 #custom-alert.hide {
     opacity: 0;
-  background-color: #d5f7d0;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
 }
-
-.shop-info h1 {
-  color: #2e7d32;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.shop-info p {
-  font-size: 14px;
-  color: #444;
-}
-
-.header-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.cart-btn {
-  background-color: #f9c74f;
-  padding: 6px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
-}
-
-.contact-links a {
-  margin-left: 10px;
-  font-size: 13px;
-  color: #0077cc;
-  text-decoration: none;
-}
-
-/* Menu */
-.menu {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.menu button {
-  background-color: #ffe3ec;
-  color: #333;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.menu button:hover {
-  background-color: #ffd6e0;
-}
-
-/* Grid sản phẩm */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-/* 4 cột ở trang chủ trên PC */
-@media (min-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.product-card {
-  background-color: #fff6e0;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  position: relative;
-  transition: transform 0.2s;
-}
-
-.product-card:hover {
-  transform: scale(1.02);
-}
-
-.product-card h4 {
-  font-size: 16px;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.product-card button {
-  font-size: 12px;
-  margin-top: 5px;
-  padding: 5px 10px;
-  margin-right: 5px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.add-to-cart {
-  background-color: #90ee90;
-}
-
-.buy-now {
-  background-color: #f08080;
-}
-
-/* Giỏ hàng */
 #cart-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 15px;
 }
 
 #cart-table th,
@@ -463,93 +324,4 @@ main {
     10% { opacity: 1; transform: translate(-50%, -50%); }
     90% { opacity: 1; transform: translate(-50%, -50%); }
     100% { opacity: 0; transform: translate(-50%, -60%); }
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
-}
-
-.cart-summary {
-  background-color: #e3fcec;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-}
-
-/* Modal đặt hàng */
-.checkout-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.checkout-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
-}
-
-.checkout-content label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.checkout-content input,
-.checkout-content textarea {
-  width: 100%;
-  padding: 6px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.checkout-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-.checkout-actions button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-#cancel-btn {
-  background-color: #ccc;
-}
-
-#confirm-btn {
-  background-color: #4caf50;
-  color: white;
-}
-
-/* Ẩn */
-.hidden {
-  display: none;
-}
-
-/* Thông báo */
-.notification {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #4caf50;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 14px;
-  z-index: 1000;
-  display: none;
 }
