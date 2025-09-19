@@ -209,3 +209,24 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+.nav-btn {
+  background-color: #ffb6c1; /* Màu hồng nhạt */
+  color: #000; /* Chữ đen rõ ràng */
+  border: none;
+  padding: 14px 20px;
+  margin: 4px;
+  font-size: 18px; /* Làm chữ to hơn */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #ff8fab; /* Hồng đậm hơn khi hover */
+  transform: scale(1.05); /* Nhấn vào nổi lên nhẹ */
+}
+
+.nav-btn.active {
+  background-color: #ff4f81; /* Hồng nổi bật cho nút đang chọn */
+  color: white;
+}
