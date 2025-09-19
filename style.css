@@ -1,173 +1,230 @@
-/* Reset */
+/* Reset cơ bản */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Body */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #222;
-  padding: 10px;
+  background-color: #f8fff5; /* Màu nền sáng xanh lá nhạt */
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
-.header {
-  background: linear-gradient(to right, #4CAF50, #FFEB3B, #F44336); /* Xanh - Vàng - Đỏ */
-  color: #fff;
-  padding: 20px 15px;
+header {
+  background: linear-gradient(90deg, #a8e6a3, #fff6a3, #f7a3a3);
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-content {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.header .logo h1 {
-  font-size: 24px;
+.store-info {
+  text-align: center;
+  flex: 1 1 300px;
+}
+
+.store-info h1 {
   font-weight: bold;
+  font-size: 2.2rem;
+  line-height: 1.1;
 }
 
-.header .highlight {
-  color: #fff700;
-  text-shadow: 1px 1px #000;
+.store-info .store-name {
+  font-size: 3rem;
+  color: #2a7a1f; /* xanh lá nổi bật */
+  display: block;
+  margin-top: 0.2rem;
 }
 
-.header .contact .icon {
-  width: 32px;
-  height: 32px;
-  margin-left: 10px;
-  transition: transform 0.3s ease;
-}
-
-.header .contact .icon:hover {
-  transform: scale(1.2);
-}
-
-/* Navbar */
-.navbar {
-  background-color: #388e3c;
-  padding: 10px 0;
+.store-info p {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #555;
   margin-top: 5px;
 }
 
-.navbar ul {
-  list-style: none;
+.contact-info {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.9rem;
+}
+
+.contact-info a {
+  text-decoration: none;
+  color: #333;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s;
+}
+
+.contact-info a:hover {
+  color: #2a7a1f;
+}
+
+.cart-icon {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.cart-icon a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+
+.cart-icon a:hover {
+  color: #2a7a1f;
+}
+
+/* Navigation danh mục */
+.category-nav {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 20px;
+  background-color: #f5f9e8; /* màu vàng nhạt */
   justify-content: center;
-  gap: 15px;
 }
 
-.navbar li a {
-  color: white;
-  text-decoration: none;
-  padding: 8px 15px;
+.category-nav button {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #2a7a1f;
   border-radius: 5px;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.navbar li a:hover {
-  background-color: #66bb6a;
+.category-nav button:hover {
+  background-color: #2a7a1f;
+  color: white;
 }
 
-/* Main content */
-.main-content {
-  padding: 20px;
-}
-
-.main-content h2 {
-  text-align: center;
-  color: #2e7d32;
-  margin-bottom: 20px;
-}
-
-/* Product Grid */
+/* Sản phẩm */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
+  padding: 20px;
+  flex-grow: 1;
 }
 
 .product-card {
-  background: #fff;
-  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
   padding: 15px;
-  border-radius: 8px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.2);
 }
 
 .product-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 12px;
 }
 
 .product-card h3 {
-  color: #d32f2f;
-  margin: 10px 0 5px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #2a7a1f;
 }
 
-.product-card p {
-  font-weight: bold;
+.price {
+  color: #d94c4c; /* đỏ nhẹ */
+  font-weight: 700;
   margin-bottom: 10px;
+  font-size: 1.1rem;
 }
 
-.product-card button {
-  background-color: #f44336; /* Đỏ */
-  color: white;
+/* Nút thêm vào giỏ hàng và mua ngay */
+.product-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.product-buttons button {
+  flex: 1 1 15%;
+  font-size: 0.9rem;
+  padding: 6px 8px;
+  font-weight: 600;
   border: none;
-  padding: 10px 14px;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.product-card button:hover {
-  background-color: #c62828;
+.add-to-cart {
+  background-color: #a8e6a3; /* xanh lá nhạt */
+  color: #2a7a1f;
 }
 
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 15px;
-  background-color: #4CAF50;
+.add-to-cart:hover {
+  background-color: #7ab24a;
   color: white;
-  margin-top: 30px;
-  font-size: 14px;
 }
 
-/* Responsive: Mobile */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.buy-now {
+  background-color: #f7a3a3; /* đỏ nhạt */
+  color: #8b1a1a;
+}
 
-  .navbar ul {
+.buy-now:hover {
+  background-color: #d94c4c;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header-content {
     flex-direction: column;
     align-items: center;
   }
-
-  .header .logo h1 {
-    font-size: 20px;
-    text-align: center;
-    width: 100%;
+  .contact-info {
+    align-items: center;
+    margin-top: 10px;
   }
-
-  .product-card button {
-    width: 100%;
+  .category-nav {
+    gap: 6px;
   }
-
-  .product-grid {
-    grid-template-columns: 1fr;
+  .product-buttons button {
+    flex: 1 1 40%;
+    font-size: 0.8rem;
   }
 }
