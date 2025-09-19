@@ -1,129 +1,120 @@
-// --- CẤU HÌNH TELEGRAM ---
-const BOT_TOKEN = "7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8";
-const CHAT_ID = "7774024453";
+// Biến lưu giỏ hàng trong localStorage
+const CART_KEY = 'lochoai_cart';
 
-// --- HÀNG HÓA / GIỎ HÀNG ---
-let gioHang = JSON.parse(localStorage.getItem("gioHang")) || [];
-
-function themVaoGio(ten, gia) {
-  gioHang.push({ ten, gia });
-  localStorage.setItem("gioHang", JSON.stringify(gioHang));
-  alert(`✅ Đã thêm "${ten}" vào giỏ hàng!`);
+// Lấy giỏ hàng từ localStorage
+function getCart() {
+  const cart = localStorage.getItem(CART_KEY);
+  return cart ? JSON.parse(cart) : [];
 }
 
-// --- HIỂN THỊ GIỎ HÀNG ---
-function hienThiGioHang() {
-  const cartItemsEl = document.getElementById("cart-items");
-  const subtotalEl = document.getElementById("subtotal");
-  const shippingEl = document.getElementById("shipping");
-  const totalEl = document.getElementById("total");
+// Lưu giỏ hàng vào localStorage
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
 
-  if (!cartItemsEl) return;
+// Thông báo hiện chính giữa màn hình, tự tắt sau 1s
+function showNotification(message) {
+  const notif = document.createElement('div');
+  notif.className = 'notification';
+  notif.textContent = message;
+  document.body.appendChild(notif);
+  setTimeout(() => {
+    notif.remove();
+  }, 1000);
+}
 
-  cartItemsEl.innerHTML = "";
-
-  if (gioHang.length === 0) {
-    cartItemsEl.innerHTML = "<p>Giỏ hàng đang trống.</p>";
-    subtotalEl.textContent = "0đ";
-    shippingEl.textContent = "0đ";
-    totalEl.textContent = "0đ";
-    return;
+// Thêm sản phẩm vào giỏ
+function addToCart(product) {
+  let cart = getCart();
+  // Kiểm tra sản phẩm đã có trong giỏ chưa
+  const existing = cart.find(item => item.name === product.name);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ ...product, qty: 1 });
   }
+  saveCart(cart);
+  showNotification(`Đã thêm "${product.name}" vào giỏ hàng`);
+}
 
-  let subtotal = 0;
+// Hiển thị chi tiết sản phẩm (khi click vào sản phẩm)
+function viewProduct(card) {
+  // Lấy thông tin từ card
+  const name = card.querySelector('h3').textContent;
+  const priceText = card.querySelector('.price').textContent;
+  const price = parseInt(priceText.replace(/[^\d]/g, ''));
+  const imgSrc = card.querySelector('img').src;
 
-  gioHang.forEach((item, index) => {
-    subtotal += item.gia;
+  // Tạo overlay hiển thị chi tiết
+  const overlay = document.createElement('div');
+  overlay.className = 'product-overlay';
 
-    const itemEl = document.createElement("div");
-    itemEl.classList.add("cart-item");
+  overlay.innerHTML = `
+    <div class="product-detail">
+      <button class="close-detail">&times;</button>
+      <img src="${imgSrc}" alt="${name}" />
+      <h2>${name}</h2>
+      <p class="price">${priceText}</p>
+      <p>Mô tả chi tiết sản phẩm đang cập nhật...</p>
+      <div class="product-buttons">
+        <button id="detail-add-to-cart">Thêm vào giỏ</button>
+        <button id="detail-buy-now">Mua ngay</button>
+      </div>
+    </div>
+  `;
 
-    itemEl.innerHTML = `
-      <p>${item.ten} - ${item.gia.toLocaleString()}đ</p>
-      <button onclick="xoaSanPham(${index})">❌ Xoá</button>
-    `;
+  document.body.appendChild(overlay);
 
-    cartItemsEl.appendChild(itemEl);
+  overlay.querySelector('.close-detail').onclick = () => {
+    overlay.remove();
+  };
+
+  overlay.querySelector('#detail-add-to-cart').onclick = (e) => {
+    e.stopPropagation();
+    addToCart({ name, price, imgSrc });
+  };
+
+  overlay.querySelector('#detail-buy-now').onclick = (e) => {
+    e.stopPropagation();
+    addToCart({ name, price, imgSrc });
+    window.location.href = 'cart.html';
+  };
+}
+
+// Gán sự kiện cho nút thêm vào giỏ và mua ngay trên index.html
+function bindProductButtons() {
+  const productCards = document.querySelectorAll('.product-card');
+
+  productCards.forEach(card => {
+    // Ngăn chặn click trên card trừ nút
+    card.onclick = (e) => {
+      if (!e.target.classList.contains('add-to-cart') && !e.target.classList.contains('buy-now')) {
+        viewProduct(card);
+      }
+    };
+
+    card.querySelector('.add-to-cart').onclick = (e) => {
+      e.stopPropagation();
+      const name = card.querySelector('h3').textContent;
+      const priceText = card.querySelector('.price').textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+      const imgSrc = card.querySelector('img').src;
+      addToCart({ name, price, imgSrc });
+    };
+
+    card.querySelector('.buy-now').onclick = (e) => {
+      e.stopPropagation();
+      const name = card.querySelector('h3').textContent;
+      const priceText = card.querySelector('.price').textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+      const imgSrc = card.querySelector('img').src;
+      addToCart({ name, price, imgSrc });
+      window.location.href = 'cart.html';
+    };
   });
-
-  // Tính phí ship
-  let ship = subtotal < 200000 ? 20000 : 0;
-  let total = subtotal + ship;
-
-  subtotalEl.textContent = `${subtotal.toLocaleString()}đ`;
-  shippingEl.textContent = `${ship.toLocaleString()}đ`;
-  totalEl.textContent = `${total.toLocaleString()}đ`;
 }
 
-// --- XOÁ SẢN PHẨM ---
-function xoaSanPham(index) {
-  gioHang.splice(index, 1);
-  localStorage.setItem("gioHang", JSON.stringify(gioHang));
-  hienThiGioHang();
-}
-
-// --- GỬI ĐƠN HÀNG QUA TELEGRAM ---
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("order-form");
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      if (gioHang.length === 0) {
-        alert("❗ Giỏ hàng trống. Vui lòng thêm sản phẩm trước khi đặt.");
-        return;
-      }
-
-      const name = document.getElementById("name").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const address = document.getElementById("address").value.trim();
-      const note = document.getElementById("note").value.trim();
-
-      // Tính tổng và ship
-      const subtotal = gioHang.reduce((sum, item) => sum + item.gia, 0);
-      const ship = subtotal < 200000 ? 20000 : 0;
-      const total = subtotal + ship;
-
-      let text = `🛒 *ĐƠN HÀNG MỚI* 🛒\n`;
-      text += `👤 *Khách:* ${name}\n📞 *SĐT:* ${phone}\n🏠 *Địa chỉ:* ${address}\n`;
-      if (note) text += `📝 *Ghi chú:* ${note}\n`;
-      text += `\n📦 *Sản phẩm:*\n`;
-
-      gioHang.forEach((item, i) => {
-        text += `- ${item.ten} (${item.gia.toLocaleString()}đ)\n`;
-      });
-
-      text += `\n💵 *Tạm tính:* ${subtotal.toLocaleString()}đ`;
-      text += `\n🚚 *Phí ship:* ${ship.toLocaleString()}đ`;
-      text += `\n💰 *TỔNG:* ${total.toLocaleString()}đ`;
-
-      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-      try {
-        const res = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: text,
-            parse_mode: "Markdown",
-          }),
-        });
-
-        if (res.ok) {
-          document.getElementById("message").innerHTML = `<p style="color:green;">✅ Đơn hàng đã được gửi thành công!</p>`;
-          gioHang = [];
-          localStorage.removeItem("gioHang");
-          form.reset();
-          hienThiGioHang();
-        } else {
-          throw new Error("Lỗi gửi đơn hàng.");
-        }
-      } catch (err) {
-        document.getElementById("message").innerHTML = `<p style="color:red;">❌ Gửi đơn thất bại. Vui lòng thử lại sau.</p>`;
-      }
-    });
-  }
-
-  hienThiGioHang(); // Hiển thị giỏ hàng khi vào trang cart.html
-});
+// Khởi tạo khi trang load
+window.onload = () => {
+  bindProductButtons();
+};
