@@ -2,124 +2,55 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cửa hàng tạp hóa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cửa Hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    #custom-alert {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(39, 174, 96, 0.95);
-      color: white;
-      padding: 15px 30px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-      z-index: 10000;
-      text-align: center;
-      max-width: 80%;
-    }
-
-    #custom-alert.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  </style>
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- Thông báo -->
-  <div id="custom-alert"></div>
-
-  <!-- Header -->
   <header>
-    <h1>Cửa Hàng Tạp Hóa & Đồ Gia Dụng</h1>
-    <nav>
-      <a href="index.html">Trang chủ</a>
-      <a href="index.html">Sản phẩm</a>
-      <a href="cart.html">Giỏ hàng</a>
-    </nav>
+    <div class="header-left">
+      <h1>Cửa hàng<br /><span class="store-name">LỘC HOÀI</span><br />chuyên tạp hóa, đồ gia dụng</h1>
+    </div>
+    <div class="header-right">
+      <ul class="contacts">
+        <li><a href="tel:0372057834"><img src="icons/phone.svg" alt="Gọi" /> 0372057834</a></li>
+        <li><a href="https://m.me/pro.huuloc.1" target="_blank"><img src="icons/fb.svg" alt="Facebook" /> Facebook</a></li>
+        <li><a href="#" onclick="alert('Zalo chưa cập nhật!')"><img src="icons/zalo.svg" alt="Zalo" /> Zalo</a></li>
+        <li><a href="https://t.me/7774024453" target="_blank"><img src="icons/telegram.svg" alt="Telegram" /> Telegram</a></li>
+      </ul>
+    </div>
   </header>
 
-  <!-- Nội dung chính -->
-  <main>
-    <h2>Sản phẩm nổi bật</h2>
-    <div class="product-list">
-      <div class="product">
-        <img src="images/nuoc-mam.jpg" alt="Nước mắm" />
-        <h3>Nước mắm Nam Ngư</h3>
-        <p class="product-desc">Nước mắm truyền thống, thơm ngon, đậm đà hương vị.</p>
-        <p>Giá: 35.000đ</p>
-        <button onclick="addToCart('Nước mắm Nam Ngư', 35000)">Thêm vào giỏ</button>
-      </div>
-      <div class="product">
-        <img src="images/noi-com.jpg" alt="Nồi cơm điện" />
-        <h3>Nồi cơm điện Sunhouse</h3>
-        <p class="product-desc">Nồi cơm điện dung tích 1.8L, tiết kiệm điện, dễ sử dụng.</p>
-        <p>Giá: 450.000đ</p>
-        <button onclick="addToCart('Nồi cơm điện Sunhouse', 450000)">Thêm vào giỏ</button>
+  <div class="cart-center">
+    <a href="cart.html" class="cart-btn">
+      <img src="icons/cart.svg" alt="Giỏ hàng" /> Giỏ hàng (<span id="cart-count">0</span>)
+    </a>
+  </div>
+
+  <nav class="main-nav">
+    <button class="category-btn" data-cat="tap-hoa">TẠP HÓA</button>
+    <button class="category-btn" data-cat="gia-dung">GIA DỤNG</button>
+  </nav>
+
+  <section id="sub-categories" class="sub-categories"></section>
+
+  <main id="product-list" class="product-list"></main>
+
+  <div id="product-detail-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeProductDetail()">×</button>
+      <img id="detail-img" alt="Ảnh sản phẩm" />
+      <h3 id="detail-name"></h3>
+      <p id="detail-desc"></p>
+      <p class="price" id="detail-price"></p>
+      <div class="modal-actions">
+        <button id="detail-add-cart">Thêm vào giỏ hàng</button>
+        <button id="detail-buy-now">Mua ngay</button>
       </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Cửa hàng Tạp hóa. All rights reserved.</p>
-  </footer>
-
-  <!-- Script -->
-  <script>
-    function addToCart(name, price) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      const existingItem = cart.find(item => item.name === name);
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        cart.push({ name, price, quantity: 1 });
-      }
-
-      localStorage.setItem("cart", JSON.stringify(cart));
-      showCustomAlert(`${name} đã được thêm vào giỏ hàng!`);
-      updateCartSummary();
-    }
-
-    function showCustomAlert(message) {
-      const alertBox = document.getElementById("custom-alert");
-      alertBox.textContent = `✅ ${message}`;
-      alertBox.classList.add("show");
-
-      setTimeout(() => {
-        alertBox.classList.remove("show");
-      }, 2000);
-    }
-
-    function updateCartSummary() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      let total = 0;
-
-      const cartItems = document.getElementById("cart-items");
-      const cartTotal = document.getElementById("cart-total");
-
-      if (!cartItems || !cartTotal) return;
-
-      cartItems.innerHTML = "";
-      cart.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.name} x ${item.quantity}`;
-        cartItems.appendChild(li);
-        total += item.price * item.quantity;
-      });
-
-      cartTotal.textContent = total.toLocaleString();
-    }
-
-    window.onload = updateCartSummary;
-  </script>
+  <div id="toast" class="toast hidden"></div>
 </body>
 </html>
