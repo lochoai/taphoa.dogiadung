@@ -1,273 +1,221 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giỏ Hàng - Cửa Hàng LỘC HOÀI</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Giỏ hàng của bạn</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #customer-form {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .form-popup {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .form-popup input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-popup button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Giỏ Hàng Của Bạn</h1>
+        <nav>
+            <a href="index.html">← Quay lại mua hàng</a>
+        </nav>
+    </header>
 
-  <header>
-    <div class="header-content">
-      <div class="store-info">
-        <h1>Cửa Hàng<br><span class="store-name">LỘC HOÀI</span></h1>
-        <p>chuyên tạp hóa, đồ gia dụng</p>
-      </div>
-      <div class="contact-info">
-        <a href="tel:0372057834"><img src="https://img.icons8.com/ios-filled/24/phone.png"/> 0372057834</a>
-        <a href="https://facebook.com/pro.huuloc.1" target="_blank"><img src="https://img.icons8.com/ios-filled/24/facebook.png"/> Facebook</a>
-        <a href="#"><img src="https://img.icons8.com/ios-filled/24/zalo.png"/> Zalo</a>
-        <a href="https://t.me/7774024453" target="_blank"><img src="https://img.icons8.com/ios-filled/24/telegram-app.png"/> Telegram</a>
-      </div>
-    </div>
-    <div class="cart-icon">
-      <a href="cart.html"><img src="https://img.icons8.com/ios-filled/30/shopping-cart.png"/> Giỏ hàng</a>
-    </div>
-  </header>
+    <main>
+        <h2>Giỏ hàng của bạn</h2>
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+        </table>
 
-  <main class="cart-main">
-    <h2>Giỏ hàng của bạn</h2>
-    <table class="cart-table">
-      <thead>
-        <tr>
-          <th>Sản phẩm</th>
-          <th>Số lượng</th>
-          <th>Giá</th>
-          <th>Thành tiền</th>
-          <th>Xóa</th>
-        </tr>
-      </thead>
-      <tbody id="cart-items">
-        <!-- Danh sách sản phẩm sẽ được JS thêm vào -->
-      </tbody>
-    </table>
+        <p class="total-line"><strong>Tổng cộng: </strong><span id="cart-total">0</span> đ</p>
+        <button id="checkout-btn">Thanh toán</button>
+    </main>
 
-    <div class="cart-summary">
-      <p>Phí vận chuyển: <span id="shipping-fee">20,000₫</span></p>
-      <p>Tổng cộng: <span id="total-price">0₫</span></p>
-    </div>
+    <footer>
+        <p>&copy; 2025 Cửa hàng Tạp hóa</p>
+    </footer>
 
-    <div class="cart-buttons">
-      <button id="back-to-products">← Trở về</button>
-      <button id="btn-checkout">Đặt hàng</button>
-    </div>
-  </main>
-
-  <!-- Popup đặt hàng -->
-  <div id="order-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Thông tin đặt hàng</h3>
-      <form id="order-form">
-        <label for="customer-name">Họ tên:</label>
-        <input type="text" id="customer-name" name="customerName" required />
-
-        <label for="customer-phone">Số điện thoại:</label>
-        <input type="tel" id="customer-phone" name="customerPhone" pattern="[0-9]{9,12}" required />
-
-        <label for="customer-address">Địa chỉ:</label>
-        <textarea id="customer-address" name="customerAddress" rows="3" required></textarea>
-
-        <div class="modal-buttons">
-          <button type="button" id="cancel-order">Hủy</button>
-          <button type="submit" id="submit-order">Đặt hàng</button>
+    <!-- Form nhập thông tin khách hàng -->
+    <div id="customer-form">
+        <div class="form-popup">
+            <h3>Nhập thông tin giao hàng</h3>
+            <input type="text" id="customer-name" placeholder="Họ và tên" required>
+            <input type="tel" id="customer-phone" placeholder="Số điện thoại" required>
+            <input type="text" id="customer-address" placeholder="Địa chỉ nhận hàng" required>
+            <button onclick="submitOrder()">Gửi đơn hàng</button>
         </div>
-      </form>
     </div>
-  </div>
 
-  <script src="script.js"></script>
-  <script>
-    // Phần xử lý riêng cho cart.html
+    <script>
+        const BOT_TOKEN = "7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8";
+        const CHAT_ID = "944976544";
 
-    const CART_KEY = 'lochoai_cart';
-    const SHIPPING_FEE = 20000;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const cartItemsTbody = document.getElementById('cart-items');
-    const totalPriceEl = document.getElementById('total-price');
-    const shippingFeeEl = document.getElementById('shipping-fee');
-    const backToProductsBtn = document.getElementById('back-to-products');
-    const checkoutBtn = document.getElementById('btn-checkout');
-    const orderModal = document.getElementById('order-modal');
-    const orderForm = document.getElementById('order-form');
-    const cancelOrderBtn = document.getElementById('cancel-order');
+        function updateCartDisplay() {
+            const cartItems = document.getElementById("cart-items");
+            const cartTotal = document.getElementById("cart-total");
 
-    // Lấy giỏ hàng từ localStorage
-    function getCart() {
-      const cart = localStorage.getItem(CART_KEY);
-      return cart ? JSON.parse(cart) : [];
-    }
+            cartItems.innerHTML = "";
+            let total = 0;
 
-    // Lưu giỏ hàng
-    function saveCart(cart) {
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    }
+            cart.forEach((item, index) => {
+                const row = document.createElement("tr");
 
-    // Hiển thị giỏ hàng ra bảng
-    function renderCart() {
-      const cart = getCart();
-      cartItemsTbody.innerHTML = '';
-      if (cart.length === 0) {
-        cartItemsTbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Giỏ hàng trống</td></tr>';
-        totalPriceEl.textContent = '0₫';
-        shippingFeeEl.textContent = '0₫';
-        return;
-      }
+                const nameCell = document.createElement("td");
+                nameCell.textContent = item.name;
+                row.appendChild(nameCell);
 
-      let total = 0;
-      cart.forEach((item, index) => {
-        const itemTotal = item.price * item.qty;
-        total += itemTotal;
+                const priceCell = document.createElement("td");
+                priceCell.textContent = item.price.toLocaleString() + " đ";
+                row.appendChild(priceCell);
 
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${item.name}</td>
-          <td>
-            <input type="number" min="1" value="${item.qty}" data-index="${index}" class="qty-input" />
-          </td>
-          <td>${item.price.toLocaleString()}₫</td>
-          <td>${itemTotal.toLocaleString()}₫</td>
-          <td><button class="remove-item" data-index="${index}">Xóa</button></td>
-        `;
-        cartItemsTbody.appendChild(tr);
-      });
+                const quantityCell = document.createElement("td");
 
-      const shippingFee = total >= 199999 ? 0 : SHIPPING_FEE;
-      shippingFeeEl.textContent = shippingFee.toLocaleString() + '₫';
+                const minusBtn = document.createElement("button");
+                minusBtn.textContent = "-";
+                minusBtn.onclick = () => {
+                    if (item.quantity > 1) {
+                        item.quantity--;
+                        saveCart();
+                        updateCartDisplay();
+                    }
+                };
 
-      totalPriceEl.textContent = (total + shippingFee).toLocaleString() + '₫';
-    }
+                const quantityText = document.createElement("span");
+                quantityText.textContent = item.quantity;
 
-    // Cập nhật số lượng khi thay đổi input
-    cartItemsTbody.addEventListener('change', (e) => {
-      if (e.target.classList.contains('qty-input')) {
-        const index = +e.target.dataset.index;
-        let qty = parseInt(e.target.value);
-        if (qty < 1 || isNaN(qty)) qty = 1;
-        const cart = getCart();
-        cart[index].qty = qty;
-        saveCart(cart);
-        renderCart();
-      }
-    });
+                const plusBtn = document.createElement("button");
+                plusBtn.textContent = "+";
+                plusBtn.onclick = () => {
+                    item.quantity++;
+                    saveCart();
+                    updateCartDisplay();
+                };
 
-    // Xóa sản phẩm
-    cartItemsTbody.addEventListener('click', (e) => {
-      if (e.target.classList.contains('remove-item')) {
-        const index = +e.target.dataset.index;
-        const cart = getCart();
-        cart.splice(index, 1);
-        saveCart(cart);
-        renderCart();
-      }
-    });
+                quantityCell.appendChild(minusBtn);
+                quantityCell.appendChild(quantityText);
+                quantityCell.appendChild(plusBtn);
+                row.appendChild(quantityCell);
 
-    // Nút trở về trang sản phẩm
-    backToProductsBtn.onclick = () => {
-      window.history.back();
-    };
+                const totalCell = document.createElement("td");
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                totalCell.textContent = itemTotal.toLocaleString() + " đ";
+                row.appendChild(totalCell);
 
-    // Mở popup đặt hàng
-    checkoutBtn.onclick = () => {
-      const cart = getCart();
-      if (cart.length === 0) {
-        alert('Giỏ hàng trống, vui lòng chọn sản phẩm trước khi đặt hàng.');
-        return;
-      }
-      orderModal.classList.remove('hidden');
-    };
+                const deleteCell = document.createElement("td");
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "X";
+                deleteBtn.style.color = "red";
+                deleteBtn.onclick = () => {
+                    cart.splice(index, 1);
+                    saveCart();
+                    updateCartDisplay();
+                };
+                deleteCell.appendChild(deleteBtn);
+                row.appendChild(deleteCell);
 
-    // Đóng popup đặt hàng
-    cancelOrderBtn.onclick = () => {
-      orderModal.classList.add('hidden');
-    };
+                cartItems.appendChild(row);
+            });
 
-    // Gửi đơn hàng qua Telegram bot
-    orderForm.onsubmit = async (e) => {
-      e.preventDefault();
-
-      const name = orderForm.customerName.value.trim();
-      const phone = orderForm.customerPhone.value.trim();
-      const address = orderForm.customerAddress.value.trim();
-      const cart = getCart();
-
-      if (!name || !phone || !address) {
-        alert('Vui lòng điền đầy đủ thông tin.');
-        return;
-      }
-
-      // Tạo mã đơn hàng
-      function randomOrderCode() {
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        let code = '';
-        for(let i = 0; i < 3; i++) {
-          code += letters.charAt(Math.floor(Math.random() * letters.length));
+            cartTotal.textContent = total.toLocaleString();
         }
-        code += Math.floor(1000000 + Math.random() * 9000000);
-        return code;
-      }
 
-      const orderCode = randomOrderCode();
-
-      // Thời gian hiện tại
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('vi-VN');
-      const dateStr = now.toLocaleDateString('vi-VN');
-
-      // Chuẩn bị danh sách sản phẩm
-      let productList = '';
-      cart.forEach(item => {
-        productList += `- ${item.name} x ${item.qty}\n`;
-      });
-
-      // Tính phí ship
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price * item.qty;
-      });
-      const shipFee = total >= 199999 ? 0 : SHIPPING_FEE;
-      const totalAll = total + shipFee;
-
-      // Tin nhắn gửi Telegram
-      const message = encodeURIComponent(
-`📦 ĐƠN HÀNG MỚI: ${orderCode}
-🕒 Thời gian: ${timeStr} - ${dateStr}
-👤 Tên: ${name}
-📞 SĐT: ${phone}
-🏠 Địa chỉ: ${address}
-
-🛒 Sản phẩm:
-${productList}
-🚚 Phí ship: ${shipFee.toLocaleString()}₫
-💰 Tổng cộng: ${totalAll.toLocaleString()} đ`
-      );
-
-      // Thay YOUR_BOT_TOKEN và CHAT_ID vào đây
-      const BOT_TOKEN = '7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8';
-      const CHAT_ID = '7774024453';
-
-      try {
-        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}`);
-        const data = await res.json();
-
-        if (data.ok) {
-          alert('Đặt hàng thành công! Cảm ơn bạn.');
-          // Xóa giỏ hàng
-          localStorage.removeItem(CART_KEY);
-          orderModal.classList.add('hidden');
-          renderCart();
-          window.location.href = 'index.html'; // Quay lại trang sản phẩm
-        } else {
-          alert('Đặt hàng không thành công, vui lòng thử lại.');
+        function saveCart() {
+            localStorage.setItem("cart", JSON.stringify(cart));
         }
-      } catch (error) {
-        alert('Lỗi khi gửi đơn hàng, vui lòng thử lại.');
-      }
-    };
 
-    // Render lần đầu
-    renderCart();
-  </script>
+        // Khi trang load
+        window.onload = updateCartDisplay;
 
+        document.getElementById("checkout-btn").onclick = function () {
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
+                return;
+            }
+            document.getElementById("customer-form").style.display = "flex";
+        };
+
+        function submitOrder() {
+            const name = document.getElementById("customer-name").value.trim();
+            const phone = document.getElementById("customer-phone").value.trim();
+            const address = document.getElementById("customer-address").value.trim();
+
+            if (!name || !phone || !address) {
+                alert("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            let message = `🛒 ĐƠN HÀNG MỚI:\n`;
+            message += `👤 Tên: ${name}\n📞 SĐT: ${phone}\n🏠 Địa chỉ: ${address}\n\n`;
+            message += `📦 Sản phẩm:\n`;
+
+            let total = 0;
+            cart.forEach(item => {
+                message += `- ${item.name} x ${item.quantity}\n`;
+                total += item.price * item.quantity;
+            });
+
+            message += `\n💰 Tổng cộng: ${total.toLocaleString()} đ`;
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("✅ Đơn hàng đã được gửi thành công!");
+                    cart = [];
+                    localStorage.removeItem("cart");
+                    updateCartDisplay();
+                    document.getElementById("customer-form").style.display = "none";
+                } else {
+                    alert("❌ Lỗi khi gửi đơn hàng.");
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi gửi đến Telegram:", error);
+                alert("❌ Gửi thất bại, hãy thử lại sau.");
+            });
+        }
+    </script>
 </body>
 </html>
