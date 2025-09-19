@@ -2,57 +2,272 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ Hàng - Cửa Hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header class="header">
-    <div class="logo">
-      <h1>🛒 GIỎ HÀNG - <span class="highlight">LỘC HOÀI</span></h1>
+  <header>
+    <div class="header-content">
+      <div class="store-info">
+        <h1>Cửa Hàng<br><span class="store-name">LỘC HOÀI</span></h1>
+        <p>chuyên tạp hóa, đồ gia dụng</p>
+      </div>
+      <div class="contact-info">
+        <a href="tel:0372057834"><img src="https://img.icons8.com/ios-filled/24/phone.png"/> 0372057834</a>
+        <a href="https://facebook.com/pro.huuloc.1" target="_blank"><img src="https://img.icons8.com/ios-filled/24/facebook.png"/> Facebook</a>
+        <a href="#"><img src="https://img.icons8.com/ios-filled/24/zalo.png"/> Zalo</a>
+        <a href="https://t.me/7774024453" target="_blank"><img src="https://img.icons8.com/ios-filled/24/telegram-app.png"/> Telegram</a>
+      </div>
     </div>
-    <div class="contact">
-      <a href="index.html">
-        <img src="img/cart.gif" alt="Trở về" class="icon" title="Trang chủ" />
-      </a>
+    <div class="cart-icon">
+      <a href="cart.html"><img src="https://img.icons8.com/ios-filled/30/shopping-cart.png"/> Giỏ hàng</a>
     </div>
   </header>
 
-  <main class="main-content">
-    <h2>Danh sách sản phẩm trong giỏ</h2>
-    <div id="cart-items"></div>
+  <main class="cart-main">
+    <h2>Giỏ hàng của bạn</h2>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Giá</th>
+          <th>Thành tiền</th>
+          <th>Xóa</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Danh sách sản phẩm sẽ được JS thêm vào -->
+      </tbody>
+    </table>
 
     <div class="cart-summary">
-      <p><strong>Tạm tính:</strong> <span id="subtotal">0đ</span></p>
-      <p><strong>Phí ship:</strong> <span id="shipping">0đ</span></p>
-      <p><strong>Tổng thanh toán:</strong> <span id="total">0đ</span></p>
+      <p>Phí vận chuyển: <span id="shipping-fee">20,000₫</span></p>
+      <p>Tổng cộng: <span id="total-price">0₫</span></p>
     </div>
 
-    <h3>Thông tin khách hàng</h3>
-    <form id="order-form">
-      <label>Họ tên:</label>
-      <input type="text" id="name" required />
-
-      <label>Số điện thoại:</label>
-      <input type="tel" id="phone" required />
-
-      <label>Địa chỉ:</label>
-      <textarea id="address" required></textarea>
-
-      <label>Ghi chú (tuỳ chọn):</label>
-      <textarea id="note"></textarea>
-
-      <button type="submit" id="order-btn">📦 Đặt hàng</button>
-    </form>
-
-    <div id="message"></div>
+    <div class="cart-buttons">
+      <button id="back-to-products">← Trở về</button>
+      <button id="btn-checkout">Đặt hàng</button>
+    </div>
   </main>
 
-  <footer class="footer">
-    <p>&copy; 2025 Cửa hàng tạp hóa LỘC HOÀI. Đơn hàng được gửi qua Telegram.</p>
-  </footer>
+  <!-- Popup đặt hàng -->
+  <div id="order-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Thông tin đặt hàng</h3>
+      <form id="order-form">
+        <label for="customer-name">Họ tên:</label>
+        <input type="text" id="customer-name" name="customerName" required />
+
+        <label for="customer-phone">Số điện thoại:</label>
+        <input type="tel" id="customer-phone" name="customerPhone" pattern="[0-9]{9,12}" required />
+
+        <label for="customer-address">Địa chỉ:</label>
+        <textarea id="customer-address" name="customerAddress" rows="3" required></textarea>
+
+        <div class="modal-buttons">
+          <button type="button" id="cancel-order">Hủy</button>
+          <button type="submit" id="submit-order">Đặt hàng</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script src="script.js"></script>
+  <script>
+    // Phần xử lý riêng cho cart.html
+
+    const CART_KEY = 'lochoai_cart';
+    const SHIPPING_FEE = 20000;
+
+    const cartItemsTbody = document.getElementById('cart-items');
+    const totalPriceEl = document.getElementById('total-price');
+    const shippingFeeEl = document.getElementById('shipping-fee');
+    const backToProductsBtn = document.getElementById('back-to-products');
+    const checkoutBtn = document.getElementById('btn-checkout');
+    const orderModal = document.getElementById('order-modal');
+    const orderForm = document.getElementById('order-form');
+    const cancelOrderBtn = document.getElementById('cancel-order');
+
+    // Lấy giỏ hàng từ localStorage
+    function getCart() {
+      const cart = localStorage.getItem(CART_KEY);
+      return cart ? JSON.parse(cart) : [];
+    }
+
+    // Lưu giỏ hàng
+    function saveCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    // Hiển thị giỏ hàng ra bảng
+    function renderCart() {
+      const cart = getCart();
+      cartItemsTbody.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsTbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Giỏ hàng trống</td></tr>';
+        totalPriceEl.textContent = '0₫';
+        shippingFeeEl.textContent = '0₫';
+        return;
+      }
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.name}</td>
+          <td>
+            <input type="number" min="1" value="${item.qty}" data-index="${index}" class="qty-input" />
+          </td>
+          <td>${item.price.toLocaleString()}₫</td>
+          <td>${itemTotal.toLocaleString()}₫</td>
+          <td><button class="remove-item" data-index="${index}">Xóa</button></td>
+        `;
+        cartItemsTbody.appendChild(tr);
+      });
+
+      const shippingFee = total >= 199999 ? 0 : SHIPPING_FEE;
+      shippingFeeEl.textContent = shippingFee.toLocaleString() + '₫';
+
+      totalPriceEl.textContent = (total + shippingFee).toLocaleString() + '₫';
+    }
+
+    // Cập nhật số lượng khi thay đổi input
+    cartItemsTbody.addEventListener('change', (e) => {
+      if (e.target.classList.contains('qty-input')) {
+        const index = +e.target.dataset.index;
+        let qty = parseInt(e.target.value);
+        if (qty < 1 || isNaN(qty)) qty = 1;
+        const cart = getCart();
+        cart[index].qty = qty;
+        saveCart(cart);
+        renderCart();
+      }
+    });
+
+    // Xóa sản phẩm
+    cartItemsTbody.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove-item')) {
+        const index = +e.target.dataset.index;
+        const cart = getCart();
+        cart.splice(index, 1);
+        saveCart(cart);
+        renderCart();
+      }
+    });
+
+    // Nút trở về trang sản phẩm
+    backToProductsBtn.onclick = () => {
+      window.history.back();
+    };
+
+    // Mở popup đặt hàng
+    checkoutBtn.onclick = () => {
+      const cart = getCart();
+      if (cart.length === 0) {
+        alert('Giỏ hàng trống, vui lòng chọn sản phẩm trước khi đặt hàng.');
+        return;
+      }
+      orderModal.classList.remove('hidden');
+    };
+
+    // Đóng popup đặt hàng
+    cancelOrderBtn.onclick = () => {
+      orderModal.classList.add('hidden');
+    };
+
+    // Gửi đơn hàng qua Telegram bot
+    orderForm.onsubmit = async (e) => {
+      e.preventDefault();
+
+      const name = orderForm.customerName.value.trim();
+      const phone = orderForm.customerPhone.value.trim();
+      const address = orderForm.customerAddress.value.trim();
+      const cart = getCart();
+
+      if (!name || !phone || !address) {
+        alert('Vui lòng điền đầy đủ thông tin.');
+        return;
+      }
+
+      // Tạo mã đơn hàng
+      function randomOrderCode() {
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let code = '';
+        for(let i = 0; i < 3; i++) {
+          code += letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+        code += Math.floor(1000000 + Math.random() * 9000000);
+        return code;
+      }
+
+      const orderCode = randomOrderCode();
+
+      // Thời gian hiện tại
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN');
+      const dateStr = now.toLocaleDateString('vi-VN');
+
+      // Chuẩn bị danh sách sản phẩm
+      let productList = '';
+      cart.forEach(item => {
+        productList += `- ${item.name} x ${item.qty}\n`;
+      });
+
+      // Tính phí ship
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+      });
+      const shipFee = total >= 199999 ? 0 : SHIPPING_FEE;
+      const totalAll = total + shipFee;
+
+      // Tin nhắn gửi Telegram
+      const message = encodeURIComponent(
+`📦 ĐƠN HÀNG MỚI: ${orderCode}
+🕒 Thời gian: ${timeStr} - ${dateStr}
+👤 Tên: ${name}
+📞 SĐT: ${phone}
+🏠 Địa chỉ: ${address}
+
+🛒 Sản phẩm:
+${productList}
+🚚 Phí ship: ${shipFee.toLocaleString()}₫
+💰 Tổng cộng: ${totalAll.toLocaleString()} đ`
+      );
+
+      // Thay YOUR_BOT_TOKEN và CHAT_ID vào đây
+      const BOT_TOKEN = '7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8';
+      const CHAT_ID = '7774024453';
+
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}`);
+        const data = await res.json();
+
+        if (data.ok) {
+          alert('Đặt hàng thành công! Cảm ơn bạn.');
+          // Xóa giỏ hàng
+          localStorage.removeItem(CART_KEY);
+          orderModal.classList.add('hidden');
+          renderCart();
+          window.location.href = 'index.html'; // Quay lại trang sản phẩm
+        } else {
+          alert('Đặt hàng không thành công, vui lòng thử lại.');
+        }
+      } catch (error) {
+        alert('Lỗi khi gửi đơn hàng, vui lòng thử lại.');
+      }
+    };
+
+    // Render lần đầu
+    renderCart();
+  </script>
+
 </body>
 </html>
