@@ -1,277 +1,218 @@
-// Các sản phẩm mẫu (bạn có thể thay thế hình và thêm 20 sản phẩm mỗi loại)
+// Dữ liệu sản phẩm mẫu
 const products = [
-  { id: 1, name: "Nồi cơm điện Sunhouse", price: 350000, category: "do-dien", image: "images/noi-com-dien.jpg" },
-  { id: 2, name: "Nước mắm Nam Ngư", price: 25000, category: "gia-vi", image: "images/nuoc-mam.jpg" },
-  { id: 3, name: "Bánh quy Oreo", price: 30000, category: "banh-keo", image: "images/oreo.jpg" },
-  { id: 4, name: "Coca-Cola", price: 15000, category: "do-uong", image: "images/cocacola.jpg" },
-  { id: 5, name: "Dầu gội Head & Shoulders", price: 80000, category: "goi-rua", image: "images/dau-goi.jpg" },
-  { id: 6, name: "Thuốc lá Vinataba", price: 40000, category: "thuoc-la", image: "images/thuoc-la.jpg" },
-  { id: 7, name: "Mì tôm Hảo Hảo", price: 7000, category: "do-kho", image: "images/mi-tom.jpg" },
-  { id: 8, name: "Quạt điện Asia", price: 650000, category: "do-dien", image: "images/quat-dien.jpg" },
-  { id: 9, name: "Nồi lẩu điện", price: 450000, category: "do-bep", image: "images/noi-lau.jpg" },
-  { id: 10, name: "Bộ chén bát sứ", price: 250000, category: "chen-bat", image: "images/chen-bat.jpg" },
-  // Thêm các sản phẩm khác nếu cần ...
+  {id: 1, name: "Nước suối Lavie", category: "đồ uống", price: 10000, image:"https://cf.shopee.vn/file/1f5743d8b97a1ca5706868a0c3e9b8d2"},
+  {id: 2, name: "Mì tôm Hảo Hảo", category: "đồ khô", price: 5000, image:"https://product.hstatic.net/200000335103/product/mi_haohao_6a31df2e-6227-4df0-b06b-98b74870e871.png"},
+  {id: 3, name: "Kẹo dẻo Haribo", category: "bánh kẹo", price: 30000, image:"https://cdn.lazada.vn/p/8e0e6f6e3e92a0ef775ee5c26d9a8e6a.jpg"},
+  {id: 4, name: "Bia Hà Nội", category: "rượu bia", price: 15000, image:"https://cdn.tgdd.vn/Products/Images/3135/207603/bia-ha-noi-vo-330ml-202009261041011626_600x600.jpg"},
+  {id: 5, name: "Thuốc lá 555", category: "thuốc lá", price: 120000, image:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Cigarettes_LS_Marble.jpg/220px-Cigarettes_LS_Marble.jpg"},
+  {id: 6, name: "Dầu gội Clear", category: "gội rửa", price: 70000, image:"https://cdn.tgdd.vn/Products/Images/30688/279002/dau-goi-clear-330ml-202010160857048817_600x600.jpg"},
+  {id: 7, name: "Bóng đèn Philips", category: "đồ điện", price: 40000, image:"https://cdn.tgdd.vn/Products/Images/2321/232173/bong-den-led-Philips-5W-2-600x600.jpg"},
+  {id: 8, name: "Nồi inox", category: "đồ bếp", price: 300000, image:"https://cdn.tgdd.vn/Products/Images/5161/263327/noi-inox-16cm-sunhouse-sh9948-1-600x600.jpg"},
+  {id: 9, name: "Quạt điện Asia", category: "gia dụng", price: 600000, image:"https://cdn.tgdd.vn/Products/Images/7247/271642/quat-dien-asia-1608a-1-600x600.jpg"},
 ];
 
-// Lấy cart từ localStorage hoặc tạo mới
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-// Kiểm tra trang hiện tại
-const isIndexPage = document.body.querySelector("#product-list") !== null;
-const isCartPage = document.body.querySelector("#cart-items") !== null;
-
-function updateCartCount() {
-  const cartCountEl = document.getElementById("cart-count");
-  if (!cartCountEl) return;
-  const count = cart.reduce((total, item) => total + item.quantity, 0);
-  cartCountEl.textContent = count;
+// Format giá tiền
+function formatPrice(price) {
+  return price.toLocaleString('vi-VN') + ' VND';
 }
 
-function showNotification(message, success = true) {
-  const notif = document.createElement("div");
-  notif.textContent = message;
-  notif.style.position = "fixed";
-  notif.style.top = "50%";
-  notif.style.left = "50%";
-  notif.style.transform = "translate(-50%, -50%)";
-  notif.style.backgroundColor = success ? "#4caf50" : "#f44336";
-  notif.style.color = "white";
-  notif.style.padding = "15px 25px";
-  notif.style.borderRadius = "8px";
-  notif.style.zIndex = 1000;
-  notif.style.fontSize = "1.2em";
-  document.body.appendChild(notif);
-  setTimeout(() => {
-    notif.remove();
-  }, success ? 1000 : 2000);
-}
+// Hiển thị sản phẩm theo danh mục
+function renderProducts(category = 'all') {
+  const productsEl = document.getElementById('products');
+  if (!productsEl) return; // chỉ chạy trên trang index
 
-function saveCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
-}
+  productsEl.innerHTML = '';
 
-// Hiển thị sản phẩm index.html
-function displayProducts(category = "all") {
-  if (!isIndexPage) return;
-  const productListEl = document.getElementById("product-list");
-  let filtered = category === "all" ? products : products.filter(p => p.category === category);
-  productListEl.innerHTML = "";
-  filtered.forEach(product => {
-    const card = document.createElement("div");
-    card.className = "product-card";
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" class="product-image" />
-      <div class="product-name" onclick="viewProduct(${product.id})">${product.name}</div>
-      <div class="product-actions">
-        <button class="add-cart-btn" onclick="addToCart(${product.id})">Thêm giỏ hàng</button>
-        <button class="order-btn" onclick="orderNow(${product.id})">Đặt hàng</button>
-      </div>
-    `;
-    productListEl.appendChild(card);
-  });
-}
+  let filtered = category === 'all' ? products : products.filter(p => p.category === category);
 
-// Thêm sản phẩm vào giỏ hàng
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  if (!product) return;
-  const item = cart.find(i => i.id === id);
-  if (item) {
-    item.quantity++;
+  // Thay đổi số cột theo danh mục
+  if(category === 'all') {
+    productsEl.classList.remove('category');
+    productsEl.classList.add('home');
   } else {
-    cart.push({ ...product, quantity: 1 });
+    productsEl.classList.remove('home');
+    productsEl.classList.add('category');
   }
-  saveCart();
-  showNotification(`${product.name} đã được thêm vào giỏ hàng`);
-}
 
-// Đặt hàng ngay
-function orderNow(id) {
-  addToCart(id);
-  window.location.href = "cart.html";
-}
-
-// Xem chi tiết sản phẩm (có thể mở modal hoặc trang riêng, hiện đơn giản alert)
-function viewProduct(id) {
-  const product = products.find(p => p.id === id);
-  if (!product) return;
-  alert(`Tên sản phẩm: ${product.name}\nGiá: ${product.price.toLocaleString()} ₫\n\nChi tiết sẽ cập nhật sau.`);
-}
-
-// Xử lý menu lọc sản phẩm
-if (isIndexPage) {
-  document.querySelectorAll(".menu-item").forEach(btn => {
-    btn.addEventListener("click", () => {
-      displayProducts(btn.dataset.category);
-    });
-  });
-}
-
-// --------- Cart page functions -----------
-
-function renderCartItems() {
-  if (!isCartPage) return;
-  const tbody = document.getElementById("cart-items");
-  tbody.innerHTML = "";
-  if (cart.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5">Giỏ hàng trống.</td></tr>`;
-    updateCartSummary(0);
+  if(filtered.length === 0) {
+    productsEl.innerHTML = '<p>Không có sản phẩm nào trong mục này.</p>';
     return;
   }
-  cart.forEach(item => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${item.name}</td>
-      <td>
-        <button onclick="changeQuantity(${item.id}, -1)">-</button>
-        ${item.quantity}
-        <button onclick="changeQuantity(${item.id}, 1)">+</button>
-      </td>
-      <td>${item.price.toLocaleString()}</td>
-      <td>${(item.price * item.quantity).toLocaleString()}</td>
-      <td><button onclick="removeFromCart(${item.id})">Xóa</button></td>
+
+  filtered.forEach(product => {
+    const div = document.createElement('div');
+    div.className = 'product-card';
+
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <div class="product-name">${product.name}</div>
+      <div class="product-price">${formatPrice(product.price)}</div>
+      <button class="btn-add" data-id="${product.id}">Thêm vào giỏ</button>
     `;
-    tbody.appendChild(row);
+
+    productsEl.appendChild(div);
   });
-  updateCartSummary();
-}
 
-function changeQuantity(id, delta) {
-  const item = cart.find(i => i.id === id);
-  if (!item) return;
-  item.quantity += delta;
-  if (item.quantity <= 0) {
-    cart = cart.filter(i => i.id !== id);
-  }
-  saveCart();
-  renderCartItems();
-}
-
-function removeFromCart(id) {
-  cart = cart.filter(i => i.id !== id);
-  saveCart();
-  renderCartItems();
-}
-
-function updateCartSummary() {
-  const shippingFee = 20000;
-  const totalPriceEl = document.getElementById("total-price");
-  const shippingFeeEl = document.getElementById("shipping-fee");
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  shippingFeeEl.textContent = shippingFee.toLocaleString();
-  totalPriceEl.textContent = (total + shippingFee).toLocaleString();
-}
-
-// Hiển thị form đặt hàng
-function showOrderForm() {
-  document.getElementById("cart-section").classList.add("hidden");
-  document.getElementById("order-form-section").classList.remove("hidden");
-}
-
-// Ẩn form đặt hàng
-function hideOrderForm() {
-  document.getElementById("order-form-section").classList.add("hidden");
-  document.getElementById("cart-section").classList.remove("hidden");
-}
-
-// Gửi đơn hàng lên Telegram
-async function sendOrderTelegram(data) {
-  const BOT_TOKEN = "7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8";
-  const CHAT_ID = "944976544";
-
-  let productListText = data.products
-    .map(p => `- ${p.name} x ${p.quantity}`)
-    .join("\n");
-
-  let time = new Date().toLocaleTimeString("vi-VN", { hour12: false });
-  let date = new Date().toLocaleDateString("vi-VN");
-
-  let message = `
-🛒 ĐƠN HÀNG MỚI:
-👤 Tên: ${data.name}
-📞 SĐT: ${data.phone}
-🏠 Địa chỉ: ${data.address}
-
-📦 Sản phẩm:
-${productListText}
-
-thời gian: ${time} - ${date}
-🚚 Phí ship: 20,000₫
-💰 Tổng cộng: ${data.total.toLocaleString()} đ
-  `;
-
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-  try {
-    let response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: message.trim(),
-      }),
+  // Gán sự kiện nút thêm vào giỏ
+  document.querySelectorAll('.btn-add').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = Number(button.getAttribute('data-id'));
+      const product = products.find(p => p.id === id);
+      if(product) addToCart(product);
     });
-    let result = await response.json();
-    return result.ok;
-  } catch (e) {
-    return false;
-  }
+  });
+
+  // Gán sự kiện cho nút danh mục
+  const navButtons = document.querySelectorAll('.nav-btn');
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      navButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts(btn.getAttribute('data-category'));
+    });
+  });
 }
 
-// Xử lý form đặt hàng submit
-function setupOrderForm() {
-  if (!isCartPage) return;
+// Thêm sản phẩm vào giỏ, lưu localStorage
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(product);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`Đã thêm ${product.name} vào giỏ hàng!`);
+}
 
-  const form = document.getElementById("order-form");
-  form.addEventListener("submit", async (e) => {
+// Hiển thị giỏ hàng trên trang cart.html
+function renderCart() {
+  const cartList = document.getElementById('cart-list');
+  const totalPriceEl = document.getElementById('total-price');
+  if (!cartList || !totalPriceEl) return; // chỉ chạy trên cart.html
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  cartList.innerHTML = '';
+
+  if(cart.length === 0) {
+    cartList.innerHTML = '<li>Giỏ hàng trống.</li>';
+    totalPriceEl.textContent = 'Tổng tiền: 0 VND';
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    const li = document.createElement('li');
+    li.innerHTML = `
+      ${item.name} - ${formatPrice(item.price)}
+      <button data-index="${index}">Xóa</button>
+    `;
+    cartList.appendChild(li);
+  });
+
+  totalPriceEl.textContent = 'Tổng tiền: ' + formatPrice(total);
+
+  // Xóa sản phẩm khỏi giỏ hàng
+  cartList.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = Number(btn.getAttribute('data-index'));
+      cart.splice(idx, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    });
+  });
+}
+
+// Xử lý đặt hàng (gửi Telegram API)
+function handleOrder() {
+  const orderForm = document.getElementById('order-form');
+  const orderMessage = document.getElementById('order-message');
+  const orderSummary = document.getElementById('order-summary');
+
+  if (!orderForm) return; // chỉ chạy trên cart.html
+
+  orderForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (cart.length === 0) {
-      alert("Giỏ hàng đang trống!");
+
+    // Kiểm tra giỏ hàng không rỗng
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if(cart.length === 0) {
+      orderMessage.style.color = 'red';
+      orderMessage.textContent = 'Giỏ hàng của bạn đang trống, vui lòng thêm sản phẩm.';
       return;
     }
-    const name = document.getElementById("customer-name").value.trim();
-    const phone = document.getElementById("customer-phone").value.trim();
-    const address = document.getElementById("customer-address").value.trim();
-    const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0) + 20000;
 
-    const data = { name, phone, address, products: cart, total };
+    // Lấy thông tin form
+    const fullname = orderForm.fullname.value.trim();
+    const address = orderForm.address.value.trim();
+    const phone = orderForm.phone.value.trim();
 
-    const success = await sendOrderTelegram(data);
-    if (success) {
-      showNotification("Đặt hàng thành công!");
-      cart = [];
-      saveCart();
-      renderCartItems();
-      form.reset();
-      hideOrderForm();
-    } else {
-      showNotification("Đặt hàng không thành công!", false);
-    }
-  });
-
-  document.getElementById("btn-order").addEventListener("click", () => {
-    if (cart.length === 0) {
-      alert("Giỏ hàng đang trống!");
+    if(!fullname || !address || !phone) {
+      orderMessage.style.color = 'red';
+      orderMessage.textContent = 'Vui lòng điền đầy đủ thông tin đặt hàng.';
       return;
     }
-    showOrderForm();
-  });
 
-  document.getElementById("btn-cancel").addEventListener("click", () => {
-    hideOrderForm();
+    // Tính tổng giá
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+    // Chuẩn bị tin nhắn gửi Telegram
+    const BOT_TOKEN = '7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8';
+    const CHAT_ID = '7774024453';
+
+    let message = `Đơn hàng mới từ cửa hàng LỘC HOÀI\n\n`;
+    message += `Khách hàng:\nHọ tên: ${fullname}\nĐịa chỉ: ${address}\nSĐT: ${phone}\n\n`;
+    message += `Sản phẩm:\n`;
+    cart.forEach((item, i) => {
+      message += `${i+1}. ${item.name} - ${formatPrice(item.price)}\n`;
+    });
+    message += `\nTổng tiền: ${formatPrice(total)}`;
+
+    // Gửi request đến Telegram API
+    try {
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+      const params = {
+        chat_id: CHAT_ID,
+        text: message
+      };
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(params)
+      });
+
+      const data = await res.json();
+      if(data.ok) {
+        orderMessage.style.color = 'green';
+        orderMessage.textContent = 'Đặt hàng thành công! Cảm ơn bạn.';
+        orderForm.reset();
+        localStorage.removeItem('cart');
+        renderCart();
+
+        // Hiển thị tóm tắt đơn hàng
+        orderSummary.style.display = 'block';
+        orderSummary.innerHTML = `<h3>Thông tin đơn hàng của bạn:</h3>
+          <p><strong>Họ tên:</strong> ${fullname}</p>
+          <p><strong>Địa chỉ:</strong> ${address}</p>
+          <p><strong>Số điện thoại:</strong> ${phone}</p>
+          <p><strong>Tổng tiền:</strong> ${formatPrice(total)}</p>
+          <p><strong>Sản phẩm:</strong></p>
+          <ul>${cart.map(item => `<li>${item.name} - ${formatPrice(item.price)}</li>`).join('')}</ul>
+        `;
+      } else {
+        orderMessage.style.color = 'red';
+        orderMessage.textContent = 'Có lỗi khi gửi đơn hàng, vui lòng thử lại.';
+      }
+    } catch (err) {
+      orderMessage.style.color = 'red';
+      orderMessage.textContent = 'Có lỗi khi gửi đơn hàng, vui lòng thử lại.';
+      console.error(err);
+    }
   });
 }
 
-function init() {
-  updateCartCount();
-  if (isIndexPage) {
-    displayProducts();
-  }
-  if (isCartPage) {
-    renderCartItems();
-    setupOrderForm();
-  }
-}
-
-init();
+// Khởi tạo trang cart và order
+document.addEventListener('DOMContentLoaded', () => {
+  renderCart();
+  handleOrder();
+});
