@@ -230,4 +230,19 @@ footer {
   background-color: #ff4f81; /* Hồng nổi bật cho nút đang chọn */
   color: white;
 }
+.scrolling-nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px;
+  gap: 8px;
+  scrollbar-width: none; /* Ẩn scrollbar trên Firefox */
+}
 
+.scrolling-nav::-webkit-scrollbar {
+  display: none; /* Ẩn scrollbar trên Chrome/Safari */
+}
+
+.scrolling-nav .nav-btn {
+  flex-shrink: 0; /* Không bị co lại */
+}
