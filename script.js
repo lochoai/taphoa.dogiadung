@@ -194,7 +194,7 @@ function handleOrder() {
         orderSummary.style.display = 'block';
         orderSummary.innerHTML = `<h3>Thông tin đơn hàng của bạn:</h3>
           <p><strong>Họ tên:</strong> ${fullname}</p>
-          <p><strong>Địa chỉ:</strong> ${address}</p>
+          <p><strong>🏠Địa chỉ:</strong> ${address}</p>
           <p><strong>Số điện thoại:</strong> ${phone}</p>
           <p><strong>Tổng tiền:</strong> ${formatPrice(total)}</p>
           <p><strong>Sản phẩm:</strong></p>
