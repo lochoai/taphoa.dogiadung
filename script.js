@@ -160,13 +160,13 @@ function handleOrder() {
     const BOT_TOKEN = '7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8';
     const CHAT_ID = '7774024453';
 
-    let message = `Đơn hàng mới từ cửa hàng LỘC HOÀI\n\n`;
-    message += `Khách hàng:\nHọ tên: ${fullname}\nĐịa chỉ: ${address}\nSĐT: ${phone}\n\n`;
-    message += `Sản phẩm:\n`;
+    let message = `🛒Đơn hàng mới từ cửa hàng LỘC HOÀI\n\n`;
+    message += `👤Khách hàng:\nHọ tên: ${fullname}\n🏠Địa chỉ: ${address}\n📞SĐT: ${phone}\n\n`;
+    message += `📦Sản phẩm:\n`;
     cart.forEach((item, i) => {
       message += `${i+1}. ${item.name} - ${formatPrice(item.price)}\n`;
     });
-    message += `\nTổng tiền: ${formatPrice(total)}`;
+    message += `\n💰Tổng tiền: ${formatPrice(total)}`;
 
     // Gửi request đến Telegram API
     try {
