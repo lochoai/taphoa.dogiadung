@@ -208,8 +208,8 @@ footer {
   background-color: #ffb6c1; /* Màu hồng nhạt */
   color: #000; /* Chữ đen */
   border: none;
-  padding: 14px 20px;
-  margin: 4px;
+  padding: 10px 5px;
+  margin: -2px;
   font-size: 18px;
   border-radius: 8px;
   cursor: pointer;
