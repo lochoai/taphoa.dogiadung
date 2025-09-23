@@ -231,3 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
   handleOrder();
 });
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderCart(); // đảm bảo gọi được
+  handleOrder();
+});
