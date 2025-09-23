@@ -97,7 +97,6 @@ function addToCart(product) {
 
 // Hiển thị giỏ hàng trên trang cart.html
 function renderCart() {
-  console.log("🛒 renderCart() đang chạy...");
   const cartList = document.getElementById('cart-list');
   const totalPriceEl = document.getElementById('total-price');
   if (!cartList || !totalPriceEl) return; // chỉ chạy trên cart.html
@@ -229,15 +228,5 @@ function handleOrder() {
 // Khởi tạo trang cart và order
 document.addEventListener('DOMContentLoaded', () => {
   renderCart();
-  handleOrder();
-});
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderCart(); // đảm bảo gọi được
   handleOrder();
 });
