@@ -65,10 +65,6 @@ main {
 #products.home {
   grid-template-columns: repeat(4, 1fr);
 }
-#products.category {
-  grid-template-columns: repeat(2, 1fr);
-}
-
 /* Product card */
 .product-card {
   background: white;
