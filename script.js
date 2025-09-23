@@ -230,3 +230,15 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
   handleOrder();
 });
+document.addEventListener('DOMContentLoaded', () => {
+  // Nếu là trang index.html
+  if (document.getElementById('products')) {
+    renderProducts('all');
+  }
+
+  // Nếu là trang cart.html
+  if (document.getElementById('cart-list')) {
+    renderCart();
+    handleOrder();
+  }
+});
