@@ -174,12 +174,12 @@ function handleOrder() {
     const CHAT_ID = '7774024453';
 
     let message = `🛒Đơn hàng mới từ cửa hàng LỘC HOÀI\n\n`;
-    message += `👤Khách hàng:\nHọ tên: ${fullname}\n🏠Địa chỉ: ${address}\n📞SĐT: ${phone}\n\n`;
-    message += `📦Sản phẩm:\n`;
+    message += `Khách hàng:\nHọ tên: ${fullname}\nĐịa chỉ: ${address}\nSĐT: ${phone}\n\n`;
+    message += `Sản phẩm:\n`;
     cart.forEach((item, i) => {
       message += `${i+1}. ${item.name} - ${formatPrice(item.price)}\n`;
     });
-    message += `\n💰Tổng tiền: ${formatPrice(total)}`;
+    message += `\nTổng tiền: ${formatPrice(total)}`;
 
     // Gửi request đến Telegram API
     try {
@@ -207,7 +207,7 @@ function handleOrder() {
         orderSummary.style.display = 'block';
         orderSummary.innerHTML = `<h3>Thông tin đơn hàng của bạn:</h3>
           <p><strong>Họ tên:</strong> ${fullname}</p>
-          <p><strong>🏠Địa chỉ:</strong> ${address}</p>
+          <p><strong>Địa chỉ:</strong> ${address}</p>
           <p><strong>Số điện thoại:</strong> ${phone}</p>
           <p><strong>Tổng tiền:</strong> ${formatPrice(total)}</p>
           <p><strong>Sản phẩm:</strong></p>
