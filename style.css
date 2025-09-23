@@ -205,9 +205,6 @@ footer {
   #products.home {
     grid-template-columns: repeat(2, 1fr);
   }
-  #products.category {
-    grid-template-columns: 1fr;
-  }
 }
 .nav-btn {
   background-color: #ffb6c1; /* Màu hồng nhạt */
