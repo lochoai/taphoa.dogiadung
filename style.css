@@ -62,11 +62,9 @@ main {
   display: grid;
   gap: 15px;
 }
-#products.home {
-  grid-template-columns: repeat(4, 1fr);
-}
+#products.home,
 #products.category {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 /* Product card */
 .product-card {
@@ -201,7 +199,8 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  #products.home {
+  #products.home,
+  #products.category {
     grid-template-columns: repeat(2, 1fr);
   }
 }
