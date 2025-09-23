@@ -2,8 +2,8 @@
 const products = [
   {id: 1, name: "Nước suối Lavie 500ml", category: "đồ uống", price: 5000, image:"https://cf.shopee.vn/file/1f5743d8b97a1ca5706868a0c3e9b8d2"},
   {id: 2, name: "Nước tăng lực redbul", category: "đồ uống", price: 12000, image:"https://cf.shopee.vn/file/1f5743d8b97a1ca5706868a0c3e9b8d2"},
-  {id: 3, name: "Nước suối Lavie 500ml", category: "đồ uống", price: 5000, image:"https://cf.shopee.vn/file/1f5743d8b97a1ca5706868a0c3e9b8d2"},
-  {id: 4, name: "Nước tăng lực redbul", category: "đồ uống", price: 12000, image:"https://cf.shopee.vn/file/1f5743d8b97a1ca5706868a0c3e9b8d2"},
+  {id: 3, name: "Nước suối Lộc cộc 500ml", category: "đồ uống", price: 5000, image:"https://cf.shopee.vn/file/1f5743d8b97a1ca5706868a0c3e9b8d2"},
+  {id: 4, name: "Nước tăng lực hlộc", category: "đồ uống", price: 12000, image:"https://cf.shopee.vn/file/1f5743d8b97a1ca5706868a0c3e9b8d2"},
   {id: 5, name: "Mì tôm Hảo Hảo", category: "đồ khô", price: 5000, image:"https://product.hstatic.net/200000335103/product/mi_haohao_6a31df2e-6227-4df0-b06b-98b74870e871.png"},
   {id: 6, name: "Kẹo dẻo Haribo", category: "bánh kẹo", price: 30000, image:"https://cdn.lazada.vn/p/8e0e6f6e3e92a0ef775ee5c26d9a8e6a.jpg"},
   {id: 7, name: "Bia Hà Nội", category: "rượu bia", price: 15000, image:"https://cdn.tgdd.vn/Products/Images/3135/207603/bia-ha-noi-vo-330ml-202009261041011626_600x600.jpg"},
