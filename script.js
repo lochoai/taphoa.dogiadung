@@ -104,43 +104,40 @@ function addToCart(product) {
 
 // Hiển thị giỏ hàng trên trang cart.html
 function renderCart() {
-  const cartList = document.getElementById('cart-list');
-  const totalPriceEl = document.getElementById('total-price');
-  if (!cartList || !totalPriceEl) return; // chỉ chạy trên cart.html
+    const cartList = document.getElementById('cart-list');
+    const totalPriceEl = document.getElementById('total-price');
+    
+    if (!cartList || !totalPriceEl) return;
 
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  cartList.innerHTML = '';
+    console.log('Giỏ hàng:', cart); // In giỏ hàng ra console để kiểm tra
 
-  if(cart.length === 0) {
-    cartList.innerHTML = '<li>Giỏ hàng trống.</li>';
-    totalPriceEl.textContent = 'Tổng tiền: 0 VND';
-    return;
-  }
+    cartList.innerHTML = '';
+    if (cart.length === 0) {
+        cartList.innerHTML = '<li>Giỏ hàng trống.</li>';
+        totalPriceEl.textContent = 'Tổng tiền: 0 VND';
+        return;
+    }
 
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    total += item.price;
-    const li = document.createElement('li');
-    li.innerHTML = `
-      ${item.name} - ${formatPrice(item.price)}
-      <button data-index="${index}">Xóa</button>
-    `;
-    cartList.appendChild(li);
-  });
-
-  totalPriceEl.textContent = 'Tổng tiền: ' + formatPrice(total);
-
-  // Xóa sản phẩm khỏi giỏ hàng
-  cartList.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const idx = Number(btn.getAttribute('data-index'));
-      cart.splice(idx, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      renderCart();
+    let total = 0;
+    cart.forEach((item, index) => {
+        total += item.price;
+        const li = document.createElement('li');
+        li.innerHTML = `${item.name} - ${formatPrice(item.price)} <button data-index="${index}">Xóa</button>`;
+        cartList.appendChild(li);
     });
-  });
+    totalPriceEl.textContent = 'Tổng tiền: ' + formatPrice(total);
+
+    // Xử lý sự kiện xóa sản phẩm
+    cartList.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const idx = Number(btn.getAttribute('data-index'));
+            cart.splice(idx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart(); // Cập nhật lại giỏ hàng sau khi xóa
+        });
+    });
 }
 
 // Xử lý đặt hàng (gửi Telegram API)
