@@ -78,10 +78,17 @@ function renderProducts(category = 'all') {
 
 // Thêm sản phẩm vào giỏ, lưu localStorage
 function addToCart(product) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(product);
-  localStorage.setItem('cart', JSON.stringify(cart));
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Thêm sản phẩm vào giỏ
+    cart.push(product);
+    
+    // Lưu lại vào localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
 
+    // Kiểm tra giỏ hàng trong localStorage
+    console.log('Giỏ hàng hiện tại:', JSON.parse(localStorage.getItem('cart')));
+}
   // Hiển thị thông báo
   const msg = document.getElementById('add-to-cart-message');
   if (msg) {
