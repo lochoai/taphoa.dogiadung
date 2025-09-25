@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ hàng - cửa hàng LỘC HOÀI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+<header>
+  <h1>cửa hàng LỘC HOÀI</h1>
+  <p>chuyên tạp hóa, đồ gia dụng</p>
+  <nav>
+    <a href="index.html">Trang chủ</a>
+  </nav>
+</header>
+
+<h2>Giỏ hàng của bạn</h2>
+<ul id="cart-list"></ul>
+<p id="total-price">Tổng tiền: 0 VND</p>
+
+<h2>Đặt hàng</h2>
+<div id="order-message"></div>
+<form id="order-form">
+  <label for="fullname">Họ và tên <span class="required">*</span></label>
+  <input type="text" id="fullname" name="fullname" required />
+
+  <label for="address">Địa chỉ <span class="required">*</span></label>
+  <input type="text" id="address" name="address" required />
+
+  <label for="phone">Số điện thoại <span class="required">*</span></label>
+  <input type="tel" id="phone" name="phone" required pattern="[0-9]{9,15}" placeholder="Chỉ nhập số" />
+
+  <button type="submit">Đặt hàng</button>
+</form>
+
+<div id="order-summary" style="display:none;"></div>
+</body>
+
+<script src="script.js"></script>
+</html>
