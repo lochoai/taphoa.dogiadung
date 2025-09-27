@@ -1,7 +1,7 @@
 // Dữ liệu sản phẩm mẫu
 const products = [
   {id: 1, name: "Nước suối Lavie 500ml", category: "đồ uống", price: 5000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 2, name: "Nước tăng lực redbul", category: "đồ uống", price: 12000, image:"nuoc-mam-nam-ngu.png"},
+  {id: 2, name: "Nước tăng lực redbul", category: "đồ uống", price: 12000, image:"bánh quy oreo.jfif"},
   {id: 3, name: "Nước suối Lộc cộc 500ml", category: "đồ uống", price: 5000, image:"nuoc-mam-nam-ngu.png"},
   {id: 4, name: "Nước tăng lực hlộc", category: "đồ uống", price: 12000, image:"nuoc-mam-nam-ngu.png"},
   {id: 5, name: "Mì tôm Hảo Hảo", category: "đồ khô", price: 5000, image:"nuoc-mam-nam-ngu.png"},
