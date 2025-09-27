@@ -114,6 +114,9 @@ function renderCart() {
   if (!cartList || !totalPriceEl) return; // chỉ chạy trên cart.html
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+  // Log giỏ hàng trước khi render
+  console.log('Dữ liệu giỏ hàng:', cart);
 
   cartList.innerHTML = '';
 
@@ -126,10 +129,9 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, index) => {
-    // Kiểm tra giá trị của item.price trước khi hiển thị
-    if (typeof item.price !== 'number' || isNaN(item.price)) {
-      console.error(`Sản phẩm ${item.name} có giá trị không hợp lệ: ${item.price}`);
-      return; // Nếu giá không hợp lệ, bỏ qua sản phẩm này
+    if (!item || typeof item.price !== 'number' || isNaN(item.price)) {
+      console.error(`Sản phẩm tại vị trí ${index} không hợp lệ:`, item);
+      return; // Bỏ qua sản phẩm không hợp lệ
     }
 
     total += item.price;
