@@ -85,25 +85,31 @@ function renderProducts(category = 'all') {
 
 // Thêm sản phẩm vào giỏ, lưu localStorage
 function addToCart(product) {
-  // Kiểm tra nếu sản phẩm hợp lệ
-  if (!product || typeof product.price !== 'number' || isNaN(product.price)) {
-    console.error(`Sản phẩm ${product ? product.name : 'undefined'} có giá trị không hợp lệ: ${product ? product.price : 'undefined'}`);
-    return; // Không thêm sản phẩm không hợp lệ
+  // Kiểm tra loại id của sản phẩm, nếu là kiểu chuỗi, chuyển sang kiểu số
+  const validId = Number(product.id);
+  
+  // Kiểm tra nếu id là số hợp lệ
+  if (isNaN(validId)) {
+    console.error(`Sản phẩm có id không hợp lệ: ${product.id}`);
+    return;
   }
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+  // Tạo đối tượng giỏ hàng mới cho sản phẩm
+  const cartItem = {
+    id: validId,
+    quantity: 1 // Cần tạo thuộc tính quantity để lưu số lượng
+  };
 
-  // Kiểm tra nếu sản phẩm đã có trong giỏ hàng
-  const existingProductIndex = cart.findIndex(item => item.id === product.id);
-
-  if (existingProductIndex === -1) {
-    // Nếu chưa có, thêm sản phẩm mới vào giỏ
-    cart.push({...product, quantity: 1});
-  } else {
-    // Nếu đã có, chỉ tăng số lượng
+  // Kiểm tra nếu sản phẩm đã có trong giỏ hàng, thì chỉ tăng số lượng
+  const existingProductIndex = cart.findIndex(item => item.id === validId);
+  if (existingProductIndex > -1) {
     cart[existingProductIndex].quantity += 1;
+  } else {
+    cart.push(cartItem);
   }
-
+  
   localStorage.setItem('cart', JSON.stringify(cart));
 
   // Hiển thị thông báo
@@ -127,12 +133,9 @@ function renderCart() {
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // Log giỏ hàng trước khi render
-  console.log('Dữ liệu giỏ hàng:', cart);
-
   cartList.innerHTML = '';
 
-  if (cart.length === 0) {
+  if(cart.length === 0) {
     cartList.innerHTML = '<li>Giỏ hàng trống.</li>';
     totalPriceEl.textContent = 'Tổng tiền: 0 VND';
     return;
@@ -140,22 +143,22 @@ function renderCart() {
 
   let total = 0;
 
+  // Duyệt qua từng sản phẩm trong giỏ hàng
   cart.forEach((item, index) => {
-    // Tìm sản phẩm trong danh sách sản phẩm bằng id
+    // Tìm sản phẩm trong mảng products
     const product = products.find(p => p.id === item.id);
 
+    // Kiểm tra nếu không tìm thấy sản phẩm hợp lệ
     if (!product) {
       console.error(`Không tìm thấy sản phẩm với id ${item.id}`);
-      return; // Bỏ qua sản phẩm không hợp lệ
+      return;
     }
 
-    // Tính tổng giá trị cho sản phẩm
-    const productTotalPrice = product.price * item.quantity;
-    total += productTotalPrice;
+    total += product.price * item.quantity;
 
     const li = document.createElement('li');
     li.innerHTML = `
-      ${product.name} - ${formatPrice(productTotalPrice)} (x${item.quantity})
+      ${product.name} - ${formatPrice(product.price)} x ${item.quantity}
       <button data-index="${index}">Xóa</button>
     `;
     cartList.appendChild(li);
