@@ -82,9 +82,12 @@ function renderProducts(category = 'all') {
 
 // Thêm sản phẩm vào giỏ, lưu localStorage
 function addToCart(product) {
-  if (typeof product.price !== 'number' || isNaN(product.price)) {
-    console.error(`Sản phẩm ${product.name} có giá trị không hợp lệ: ${product.price}`);
-    return; // Nếu giá không hợp lệ thì không thêm vào giỏ hàng
+  // Log sản phẩm trước khi thêm vào giỏ hàng
+  console.log('Sản phẩm được thêm vào giỏ hàng:', product);
+
+  if (!product || typeof product.price !== 'number' || isNaN(product.price)) {
+    console.error(`Sản phẩm ${product ? product.name : 'undefined'} có giá trị không hợp lệ: ${product ? product.price : 'undefined'}`);
+    return; // Nếu sản phẩm không hợp lệ, không thêm vào giỏ hàng
   }
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
