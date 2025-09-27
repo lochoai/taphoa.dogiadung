@@ -47,18 +47,23 @@ function renderProducts(category = 'all') {
   }
 
   filtered.forEach(product => {
-    const div = document.createElement('div');
-    div.className = 'product-card';
+  if (!product || typeof product.price !== 'number' || isNaN(product.price)) {
+    console.error(`Sản phẩm ${product ? product.name : 'undefined'} không hợp lệ`);
+    return; // Nếu sản phẩm không hợp lệ, không hiển thị
+  }
 
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" />
-      <div class="product-name">${product.name}</div>
-      <div class="product-price">${formatPrice(product.price)}</div>
-      <button class="btn-add" data-id="${product.id}">Thêm vào giỏ</button>
-    `;
+  const div = document.createElement('div');
+  div.className = 'product-card';
 
-    productsEl.appendChild(div);
-  });
+  div.innerHTML = `
+    <img src="${product.image}" alt="${product.name}" />
+    <div class="product-name">${product.name}</div>
+    <div class="product-price">${formatPrice(product.price)}</div>
+    <button class="btn-add" data-id="${product.id}">Thêm vào giỏ</button>
+  `;
+
+  productsEl.appendChild(div);
+});
 
   // Gán sự kiện nút thêm vào giỏ
   document.querySelectorAll('.btn-add').forEach(button => {
