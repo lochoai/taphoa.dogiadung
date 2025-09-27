@@ -85,16 +85,25 @@ function renderProducts(category = 'all') {
 
 // Thêm sản phẩm vào giỏ, lưu localStorage
 function addToCart(product) {
-  // Log sản phẩm trước khi thêm vào giỏ hàng
-  console.log('Sản phẩm được thêm vào giỏ hàng:', product);
-
+  // Kiểm tra nếu sản phẩm hợp lệ
   if (!product || typeof product.price !== 'number' || isNaN(product.price)) {
     console.error(`Sản phẩm ${product ? product.name : 'undefined'} có giá trị không hợp lệ: ${product ? product.price : 'undefined'}`);
-    return; // Nếu sản phẩm không hợp lệ, không thêm vào giỏ hàng
+    return; // Không thêm sản phẩm không hợp lệ
   }
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(product);
+
+  // Kiểm tra nếu sản phẩm đã có trong giỏ hàng
+  const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+  if (existingProductIndex === -1) {
+    // Nếu chưa có, thêm sản phẩm mới vào giỏ
+    cart.push({...product, quantity: 1});
+  } else {
+    // Nếu đã có, chỉ tăng số lượng
+    cart[existingProductIndex].quantity += 1;
+  }
+
   localStorage.setItem('cart', JSON.stringify(cart));
 
   // Hiển thị thông báo
@@ -117,7 +126,7 @@ function renderCart() {
   if (!cartList || !totalPriceEl) return; // chỉ chạy trên cart.html
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  
+
   // Log giỏ hàng trước khi render
   console.log('Dữ liệu giỏ hàng:', cart);
 
@@ -132,15 +141,21 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, index) => {
-    if (!item || typeof item.price !== 'number' || isNaN(item.price)) {
-      console.error(`Sản phẩm tại vị trí ${index} không hợp lệ:`, item);
+    // Tìm sản phẩm trong danh sách sản phẩm bằng id
+    const product = products.find(p => p.id === item.id);
+
+    if (!product) {
+      console.error(`Không tìm thấy sản phẩm với id ${item.id}`);
       return; // Bỏ qua sản phẩm không hợp lệ
     }
 
-    total += item.price;
+    // Tính tổng giá trị cho sản phẩm
+    const productTotalPrice = product.price * item.quantity;
+    total += productTotalPrice;
+
     const li = document.createElement('li');
     li.innerHTML = `
-      ${item.name} - ${formatPrice(item.price)}
+      ${product.name} - ${formatPrice(productTotalPrice)} (x${item.quantity})
       <button data-index="${index}">Xóa</button>
     `;
     cartList.appendChild(li);
