@@ -16,6 +16,10 @@ const products = [
 
 // Format giá tiền
 function formatPrice(price) {
+  if (typeof price !== 'number' || isNaN(price)) {
+    console.error('Giá trị sản phẩm không hợp lệ:', price);
+    return 'Giá không hợp lệ'; // Trả về chuỗi thông báo nếu giá không hợp lệ
+  }
   return price.toLocaleString('vi-VN') + ' VND';
 }
 
@@ -78,6 +82,11 @@ function renderProducts(category = 'all') {
 
 // Thêm sản phẩm vào giỏ, lưu localStorage
 function addToCart(product) {
+  if (typeof product.price !== 'number' || isNaN(product.price)) {
+    console.error(`Sản phẩm ${product.name} có giá trị không hợp lệ: ${product.price}`);
+    return; // Nếu giá không hợp lệ thì không thêm vào giỏ hàng
+  }
+
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart.push(product);
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -105,7 +114,7 @@ function renderCart() {
 
   cartList.innerHTML = '';
 
-  if(cart.length === 0) {
+  if (cart.length === 0) {
     cartList.innerHTML = '<li>Giỏ hàng trống.</li>';
     totalPriceEl.textContent = 'Tổng tiền: 0 VND';
     return;
@@ -114,6 +123,12 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, index) => {
+    // Kiểm tra giá trị của item.price trước khi hiển thị
+    if (typeof item.price !== 'number' || isNaN(item.price)) {
+      console.error(`Sản phẩm ${item.name} có giá trị không hợp lệ: ${item.price}`);
+      return; // Nếu giá không hợp lệ, bỏ qua sản phẩm này
+    }
+
     total += item.price;
     const li = document.createElement('li');
     li.innerHTML = `
