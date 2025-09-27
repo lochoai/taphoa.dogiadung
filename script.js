@@ -1,17 +1,17 @@
 // Dữ liệu sản phẩm mẫu
 const products = [
   {id: 1, name: "Nước suối Lavie 500ml", category: "đồ uống", price: 5000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 2, name: "Nước tăng lực redbul", category: "đồ uống", price: 12000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 3, name: "Nước suối Lộc cộc 500ml", category: "đồ uống", price: 5000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 4, name: "Nước tăng lực hlộc", category: "đồ uống", price: 12000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 5, name: "Mì tôm Hảo Hảo", category: "đồ khô", price: 5000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 6, name: "Kẹo dẻo Haribo", category: "bánh kẹo", price: 30000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 7, name: "Bia Hà Nội", category: "rượu bia", price: 15000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 8, name: "Thuốc lá 555", category: "thuốc lá", price: 120000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 9, name: "Dầu gội Clear", category: "gội rửa", price: 70000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 10, name: "Bóng đèn Philips", category: "đồ điện", price: 40000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 11, name: "Nồi inox", category: "đồ bếp", price: 300000, image:"nuoc-mam-nam-ngu.png"},
-  {id: 12, name: "Quạt điện Asia", category: "gia dụng", price: 600000, image:"nuoc-mam-nam-ngu.png"},
+  {id: 2, name: "Nước tăng lực redbul", category: "đồ uống", price: 12000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 3, name: "Nước suối Lộc cộc 500ml", category: "đồ uống", price: 5000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 4, name: "Nước tăng lực hlộc", category: "đồ uống", price: 12000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 5, name: "Mì tôm Hảo Hảo", category: "đồ khô", price: 5000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 6, name: "Kẹo dẻo Haribo", category: "bánh kẹo", price: 30000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 7, name: "Bia Hà Nội", category: "rượu bia", price: 15000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 8, name: "Thuốc lá 555", category: "thuốc lá", price: 120000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 9, name: "Dầu gội Clear", category: "gội rửa", price: 70000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 10, name: "Bóng đèn Philips", category: "đồ điện", price: 40000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 11, name: "Nồi inox", category: "đồ bếp", price: 300000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 12, name: "Quạt điện Asia", category: "gia dụng", price: 600000, image:"images/nuoc-mam-nam-ngu.png"},
 ];
 
 // Format giá tiền
