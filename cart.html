@@ -133,6 +133,53 @@
 button:hover {
     background-color: #ff3a6f;
 }
+    .cart-summary {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+#cart-table th, #cart-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+#cart-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#cart-table td {
+  background-color: #f9f9f9;
+}
+
+.cart-summary td, .cart-summary th {
+  word-wrap: break-word; /* Đảm bảo nội dung dài không bị vỡ */
+}
+
+.btn-remove {
+  background-color: #ff4f81;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border: none;
+}
+
+.btn-remove:hover {
+  background-color: #ff3a6f;
+}
   </style>
 </head>
 <body>
@@ -146,13 +193,14 @@ button:hover {
 <!-- Bảng thống kê giỏ hàng -->
 <div class="cart-summary">
   <h3>Thông tin giỏ hàng</h3>
-  <table>
+  <table id="cart-table">
     <thead>
       <tr>
         <th>Sản phẩm</th>
         <th>Số lượng</th>
         <th>Giá</th>
         <th>Tổng</th>
+        <th>Thao tác</th>
       </tr>
     </thead>
     <tbody id="cart-list">
@@ -187,23 +235,23 @@ button:hover {
     const totalPriceEl = document.getElementById('total-price');
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    cartList.innerHTML = '';
+    cartList.innerHTML = ''; // Xóa nội dung bảng giỏ hàng
     let total = 0;
 
     if (cart.length === 0) {
-        cartList.innerHTML = `<tr><td colspan="4" style="text-align:center;">Giỏ hàng hiện tại trống. Vui lòng thêm sản phẩm!</td></tr>`;
+        cartList.innerHTML = `<tr><td colspan="5" style="text-align:center;">Giỏ hàng hiện tại trống. Vui lòng thêm sản phẩm!</td></tr>`;
         totalPriceEl.textContent = '0 VND';
         return;
     }
 
-    cart.forEach((item, index) => {
+    cart.forEach((item) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${item.name}</td>
             <td>${item.quantity}</td>
             <td>${item.price.toLocaleString('vi-VN')} VND</td>
             <td>${(item.quantity * item.price).toLocaleString('vi-VN')} VND</td>
-            <td><button onclick="removeItemFromCart(${index})">Xóa</button></td>
+            <td><button class="btn-remove" onclick="removeFromCart(${item.id})">Xóa</button></td>
         `;
         cartList.appendChild(tr);
         total += item.quantity * item.price;
@@ -212,12 +260,12 @@ button:hover {
     totalPriceEl.textContent = total.toLocaleString('vi-VN') + ' VND';
 }
 
-// Xóa sản phẩm khỏi giỏ hàng
-function removeItemFromCart(index) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.splice(index, 1); // Xóa sản phẩm tại vị trí index
-    localStorage.setItem('cart', JSON.stringify(cart)); // Cập nhật giỏ hàng
-    renderCart(); // Cập nhật lại giao diện giỏ hàng
+// Hàm xóa sản phẩm khỏi giỏ hàng
+function removeFromCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== productId);  // Lọc bỏ sản phẩm có id cần xóa
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();  // Cập nhật lại giỏ hàng sau khi xóa sản phẩm
 }
 // Hàm thay đổi số lượng sản phẩm trong giỏ hàng
 function changeQuantity(index, delta) {
