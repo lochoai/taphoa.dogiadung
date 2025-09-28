@@ -177,21 +177,39 @@
     cartList.innerHTML = '';
     let total = 0;
 
-    cart.forEach(item => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${item.name}</td>
-        <td>1</td>
-        <td>${item.price.toLocaleString('vi-VN')} VND</td>
-        <td>${item.price.toLocaleString('vi-VN')} VND</td>
-      `;
-      cartList.appendChild(tr);
-      total += item.price;
+    cart.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${item.name}</td>
+            <td>
+                <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                <input type="number" value="${item.quantity}" min="1" id="quantity-${index}" readonly />
+                <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+            </td>
+            <td>${item.price.toLocaleString('vi-VN')} VND</td>
+            <td>${(item.quantity * item.price).toLocaleString('vi-VN')} VND</td>
+        `;
+        cartList.appendChild(tr);
+        total += item.quantity * item.price;
     });
 
     totalPriceEl.textContent = total.toLocaleString('vi-VN') + ' VND';
-  }
+}
+// Hàm thay đổi số lượng sản phẩm trong giỏ hàng
+function changeQuantity(index, delta) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const item = cart[index];
 
+    // Thay đổi số lượng
+    item.quantity += delta;
+    if (item.quantity < 1) item.quantity = 1; // Không cho phép số lượng nhỏ hơn 1
+
+    // Cập nhật lại giỏ hàng trong localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Cập nhật lại giao diện giỏ hàng
+    renderCart();
+}
   // Xử lý đặt hàng
   document.getElementById('btn-order').addEventListener('click', async () => {
     const fullname = document.getElementById('fullname').value.trim();
