@@ -120,6 +120,19 @@
       border-radius: 6px;
       text-align: center;
     }
+    button {
+    background-color: #ff4f81;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff3a6f;
+}
   </style>
 </head>
 <body>
@@ -177,23 +190,34 @@
     cartList.innerHTML = '';
     let total = 0;
 
+    if (cart.length === 0) {
+        cartList.innerHTML = `<tr><td colspan="4" style="text-align:center;">Giỏ hàng hiện tại trống. Vui lòng thêm sản phẩm!</td></tr>`;
+        totalPriceEl.textContent = '0 VND';
+        return;
+    }
+
     cart.forEach((item, index) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${item.name}</td>
-            <td>
-                <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
-                <input type="number" value="${item.quantity}" min="1" id="quantity-${index}" readonly />
-                <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
-            </td>
+            <td>${item.quantity}</td>
             <td>${item.price.toLocaleString('vi-VN')} VND</td>
             <td>${(item.quantity * item.price).toLocaleString('vi-VN')} VND</td>
+            <td><button onclick="removeItemFromCart(${index})">Xóa</button></td>
         `;
         cartList.appendChild(tr);
         total += item.quantity * item.price;
     });
 
     totalPriceEl.textContent = total.toLocaleString('vi-VN') + ' VND';
+}
+
+// Xóa sản phẩm khỏi giỏ hàng
+function removeItemFromCart(index) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1); // Xóa sản phẩm tại vị trí index
+    localStorage.setItem('cart', JSON.stringify(cart)); // Cập nhật giỏ hàng
+    renderCart(); // Cập nhật lại giao diện giỏ hàng
 }
 // Hàm thay đổi số lượng sản phẩm trong giỏ hàng
 function changeQuantity(index, delta) {
@@ -216,58 +240,63 @@ function changeQuantity(index, delta) {
     const phone = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
 
+    // Kiểm tra các trường thông tin
     if (!fullname || !phone || !address) {
-      showOrderMessage('Vui lòng điền đầy đủ thông tin!', 'error');
-      return;
+        showOrderMessage('Vui lòng điền đầy đủ thông tin!', 'error');
+        return;
     }
 
+    // Kiểm tra xem giỏ hàng có sản phẩm không
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     if (cart.length === 0) {
-      showOrderMessage('Giỏ hàng của bạn đang trống, vui lòng thêm sản phẩm!', 'error');
-      return;
+        showOrderMessage('Giỏ hàng của bạn đang trống, vui lòng thêm sản phẩm!', 'error');
+        return;
     }
 
+    // Tính tổng tiền giỏ hàng
     let total = 0;
     cart.forEach(item => {
-      total += item.price;
+        total += item.price * item.quantity;
     });
 
+    // Tạo thông điệp đơn hàng
     const message = `
-      📦 ĐƠN HÀNG MỚI:
-      Họ và tên: ${fullname}
-      Số điện thoại: ${phone}
-      Địa chỉ: ${address}
-      Tổng tiền: ${total.toLocaleString('vi-VN')} VND
+        📦 ĐƠN HÀNG MỚI:
+        Họ và tên: ${fullname}
+        Số điện thoại: ${phone}
+        Địa chỉ: ${address}
+        Tổng tiền: ${total.toLocaleString('vi-VN')} VND
     `;
 
+    // Gửi thông điệp đến Telegram bot
     const BOT_TOKEN = '7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8';
     const CHAT_ID = '7774024453';
 
     try {
-      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: message,
-        }),
-      });
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message,
+            }),
+        });
 
-      const data = await res.json();
-      if (data.ok) {
-        showOrderMessage('Đặt hàng thành công! Cảm ơn bạn.', 'success');
-        localStorage.removeItem('cart');
-        renderCart();
-        displayOrderSummary(fullname, phone, address, total);
-      } else {
-        showOrderMessage('Có lỗi khi gửi đơn hàng, vui lòng thử lại!', 'error');
-      }
+        const data = await res.json();
+        if (data.ok) {
+            showOrderMessage('Đặt hàng thành công! Cảm ơn bạn.', 'success');
+            localStorage.removeItem('cart'); // Xóa giỏ hàng sau khi đặt
+            renderCart(); // Cập nhật lại giỏ hàng
+            displayOrderSummary(fullname, phone, address, total); // Hiển thị tóm tắt đơn hàng
+        } else {
+            showOrderMessage('Có lỗi khi gửi đơn hàng, vui lòng thử lại!', 'error');
+        }
     } catch (err) {
-      showOrderMessage('Có lỗi khi gửi đơn hàng, vui lòng thử lại!', 'error');
+        showOrderMessage('Có lỗi khi gửi đơn hàng, vui lòng thử lại!', 'error');
     }
-  });
+});
 
   // Hiển thị thông báo khi đặt hàng
   function showOrderMessage(message, type) {
