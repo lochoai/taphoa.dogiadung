@@ -54,25 +54,43 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .cart-summary table {
+    #cart-table {
       width: 100%;
-      margin-bottom: 20px;
       border-collapse: collapse;
+      margin-bottom: 20px;
     }
 
-    .cart-summary th, .cart-summary td {
+    #cart-table th, #cart-table td {
       padding: 10px;
       text-align: center;
       border: 1px solid #ddd;
     }
 
-    .cart-summary th {
+    #cart-table th {
       background-color: #4CAF50;
       color: white;
     }
 
-    .cart-summary td {
+    #cart-table td {
       background-color: #f9f9f9;
+    }
+
+    .cart-summary td, .cart-summary th {
+      word-wrap: break-word; /* Đảm bảo nội dung dài không bị vỡ */
+    }
+
+    .btn-remove {
+      background-color: #ff4f81;
+      color: white;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border: none;
+    }
+
+    .btn-remove:hover {
+      background-color: #ff3a6f;
     }
 
     .order-form {
@@ -120,66 +138,6 @@
       border-radius: 6px;
       text-align: center;
     }
-    button {
-    background-color: #ff4f81;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #ff3a6f;
-}
-    .cart-summary {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#cart-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-#cart-table th, #cart-table td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ddd;
-}
-
-#cart-table th {
-  background-color: #4CAF50;
-  color: white;
-}
-
-#cart-table td {
-  background-color: #f9f9f9;
-}
-
-.cart-summary td, .cart-summary th {
-  word-wrap: break-word; /* Đảm bảo nội dung dài không bị vỡ */
-}
-
-.btn-remove {
-  background-color: #ff4f81;
-  color: white;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 14px;
-  border: none;
-}
-
-.btn-remove:hover {
-  background-color: #ff3a6f;
-}
   </style>
 </head>
 <body>
@@ -267,101 +225,7 @@ function removeFromCart(productId) {
     localStorage.setItem('cart', JSON.stringify(cart));
     renderCart();  // Cập nhật lại giỏ hàng sau khi xóa sản phẩm
 }
-// Hàm thay đổi số lượng sản phẩm trong giỏ hàng
-function changeQuantity(index, delta) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const item = cart[index];
+</script>
 
-    // Thay đổi số lượng
-    item.quantity += delta;
-    if (item.quantity < 1) item.quantity = 1; // Không cho phép số lượng nhỏ hơn 1
-
-    // Cập nhật lại giỏ hàng trong localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Cập nhật lại giao diện giỏ hàng
-    renderCart();
-}
-  // Xử lý đặt hàng
-  document.getElementById('btn-order').addEventListener('click', async () => {
-    const fullname = document.getElementById('fullname').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const address = document.getElementById('address').value.trim();
-
-    // Kiểm tra các trường thông tin
-    if (!fullname || !phone || !address) {
-        showOrderMessage('Vui lòng điền đầy đủ thông tin!', 'error');
-        return;
-    }
-
-    // Kiểm tra xem giỏ hàng có sản phẩm không
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart.length === 0) {
-        showOrderMessage('Giỏ hàng của bạn đang trống, vui lòng thêm sản phẩm!', 'error');
-        return;
-    }
-
-    // Tính tổng tiền giỏ hàng
-    let total = 0;
-    cart.forEach(item => {
-        total += item.price * item.quantity;
-    });
-
-    // Tạo thông điệp đơn hàng
-    const message = `
-        📦 ĐƠN HÀNG MỚI:
-        Họ và tên: ${fullname}
-        Số điện thoại: ${phone}
-        Địa chỉ: ${address}
-        Tổng tiền: ${total.toLocaleString('vi-VN')} VND
-    `;
-
-    // Gửi thông điệp đến Telegram bot
-    const BOT_TOKEN = '7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8';
-    const CHAT_ID = '7774024453';
-
-    try {
-        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: message,
-            }),
-        });
-
-        const data = await res.json();
-        if (data.ok) {
-            showOrderMessage('Đặt hàng thành công! Cảm ơn bạn.', 'success');
-            localStorage.removeItem('cart'); // Xóa giỏ hàng sau khi đặt
-            renderCart(); // Cập nhật lại giỏ hàng
-            displayOrderSummary(fullname, phone, address, total); // Hiển thị tóm tắt đơn hàng
-        } else {
-            showOrderMessage('Có lỗi khi gửi đơn hàng, vui lòng thử lại!', 'error');
-        }
-    } catch (err) {
-        showOrderMessage('Có lỗi khi gửi đơn hàng, vui lòng thử lại!', 'error');
-    }
-});
-
-  // Hiển thị thông báo khi đặt hàng
-  function showOrderMessage(message, type) {
-    const orderMessage = document.getElementById('order-message');
-    orderMessage.textContent = message;
-    orderMessage.className = `order-message ${type}`;
-    setTimeout(() => {
-      orderMessage.textContent = '';
-    }, 3000);
-  }
-
-  // Hiển thị tóm tắt đơn hàng
-  function displayOrderSummary(fullname, phone, address, total) {
-    const orderSummary = document.getElementById('order-summary');
-    const orderDetails = document.getElementById('order-details');
-
-    orderDetails.innerHTML = `
-      <p><strong>Họ tên:</strong> ${fullname}</p>
-      <p><strong>Số điện thoại:</strong> ${phone}</p>
-      <p><strong>Địa chỉ:</strong> ${address}</p>
+</body>
+</html>
