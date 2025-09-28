@@ -1,40 +1,117 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Giỏ Hàng</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8f8;
+      color: #333;
+    }
 
-<body>
-    <header>
-        <h1>Giỏ Hàng</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Trang Chủ</a></li>
-                <li><a href="cart.html">Giỏ Hàng</a></li>
-            </ul>
-        </nav>
-    </header>
+    header {
+      background: linear-gradient(90deg, #8BC34A, #FFEB3B, #FFCDD2, #2196F3);
+      color: #222;
+      text-align: center;
+      padding: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-    <main>
-        <h2>Sản Phẩm Trong Giỏ</h2>
-        <section id="cart-list">
-            <!-- Danh sách giỏ hàng sẽ được chèn vào đây qua JavaScript -->
-        </section>
-        <div id="checkout">
-            <button id="checkout-btn">Thanh Toán</button>
-        </div>
-    </main>
+    .btn-back {
+      background-color: #ff4f81;
+      color: white;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 20px auto;
+      display: block;
+      text-align: center;
+      width: 200px;
+      transition: background-color 0.3s;
+    }
 
-    <footer>
-        <p>&copy; 2025 Chợ Đồ Gia Dụng</p>
-    </footer>
+    .btn-back:hover {
+      background-color: #ff3a6f;
+    }
 
-    <script src="script.js"></script>
-</body>
+    .cart-summary {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-</html>
+    #cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    #cart-table th, #cart-table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    #cart-table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #cart-table td {
+      background-color: #f9f9f9;
+    }
+
+    .cart-summary td, .cart-summary th {
+      word-wrap: break-word; /* Đảm bảo nội dung dài không bị vỡ */
+    }
+
+    .btn-remove {
+      background-color: #ff4f81;
+      color: white;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border: none;
+    }
+
+    .btn-remove:hover {
+      background-color: #ff3a6f;
+    }
+
+    .order-form {
+      text-align: center;
+    }
+
+    .order-form input, .order-form button {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .order-form button {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      width: 60%;
+    }
+
+    .order-form button:hover {
+      background-color: #357a38;
+    }
+
+    .order-message {
+      font-weight: bold;
+      margin-top:
