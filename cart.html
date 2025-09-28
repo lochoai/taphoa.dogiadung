@@ -6,137 +6,59 @@
   <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Các kiểu CSS tùy chỉnh cho trang giỏ hàng */
+    /* Các kiểu CSS cho giỏ hàng */
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f8f8;
       color: #333;
     }
-
     header {
-      background: linear-gradient(90deg, #8BC34A, #FFEB3B, #FFCDD2, #2196F3);
+      background-color: #FFEB3B;
+      padding: 10px 0;
+      text-align: center;
       color: #222;
-      text-align: center;
-      padding: 15px;
-      font-weight: bold;
-      text-transform: uppercase;
+      font-size: 24px;
     }
-
-    header p {
-      margin: 0;
-      font-weight: normal;
-    }
-
-    .btn-back {
-      background-color: #ff4f81;
-      color: white;
-      padding: 12px;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 20px auto;
-      display: block;
-      text-align: center;
-      width: 200px;
-      transition: background-color 0.3s;
-    }
-
-    .btn-back:hover {
-      background-color: #ff3a6f;
-    }
-
     .cart-summary {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 20px auto;
       padding: 20px;
-      background-color: #ffffff;
+      background-color: white;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
     #cart-table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
     }
-
     #cart-table th, #cart-table td {
-      padding: 10px;
+      padding: 12px;
       text-align: center;
       border: 1px solid #ddd;
     }
-
     #cart-table th {
       background-color: #4CAF50;
       color: white;
     }
-
     #cart-table td {
       background-color: #f9f9f9;
     }
-
-    .cart-summary td, .cart-summary th {
-      word-wrap: break-word; /* Đảm bảo nội dung dài không bị vỡ */
-    }
-
-    .btn-remove {
-      background-color: #ff4f81;
-      color: white;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 14px;
-      border: none;
-    }
-
-    .btn-remove:hover {
-      background-color: #ff3a6f;
-    }
-
-    .order-form {
-      text-align: center;
-    }
-
-    .order-form input, .order-form button {
-      width: 80%;
+    .order-form input,
+    .order-form button {
       padding: 10px;
       margin: 10px 0;
+      width: 80%;
       border-radius: 4px;
       border: 1px solid #ccc;
-      font-size: 16px;
     }
-
     .order-form button {
-      background-color: #4CAF50;
+      background-color: #FFEB3B;
       color: white;
-      font-weight: bold;
       cursor: pointer;
-      width: 60%;
     }
-
     .order-form button:hover {
-      background-color: #357a38;
-    }
-
-    .order-message {
-      font-weight: bold;
-      margin-top: 20px;
-    }
-
-    .order-message.success {
-      color: green;
-    }
-
-    .order-message.error {
-      color: red;
-    }
-
-    .order-summary {
-      margin-top: 20px;
-      background-color: #e3f2fd;
-      padding: 20px;
-      border-radius: 6px;
-      text-align: center;
+      background-color: #FF9800;
     }
   </style>
 </head>
@@ -148,7 +70,6 @@
 
 <button class="btn-back" onclick="window.location.href = 'index.html';">Trở lại Trang Chủ</button>
 
-<!-- Bảng thống kê giỏ hàng -->
 <div class="cart-summary">
   <h3>Thông tin giỏ hàng</h3>
   <table id="cart-table">
@@ -162,70 +83,21 @@
       </tr>
     </thead>
     <tbody id="cart-list">
-      <!-- Dữ liệu giỏ hàng sẽ được thêm vào ở đây -->
+      <!-- Giỏ hàng sẽ được hiển thị ở đây -->
     </tbody>
   </table>
   <p><strong>Tổng tiền: <span id="total-price">0 VND</span></strong></p>
-  <p><strong>Phí ship: 30,000 VND</strong></p>
 </div>
 
-<!-- Thông tin đặt hàng -->
 <div class="order-form">
   <h3>Thông tin đặt hàng</h3>
   <input type="text" id="fullname" placeholder="Họ và tên" required />
   <input type="text" id="phone" placeholder="Số điện thoại" required />
   <input type="text" id="address" placeholder="Địa chỉ" required />
   <button id="btn-order">Đặt hàng</button>
-  <div id="order-message" class="order-message"></div>
-</div>
-
-<!-- Tóm tắt đơn hàng -->
-<div id="order-summary" class="order-summary" style="display: none;">
-  <h3>Thông tin đơn hàng</h3>
-  <div id="order-details"></div>
+  <div id="order-message"></div>
 </div>
 
 <script src="script.js"></script>
-<script>
-  // Hiển thị giỏ hàng
-  function renderCart() {
-    const cartList = document.getElementById('cart-list');
-    const totalPriceEl = document.getElementById('total-price');
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    cartList.innerHTML = ''; // Xóa nội dung bảng giỏ hàng
-    let total = 0;
-
-    if (cart.length === 0) {
-        cartList.innerHTML = `<tr><td colspan="5" style="text-align:center;">Giỏ hàng hiện tại trống. Vui lòng thêm sản phẩm!</td></tr>`;
-        totalPriceEl.textContent = '0 VND';
-        return;
-    }
-
-    cart.forEach((item) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${item.name}</td>
-            <td>${item.quantity}</td>
-            <td>${item.price.toLocaleString('vi-VN')} VND</td>
-            <td>${(item.quantity * item.price).toLocaleString('vi-VN')} VND</td>
-            <td><button class="btn-remove" onclick="removeFromCart(${item.id})">Xóa</button></td>
-        `;
-        cartList.appendChild(tr);
-        total += item.quantity * item.price;
-    });
-
-    totalPriceEl.textContent = total.toLocaleString('vi-VN') + ' VND';
-}
-
-// Hàm xóa sản phẩm khỏi giỏ hàng
-function removeFromCart(productId) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart = cart.filter(item => item.id !== productId);  // Lọc bỏ sản phẩm có id cần xóa
-    localStorage.setItem('cart', JSON.stringify(cart));
-    renderCart();  // Cập nhật lại giỏ hàng sau khi xóa sản phẩm
-}
-</script>
-
 </body>
 </html>
