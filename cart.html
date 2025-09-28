@@ -6,6 +6,7 @@
   <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* Các kiểu CSS tùy chỉnh cho trang giỏ hàng */
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f8f8;
@@ -19,6 +20,11 @@
       padding: 15px;
       font-weight: bold;
       text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0;
+      font-weight: normal;
     }
 
     .btn-back {
@@ -114,4 +120,112 @@
 
     .order-message {
       font-weight: bold;
-      margin-top:
+      margin-top: 20px;
+    }
+
+    .order-message.success {
+      color: green;
+    }
+
+    .order-message.error {
+      color: red;
+    }
+
+    .order-summary {
+      margin-top: 20px;
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Giỏ hàng - Cửa hàng LỘC HOÀI</h1>
+</header>
+
+<button class="btn-back" onclick="window.location.href = 'index.html';">Trở lại Trang Chủ</button>
+
+<!-- Bảng thống kê giỏ hàng -->
+<div class="cart-summary">
+  <h3>Thông tin giỏ hàng</h3>
+  <table id="cart-table">
+    <thead>
+      <tr>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+        <th>Tổng</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody id="cart-list">
+      <!-- Dữ liệu giỏ hàng sẽ được thêm vào ở đây -->
+    </tbody>
+  </table>
+  <p><strong>Tổng tiền: <span id="total-price">0 VND</span></strong></p>
+  <p><strong>Phí ship: 30,000 VND</strong></p>
+</div>
+
+<!-- Thông tin đặt hàng -->
+<div class="order-form">
+  <h3>Thông tin đặt hàng</h3>
+  <input type="text" id="fullname" placeholder="Họ và tên" required />
+  <input type="text" id="phone" placeholder="Số điện thoại" required />
+  <input type="text" id="address" placeholder="Địa chỉ" required />
+  <button id="btn-order">Đặt hàng</button>
+  <div id="order-message" class="order-message"></div>
+</div>
+
+<!-- Tóm tắt đơn hàng -->
+<div id="order-summary" class="order-summary" style="display: none;">
+  <h3>Thông tin đơn hàng</h3>
+  <div id="order-details"></div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Hiển thị giỏ hàng
+  function renderCart() {
+    const cartList = document.getElementById('cart-list');
+    const totalPriceEl = document.getElementById('total-price');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    cartList.innerHTML = ''; // Xóa nội dung bảng giỏ hàng
+    let total = 0;
+
+    if (cart.length === 0) {
+        cartList.innerHTML = `<tr><td colspan="5" style="text-align:center;">Giỏ hàng hiện tại trống. Vui lòng thêm sản phẩm!</td></tr>`;
+        totalPriceEl.textContent = '0 VND';
+        return;
+    }
+
+    cart.forEach((item) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>${item.price.toLocaleString('vi-VN')} VND</td>
+            <td>${(item.quantity * item.price).toLocaleString('vi-VN')} VND</td>
+            <td><button class="btn-remove" onclick="removeFromCart(${item.id})">Xóa</button></td>
+        `;
+        cartList.appendChild(tr);
+        total += item.quantity * item.price;
+    });
+
+    totalPriceEl.textContent = total.toLocaleString('vi-VN') + ' VND';
+}
+
+// Hàm xóa sản phẩm khỏi giỏ hàng
+function removeFromCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== productId);  // Lọc bỏ sản phẩm có id cần xóa
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();  // Cập nhật lại giỏ hàng sau khi xóa sản phẩm
+}
+</script>
+
+</body>
+</html>
