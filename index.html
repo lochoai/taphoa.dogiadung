@@ -42,117 +42,99 @@
       border-radius: 5px;
       text-decoration: none;
     }
-
     .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-    }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
 
-    .cart-header-icon img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-      transition: transform 0.2s;
-    }
+.cart-header-icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: transform 0.2s;
+}
 
-    .cart-header-icon:hover img {
-      transform: scale(1.1);
-    }
-
-    .nav-btn.active {
-      background-color: #4caf50;
-      color: white;
-    }
-
+.cart-header-icon:hover img {
+  transform: scale(1.1);
+}
   </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="add-to-cart-message" style="display:none;">Đã Thêm</div>
-
-  <header>
-    <div class="header-content">
-      <div>
-        <p>cửa hàng</p>
-        <h1>LỘC HOÀI</h1>
-        <p>chuyên tạp hóa, đồ gia dụng</p>
-      </div>
-      <a href="cart.html" class="cart-header-icon" title="Giỏ hàng">
-        <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Giỏ hàng" />
-      </a>
+<header>
+  <div class="header-content">
+    <div>
+      <p>cửa hàng</p>
+      <h1>LỘC HOÀI</h1>
+      <p>chuyên tạp hóa, đồ gia dụng</p>
     </div>
-  </header>
-
-  <nav class="scrolling-nav">
-    <button class="nav-btn active" data-category="all">Trang chủ</button>
-    <button class="nav-btn" data-category="đồ uống">Đồ uống</button>
-    <button class="nav-btn" data-category="đồ khô">Đồ khô</button>
-    <button class="nav-btn" data-category="bánh kẹo">Bánh kẹo</button>
-    <button class="nav-btn" data-category="rượu bia">Rượu bia</button>
-    <button class="nav-btn" data-category="thuốc lá">Thuốc lá</button>
-    <button class="nav-btn" data-category="gội rửa">Gội rửa</button>
-    <button class="nav-btn" data-category="đồ điện">Đồ điện</button>
-    <button class="nav-btn" data-category="đồ bếp">Đồ bếp</button>
-    <button class="nav-btn" data-category="gia dụng">Gia dụng</button>
-  </nav>
-
-  <main>
-    <div id="products" class="home"></div>
-  </main>
-
-  <!-- Liên hệ bên phải -->
-  <div class="contact-box">
-    <!-- Gọi -->
-    <button class="contact-btn" onclick="confirmCall()">
-      <img src="https://cdn-icons-png.flaticon.com/24/724/724664.png" alt="Call" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
-    </button>
-
-    <!-- Facebook -->
-    <a class="contact-btn" href="https://m.me/@pro.huuloc.1" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" style="vertical-align: middle; margin-right: 6px;" />
-    </a>
-
-    <!-- Zalo -->
-    <a class="contact-btn" href="https://zalo.me/chưa cập nhật" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
-    </a>
-
-    <!-- Telegram -->
-    <a class="contact-btn" href="https://t.me/youlu111" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram" style="vertical-align: middle; margin-right: 6px;" />
-    </a>
+    <a href="cart.html" class="cart-header-icon" title="Giỏ hàng">
+  <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Giỏ hàng" />
+</a>
   </div>
+</header>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 cửa hàng LỘC HOÀI chuyên tạp hóa, đồ gia dụng
-  </footer>
+<nav class="scrolling-nav">
+  <button class="nav-btn active" data-category="all">Trang chủ</button>
+  <button class="nav-btn" data-category="đồ uống">Đồ uống</button>
+  <button class="nav-btn" data-category="đồ khô">Đồ khô</button>
+  <button class="nav-btn" data-category="bánh kẹo">Bánh kẹo</button>
+  <button class="nav-btn" data-category="rượu bia">Rượu bia</button>
+  <button class="nav-btn" data-category="thuốc lá">Thuốc lá</button>
+  <button class="nav-btn" data-category="gội rửa">Gội rửa</button>
+  <button class="nav-btn" data-category="đồ điện">Đồ điện</button>
+  <button class="nav-btn" data-category="đồ bếp">Đồ bếp</button>
+  <button class="nav-btn" data-category="gia dụng">Gia dụng</button>
+</nav>
 
-  <script src="script.js"></script>
-  <script>
-    // Gọi điện thoại có xác nhận
-    function confirmCall() {
-      if (confirm("Bạn có muốn gọi 0372057834 không?")) {
-        window.location.href = "tel:0372057834";
-      }
+<main>
+  <div id="products" class="home"></div>
+</main>
+
+<!-- Liên hệ bên phải -->
+<div class="contact-box">
+  <!-- Gọi -->
+  <button class="contact-btn" onclick="confirmCall()">
+  <img src="https://cdn-icons-png.flaticon.com/24/724/724664.png" alt="Call" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
+</button>
+
+ <!-- Facebook -->
+<a class="contact-btn" href="https://m.me/@pro.huuloc.1" target="_blank">
+  <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" style="vertical-align: middle; margin-right: 6px;" />
+</a>
+
+<!-- Zalo -->
+<a class="contact-btn" href="https://zalo.me/chưa cập nhật" target="_blank">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
+</a>
+<!-- telegram -->
+  <a class="contact-btn" href="https://t.me/youlu111" target="_blank">
+  <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram" style="vertical-align: middle; margin-right: 6px;" />
+</a>
+</div>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 cửa hàng LỘC HOÀI chuyên tạp hóa, đồ gia dụng
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Gọi điện thoại có xác nhận
+  function confirmCall() {
+    if (confirm("Bạn có muốn gọi 0372057834 không?")) {
+      window.location.href = "tel:0372057834";
     }
+  }
 
-    // Khởi tạo hiển thị sản phẩm
-    document.addEventListener('DOMContentLoaded', () => {
-      renderProducts('all');
-    });
-
-    // Hiển thị sản phẩm theo danh mục khi người dùng chọn
-    const navButtons = document.querySelectorAll('.nav-btn');
-    navButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        navButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderProducts(btn.getAttribute('data-category'));
-      });
-    });
-  </script>
+  // Khởi tạo hiển thị sản phẩm
+  document.addEventListener('DOMContentLoaded', () => {
+    renderProducts('all');
+  });
+</script>
 
 </body>
 </html>
