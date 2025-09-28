@@ -1,79 +1,37 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cửa hàng LỘC HOÀI - Tạp hóa, đồ gia dụng</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Các kiểu CSS cho các phần đã chỉnh sửa */
-    .product-card {
-      margin: 15px;
-      border: 1px solid #ddd;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .product-card img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .product-card .product-name {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .product-card .product-price {
-      color: #4CAF50;
-      margin-top: 10px;
-    }
-    .btn-add {
-      margin-top: 15px;
-      background-color: #FFEB3B;
-      border: none;
-      color: #333;
-      padding: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .btn-add:hover {
-      background-color: #FF9800;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chợ Đồ Gia Dụng</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <header>
+        <h1>Chợ Đồ Gia Dụng</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<header>
-  <div class="header-content">
-    <div>
-      <p>cửa hàng</p>
-      <h1>LỘC HOÀI</h1>
-      <p>chuyên tạp hóa, đồ gia dụng</p>
-    </div>
-    <a href="cart.html" class="cart-header-icon" title="Giỏ hàng">
-      <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Giỏ hàng" />
-    </a>
-  </div>
-</header>
+    <main>
+        <h2>Sản Phẩm</h2>
+        <section id="product-list">
+            <!-- Danh sách sản phẩm sẽ được chèn vào đây qua JavaScript -->
+        </section>
+    </main>
 
-<nav class="scrolling-nav">
-  <button class="nav-btn active" data-category="all">Trang chủ</button>
-  <button class="nav-btn" data-category="đồ uống">Đồ uống</button>
-  <button class="nav-btn" data-category="đồ khô">Đồ khô</button>
-  <button class="nav-btn" data-category="bánh kẹo">Bánh kẹo</button>
-  <button class="nav-btn" data-category="rượu bia">Rượu bia</button>
-  <button class="nav-btn" data-category="thuốc lá">Thuốc lá</button>
-  <button class="nav-btn" data-category="gội rửa">Gội rửa</button>
-  <button class="nav-btn" data-category="đồ điện">Đồ điện</button>
-  <button class="nav-btn" data-category="đồ bếp">Đồ bếp</button>
-  <button class="nav-btn" data-category="gia dụng">Gia dụng</button>
-</nav>
+    <footer>
+        <p>&copy; 2025 Chợ Đồ Gia Dụng</p>
+    </footer>
 
-<main>
-  <div id="products" class="home"></div>
-</main>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
