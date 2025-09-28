@@ -1,103 +1,40 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giỏ hàng - Cửa hàng LỘC HOÀI</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Các kiểu CSS cho giỏ hàng */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f8f8;
-      color: #333;
-    }
-    header {
-      background-color: #FFEB3B;
-      padding: 10px 0;
-      text-align: center;
-      color: #222;
-      font-size: 24px;
-    }
-    .cart-summary {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    #cart-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    #cart-table th, #cart-table td {
-      padding: 12px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
-    #cart-table th {
-      background-color: #4CAF50;
-      color: white;
-    }
-    #cart-table td {
-      background-color: #f9f9f9;
-    }
-    .order-form input,
-    .order-form button {
-      padding: 10px;
-      margin: 10px 0;
-      width: 80%;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    .order-form button {
-      background-color: #FFEB3B;
-      color: white;
-      cursor: pointer;
-    }
-    .order-form button:hover {
-      background-color: #FF9800;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <header>
+        <h1>Giỏ Hàng</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="cart.html">Giỏ Hàng</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<header>
-  <h1>Giỏ hàng - Cửa hàng LỘC HOÀI</h1>
-</header>
+    <main>
+        <h2>Sản Phẩm Trong Giỏ</h2>
+        <section id="cart-list">
+            <!-- Danh sách giỏ hàng sẽ được chèn vào đây qua JavaScript -->
+        </section>
+        <div id="checkout">
+            <button id="checkout-btn">Thanh Toán</button>
+        </div>
+    </main>
 
-<button class="btn-back" onclick="window.location.href = 'index.html';">Trở lại Trang Chủ</button>
+    <footer>
+        <p>&copy; 2025 Chợ Đồ Gia Dụng</p>
+    </footer>
 
-<div class="cart-summary">
-  <h3>Thông tin giỏ hàng</h3>
-  <table id="cart-table">
-    <thead>
-      <tr>
-        <th>Sản phẩm</th>
-        <th>Số lượng</th>
-        <th>Giá</th>
-        <th>Tổng</th>
-        <th>Thao tác</th>
-      </tr>
-    </thead>
-    <tbody id="cart-list">
-      <!-- Giỏ hàng sẽ được hiển thị ở đây -->
-    </tbody>
-  </table>
-  <p><strong>Tổng tiền: <span id="total-price">0 VND</span></strong></p>
-</div>
-
-<div class="order-form">
-  <h3>Thông tin đặt hàng</h3>
-  <input type="text" id="fullname" placeholder="Họ và tên" required />
-  <input type="text" id="phone" placeholder="Số điện thoại" required />
-  <input type="text" id="address" placeholder="Địa chỉ" required />
-  <button id="btn-order">Đặt hàng</button>
-  <div id="order-message"></div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
