@@ -1,139 +1,53 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>cửa hàng LỘC HOÀI - Tạp hóa, đồ gia dụng</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Phần liên hệ nằm bên phải */
-    .contact-box {
-      position: fixed;
-      right: 10px;
-      top: 120px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-      z-index: 1000;
-    }
-
-    .contact-btn {
-      background-color: #ffffffcc;
-      color: #000;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 0 6px rgba(0,0,0,0.1);
-      transition: background 0.3s;
-    }
-
-    .contact-btn:hover {
-      background-color: #d0f0d0;
-    }
-
-    .cart-icon-link {
-      font-size: 20px;
-      padding: 8px 12px;
-      background-color: #33691E;
-      color: white;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-    .header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.cart-header-icon img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  transition: transform 0.2s;
-}
-
-.cart-header-icon:hover img {
-  transform: scale(1.1);
-}
-  </style>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa Hàng Tạp Hóa</title>
+    <link rel="stylesheet" href="style.css"> <!-- Liên kết với file CSS -->
 </head>
 <body>
-  <div id="add-to-cart-message" style="display:none;">Đã Thêm</div>
-<header>
-  <div class="header-content">
-    <div>
-      <p>cửa hàng</p>
-      <h1>LỘC HOÀI</h1>
-      <p>chuyên tạp hóa, đồ gia dụng</p>
-    </div>
-    <a href="cart.html" class="cart-header-icon" title="Giỏ hàng">
-  <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Giỏ hàng" />
-</a>
-  </div>
-</header>
+    <header>
+        <div class="logo">Cửa Hàng Tạp Hóa</div>
+        <div class="cart">
+            <a href="#" class="cart-icon">Giỏ hàng (0)</a>
+        </div>
+    </header>
 
-<nav class="scrolling-nav">
-  <button class="nav-btn active" data-category="all">Trang chủ</button>
-  <button class="nav-btn" data-category="đồ uống">Đồ uống</button>
-  <button class="nav-btn" data-category="đồ khô">Đồ khô</button>
-  <button class="nav-btn" data-category="bánh kẹo">Bánh kẹo</button>
-  <button class="nav-btn" data-category="rượu bia">Rượu bia</button>
-  <button class="nav-btn" data-category="thuốc lá">Thuốc lá</button>
-  <button class="nav-btn" data-category="gội rửa">Gội rửa</button>
-  <button class="nav-btn" data-category="đồ điện">Đồ điện</button>
-  <button class="nav-btn" data-category="đồ bếp">Đồ bếp</button>
-  <button class="nav-btn" data-category="gia dụng">Gia dụng</button>
-</nav>
+    <nav>
+        <ul>
+            <li><a href="#">Gia Vị</a></li>
+            <li><a href="#">Đồ Uống</a></li>
+            <li><a href="#">Đồ Khô</a></li>
+        </ul>
+    </nav>
 
-<main>
-  <div id="products" class="home"></div>
-</main>
+    <section class="products">
+        <h2>Sản Phẩm</h2>
+        <div class="product-category" id="gia-vi">
+            <h3>Gia Vị</h3>
+            <div class="product-list">
+                <!-- Các sản phẩm gia vị sẽ được thêm ở đây -->
+            </div>
+        </div>
+        <div class="product-category" id="do-uong">
+            <h3>Đồ Uống</h3>
+            <div class="product-list">
+                <!-- Các sản phẩm đồ uống sẽ được thêm ở đây -->
+            </div>
+        </div>
+        <div class="product-category" id="do-kho">
+            <h3>Đồ Khô</h3>
+            <div class="product-list">
+                <!-- Các sản phẩm đồ khô sẽ được thêm ở đây -->
+            </div>
+        </div>
+    </section>
 
-<!-- Liên hệ bên phải -->
-<div class="contact-box">
-  <!-- Gọi -->
-  <button class="contact-btn" onclick="confirmCall()">
-  <img src="https://cdn-icons-png.flaticon.com/24/724/724664.png" alt="Call" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
-</button>
+    <footer>
+        <p>&copy; 2025 Cửa Hàng Tạp Hóa. Tất cả quyền lợi được bảo lưu.</p>
+    </footer>
 
- <!-- Facebook -->
-<a class="contact-btn" href="https://m.me/@pro.huuloc.1" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" style="vertical-align: middle; margin-right: 6px;" />
-</a>
-
-<!-- Zalo -->
-<a class="contact-btn" href="https://zalo.me/chưa cập nhật" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
-</a>
-<!-- telegram -->
-  <a class="contact-btn" href="https://t.me/youlu111" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram" style="vertical-align: middle; margin-right: 6px;" />
-</a>
-</div>
-
-<!-- Footer -->
-<footer>
-  &copy; 2025 cửa hàng LỘC HOÀI chuyên tạp hóa, đồ gia dụng
-</footer>
-
-<script src="script.js"></script>
-<script>
-  // Gọi điện thoại có xác nhận
-  function confirmCall() {
-    if (confirm("Bạn có muốn gọi 0372057834 không?")) {
-      window.location.href = "tel:0372057834";
-    }
-  }
-
-  // Khởi tạo hiển thị sản phẩm
-  document.addEventListener('DOMContentLoaded', () => {
-    renderProducts('all');
-  });
-</script>
+    <script src="script.js"></script> <!-- Liên kết với file JavaScript -->
 </body>
 </html>
