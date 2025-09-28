@@ -1,37 +1,137 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chợ Đồ Gia Dụng</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>cửa hàng LỘC HOÀI - Tạp hóa, đồ gia dụng</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Phần liên hệ nằm bên phải */
+    .contact-box {
+      position: fixed;
+      right: 10px;
+      top: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .contact-btn {
+      background-color: #ffffffcc;
+      color: #000;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+
+    .contact-btn:hover {
+      background-color: #d0f0d0;
+    }
+
+    .cart-icon-link {
+      font-size: 20px;
+      padding: 8px 12px;
+      background-color: #33691E;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .cart-header-icon img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      transition: transform 0.2s;
+    }
+
+    .cart-header-icon:hover img {
+      transform: scale(1.1);
+    }
+  </style>
 </head>
-
 <body>
-    <header>
-        <h1>Chợ Đồ Gia Dụng</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Trang Chủ</a></li>
-                <li><a href="cart.html">Giỏ Hàng</a></li>
-            </ul>
-        </nav>
-    </header>
+  <div id="add-to-cart-message" style="display:none;">Đã Thêm</div>
+<header>
+  <div class="header-content">
+    <div>
+      <p>cửa hàng</p>
+      <h1>LỘC HOÀI</h1>
+      <p>chuyên tạp hóa, đồ gia dụng</p>
+    </div>
+    <a href="cart.html" class="cart-header-icon" title="Giỏ hàng">
+      <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Giỏ hàng" />
+    </a>
+  </div>
+</header>
 
-    <main>
-        <h2>Sản Phẩm</h2>
-        <section id="product-list">
-            <!-- Danh sách sản phẩm sẽ được chèn vào đây qua JavaScript -->
-        </section>
-    </main>
+<nav class="scrolling-nav">
+  <button class="nav-btn active" data-category="all">Trang chủ</button>
+  <button class="nav-btn" data-category="đồ uống">Đồ uống</button>
+  <button class="nav-btn" data-category="đồ khô">Đồ khô</button>
+  <button class="nav-btn" data-category="bánh kẹo">Bánh kẹo</button>
+  <button class="nav-btn" data-category="rượu bia">Rượu bia</button>
+  <button class="nav-btn" data-category="thuốc lá">Thuốc lá</button>
+  <button class="nav-btn" data-category="gội rửa">Gội rửa</button>
+  <button class="nav-btn" data-category="đồ điện">Đồ điện</button>
+  <button class="nav-btn" data-category="đồ bếp">Đồ bếp</button>
+  <button class="nav-btn" data-category="gia dụng">Gia dụng</button>
+</nav>
 
-    <footer>
-        <p>&copy; 2025 Chợ Đồ Gia Dụng</p>
-    </footer>
+<main>
+  <div id="products" class="home"></div>
+</main>
 
-    <script src="script.js"></script>
+<!-- Liên hệ bên phải -->
+<div class="contact-box">
+  <button class="contact-btn" onclick="confirmCall()">
+    <img src="https://cdn-icons-png.flaticon.com/24/724/724664.png" alt="Call" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
+    Gọi
+  </button>
+  <a class="contact-btn" href="https://m.me/@pro.huuloc.1" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" style="vertical-align: middle; margin-right: 6px;" />
+    Facebook
+  </a>
+  <a class="contact-btn" href="https://zalo.me/chưa cập nhật" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
+    Zalo
+  </a>
+  <a class="contact-btn" href="https://t.me/youlu111" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram" style="vertical-align: middle; margin-right: 6px;" />
+    Telegram
+  </a>
+</div>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 cửa hàng LỘC HOÀI chuyên tạp hóa, đồ gia dụng
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Gọi điện thoại có xác nhận
+  function confirmCall() {
+    if (confirm("Bạn có muốn gọi 0372057834 không?")) {
+      window.location.href = "tel:0372057834";
+    }
+  }
+
+  // Khởi tạo hiển thị sản phẩm
+  document.addEventListener('DOMContentLoaded', () => {
+    renderProducts('all');
+  });
+</script>
+
 </body>
-
 </html>
