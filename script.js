@@ -1,17 +1,11 @@
 // Dữ liệu sản phẩm mẫu
 const products = [
-  {id: 1, name: "Nước suối Lavie 500ml", category: "đồ uống", price: 5000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 2, name: "Nước tăng lực redbul", category: "đồ uống", price: 12000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 3, name: "Nước suối Lộc cộc 500ml", category: "đồ uống", price: 5000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 4, name: "Nước tăng lực hlộc", category: "đồ uống", price: 12000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 5, name: "Mì tôm Hảo Hảo", category: "đồ khô", price: 5000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 6, name: "Kẹo dẻo Haribo", category: "bánh kẹo", price: 30000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 7, name: "Bia Hà Nội", category: "rượu bia", price: 15000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 8, name: "Thuốc lá 555", category: "thuốc lá", price: 120000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 9, name: "Dầu gội Clear", category: "gội rửa", price: 70000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 10, name: "Bóng đèn Philips", category: "đồ điện", price: 40000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 11, name: "Nồi inox", category: "đồ bếp", price: 300000, image:"images/nuoc-mam-nam-ngu.png"},
-  {id: 12, name: "Quạt điện Asia", category: "gia dụng", price: 600000, image:"images/nuoc-mam-nam-ngu.png"},
+  {id: 1, name: "Nước suối Lavie 500ml", category: "đồ uống", price: 5000, image: "images/nuoc-suoi-lavie.png"},
+  {id: 2, name: "Nước tăng lực Redbull", category: "đồ uống", price: 12000, image: "images/nuoc-tang-luc-redbull.png"},
+  {id: 3, name: "Mì tôm Hảo Hảo", category: "đồ khô", price: 5000, image: "images/mi-tom-hao-hao.png"},
+  {id: 4, name: "Kẹo dẻo Haribo", category: "bánh kẹo", price: 30000, image: "images/keo-deo-haribo.png"},
+  {id: 5, name: "Bia Hà Nội", category: "rượu bia", price: 15000, image: "images/bia-ha-noi.png"},
+  {id: 6, name: "Dầu gội Clear", category: "gội rửa", price: 70000, image: "images/dau-goi-clear.png"}
 ];
 
 // Format giá tiền
@@ -19,28 +13,14 @@ function formatPrice(price) {
   return price.toLocaleString('vi-VN') + ' VND';
 }
 
-// Hiển thị sản phẩm theo danh mục
+// Hiển thị sản phẩm trên trang index.html
 function renderProducts(category = 'all') {
   const productsEl = document.getElementById('products');
-  if (!productsEl) return; // chỉ chạy trên trang index
+  if (!productsEl) return; 
 
   productsEl.innerHTML = '';
 
   let filtered = category === 'all' ? products : products.filter(p => p.category === category);
-
-  // Thay đổi số cột theo danh mục
-  if(category === 'all') {
-    productsEl.classList.remove('category');
-    productsEl.classList.add('home');
-  } else {
-    productsEl.classList.remove('home');
-    productsEl.classList.add('category');
-  }
-
-  if(filtered.length === 0) {
-    productsEl.innerHTML = '<p>Không có sản phẩm nào trong mục này.</p>';
-    return;
-  }
 
   filtered.forEach(product => {
     const div = document.createElement('div');
@@ -56,189 +36,135 @@ function renderProducts(category = 'all') {
     productsEl.appendChild(div);
   });
 
-  // Gán sự kiện nút thêm vào giỏ
+  // Thêm sự kiện cho nút thêm vào giỏ hàng
   document.querySelectorAll('.btn-add').forEach(button => {
     button.addEventListener('click', () => {
-      const id = Number(button.getAttribute('data-id'));
-      const product = products.find(p => p.id === id);
-      if(product) addToCart(product);
-    });
-  });
-
-  // Gán sự kiện cho nút danh mục
-  const navButtons = document.querySelectorAll('.nav-btn');
-  navButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      navButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderProducts(btn.getAttribute('data-category'));
+      const productId = button.getAttribute('data-id');
+      const product = products.find(p => p.id == productId);
+      addToCart(product);
     });
   });
 }
 
-// Thêm sản phẩm vào giỏ, lưu localStorage
+// Thêm sản phẩm vào giỏ
 function addToCart(product) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(product);
-  localStorage.setItem('cart', JSON.stringify(cart));
+  const existingProduct = cart.find(item => item.id === product.id);
 
-  // Hiển thị thông báo
-  const msg = document.getElementById('add-to-cart-message');
-  if (msg) {
-    msg.style.display = 'block';
-    msg.style.opacity = '1';
-
-    // Ẩn sau 1 giây
-    setTimeout(() => {
-      msg.style.display = 'none';
-    }, 1000);
+  if (existingProduct) {
+    existingProduct.quantity++;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
   }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert('Sản phẩm đã được thêm vào giỏ!');
+  renderCart();
 }
 
-// Hiển thị giỏ hàng trên trang cart.html
+// Hiển thị giỏ hàng
 function renderCart() {
   const cartList = document.getElementById('cart-list');
   const totalPriceEl = document.getElementById('total-price');
-  if (!cartList || !totalPriceEl) return; // chỉ chạy trên cart.html
-
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   cartList.innerHTML = '';
+  let total = 0;
 
-  if(cart.length === 0) {
-    cartList.innerHTML = '<li>Giỏ hàng trống.</li>';
-    totalPriceEl.textContent = 'Tổng tiền: 0 VND';
+  if (cart.length === 0) {
+    cartList.innerHTML = `<tr><td colspan="5" style="text-align:center;">Giỏ hàng hiện tại trống. Vui lòng thêm sản phẩm!</td></tr>`;
+    totalPriceEl.textContent = '0 VND';
     return;
   }
 
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    total += item.price;
-    const li = document.createElement('li');
-    li.innerHTML = `
-      ${item.name} - ${formatPrice(item.price)}
-      <button data-index="${index}">Xóa</button>
+  cart.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${item.name}</td>
+      <td><input type="number" value="${item.quantity}" min="1" class="quantity-input" data-id="${item.id}" /></td>
+      <td>${formatPrice(item.price)}</td>
+      <td>${formatPrice(item.price * item.quantity)}</td>
+      <td><button class="btn-remove" data-id="${item.id}">Xóa</button></td>
     `;
-    cartList.appendChild(li);
+    cartList.appendChild(tr);
+    total += item.price * item.quantity;
   });
 
-  totalPriceEl.textContent = 'Tổng tiền: ' + formatPrice(total);
+  totalPriceEl.textContent = formatPrice(total);
+}
 
-  // Xóa sản phẩm khỏi giỏ hàng
-  cartList.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const idx = Number(btn.getAttribute('data-index'));
-      cart.splice(idx, 1);
+// Cập nhật số lượng và tính lại giỏ
+document.addEventListener('change', (e) => {
+  if (e.target.classList.contains('quantity-input')) {
+    const id = e.target.getAttribute('data-id');
+    const quantity = parseInt(e.target.value);
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const item = cart.find(item => item.id === parseInt(id));
+    if (item) {
+      item.quantity = quantity;
       localStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
-    });
-  });
-}
+    }
+  }
+});
 
-// Xử lý đặt hàng (gửi Telegram API)
-function handleOrder() {
-  const orderForm = document.getElementById('order-form');
-  const orderMessage = document.getElementById('order-message');
-  const orderSummary = document.getElementById('order-summary');
-
-  if (!orderForm) return; // chỉ chạy trên cart.html
-
-  orderForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Kiểm tra giỏ hàng không rỗng
+// Xóa sản phẩm khỏi giỏ
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('btn-remove')) {
+    const id = e.target.getAttribute('data-id');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if(cart.length === 0) {
-      orderMessage.style.color = 'red';
-      orderMessage.textContent = 'Giỏ hàng của bạn đang trống, vui lòng thêm sản phẩm.';
-      return;
-    }
+    cart = cart.filter(item => item.id != id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+  }
+});
 
-    // Lấy thông tin form
-    const fullname = orderForm.fullname.value.trim();
-    const address = orderForm.address.value.trim();
-    const phone = orderForm.phone.value.trim();
+// Gửi đơn hàng (vẫn cần Telegram API để gửi đơn)
+document.getElementById('btn-order').addEventListener('click', async () => {
+  const fullname = document.getElementById('fullname').value;
+  const address = document.getElementById('address').value;
+  const phone = document.getElementById('phone').value;
 
-    if(!fullname || !address || !phone) {
-      orderMessage.style.color = 'red';
-      orderMessage.textContent = 'Vui lòng điền đầy đủ thông tin đặt hàng.';
-      return;
-    }
+  if (!fullname || !address || !phone) {
+    alert("Vui lòng điền đầy đủ thông tin.");
+    return;
+  }
 
-    // Tính tổng giá
-    let total = cart.reduce((sum, item) => sum + item.price, 0);
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (cart.length === 0) {
+    alert("Giỏ hàng trống!");
+    return;
+  }
 
-    // Chuẩn bị tin nhắn gửi Telegram
-    const BOT_TOKEN = '7986532916:AAGPbxtqJHILVuHBYb0fwsKU62a4jEJ8Jp8';
-    const CHAT_ID = '7774024453';
+  let message = `🛒Đơn hàng mới từ cửa hàng LỘC HOÀI\n\nKhách hàng:\nHọ tên: ${fullname}\nĐịa chỉ: ${address}\nSĐT: ${phone}\n\nSản phẩm:\n`;
 
-    let message = `🛒Đơn hàng mới từ cửa hàng LỘC HOÀI\n\n`;
-    message += `Khách hàng:\nHọ tên: ${fullname}\nĐịa chỉ: ${address}\nSĐT: ${phone}\n\n`;
-    message += `Sản phẩm:\n`;
-    cart.forEach((item, i) => {
-      message += `${i+1}. ${item.name} - ${formatPrice(item.price)}\n`;
-    });
-    message += `\nTổng tiền: ${formatPrice(total)}`;
+  cart.forEach(item => {
+    message += `${item.name} - ${item.quantity} x ${formatPrice(item.price)}\n`;
+  });
 
-    // Gửi request đến Telegram API
-    try {
-      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-      const params = {
-        chat_id: CHAT_ID,
-        text: message
-      };
+  message += `\nTổng tiền: ${formatPrice(cart.reduce((sum, item) => sum + item.price * item.quantity, 0))}`;
 
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(params)
-      });
-
-      const data = await res.json();
-      if(data.ok) {
-        orderMessage.style.color = 'green';
-        orderMessage.textContent = 'Đặt hàng thành công! Cảm ơn bạn.';
-        orderForm.reset();
-        localStorage.removeItem('cart');
-        renderCart();
-
-        // Hiển thị tóm tắt đơn hàng
-        orderSummary.style.display = 'block';
-        orderSummary.innerHTML = `<h3>Thông tin đơn hàng của bạn:</h3>
-          <p><strong>Họ tên:</strong> ${fullname}</p>
-          <p><strong>Địa chỉ:</strong> ${address}</p>
-          <p><strong>Số điện thoại:</strong> ${phone}</p>
-          <p><strong>Tổng tiền:</strong> ${formatPrice(total)}</p>
-          <p><strong>Sản phẩm:</strong></p>
-          <ul>${cart.map(item => `<li>${item.name} - ${formatPrice(item.price)}</li>`).join('')}</ul>
-        `;
-      } else {
-        orderMessage.style.color = 'red';
-        orderMessage.textContent = 'Có lỗi khi gửi đơn hàng, vui lòng thử lại.';
-      }
-    } catch (err) {
-      orderMessage.style.color = 'red';
-      orderMessage.textContent = 'Có lỗi khi gửi đơn hàng, vui lòng thử lại.';
-      console.error(err);
+  // Gửi đơn hàng qua Telegram API
+  const response = await fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
+    method: 'POST',
+    body: JSON.stringify({
+      chat_id: 'YOUR_CHAT_ID',
+      text: message
+    }),
+    headers: {
+      'Content-Type': 'application/json'
     }
   });
-}
 
-// Khởi tạo trang cart và order
-document.addEventListener('DOMContentLoaded', () => {
-  renderCart();
-  handleOrder();
-});
-document.addEventListener('DOMContentLoaded', () => {
-  // Nếu là trang index.html
-  if (document.getElementById('products')) {
-    renderProducts('all');
-  }
-
-  // Nếu là trang cart.html
-  if (document.getElementById('cart-list')) {
+  if (response.ok) {
+    alert("Đơn hàng đã được gửi!");
+    localStorage.removeItem('cart');
     renderCart();
-    handleOrder();
+  } else {
+    alert("Lỗi khi gửi đơn hàng!");
   }
 });
+
+// Gọi render sản phẩm khi trang tải
+renderProducts();
