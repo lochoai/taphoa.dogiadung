@@ -43,23 +43,24 @@
       text-decoration: none;
     }
     .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-    }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
 
-    .cart-header-icon img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-      transition: transform 0.2s;
-    }
+.cart-header-icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: transform 0.2s;
+}
 
-    .cart-header-icon:hover img {
-      transform: scale(1.1);
-    }
+.cart-header-icon:hover img {
+  transform: scale(1.1);
+}
   </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="add-to-cart-message" style="display:none;">Đã Thêm</div>
@@ -71,8 +72,8 @@
       <p>chuyên tạp hóa, đồ gia dụng</p>
     </div>
     <a href="cart.html" class="cart-header-icon" title="Giỏ hàng">
-      <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Giỏ hàng" />
-    </a>
+  <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Giỏ hàng" />
+</a>
   </div>
 </header>
 
@@ -95,22 +96,24 @@
 
 <!-- Liên hệ bên phải -->
 <div class="contact-box">
+  <!-- Gọi -->
   <button class="contact-btn" onclick="confirmCall()">
-    <img src="https://cdn-icons-png.flaticon.com/24/724/724664.png" alt="Call" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
-    Gọi
-  </button>
-  <a class="contact-btn" href="https://m.me/@pro.huuloc.1" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" style="vertical-align: middle; margin-right: 6px;" />
-    Facebook
-  </a>
-  <a class="contact-btn" href="https://zalo.me/chưa cập nhật" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
-    Zalo
-  </a>
+  <img src="https://cdn-icons-png.flaticon.com/24/724/724664.png" alt="Call" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
+</button>
+
+ <!-- Facebook -->
+<a class="contact-btn" href="https://m.me/@pro.huuloc.1" target="_blank">
+  <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" style="vertical-align: middle; margin-right: 6px;" />
+</a>
+
+<!-- Zalo -->
+<a class="contact-btn" href="https://zalo.me/chưa cập nhật" target="_blank">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" style="width: 20px; vertical-align: middle; margin-right: 6px;" />
+</a>
+<!-- telegram -->
   <a class="contact-btn" href="https://t.me/youlu111" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram" style="vertical-align: middle; margin-right: 6px;" />
-    Telegram
-  </a>
+  <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram" style="vertical-align: middle; margin-right: 6px;" />
+</a>
 </div>
 
 <!-- Footer -->
@@ -132,6 +135,5 @@
     renderProducts('all');
   });
 </script>
-
 </body>
 </html>
